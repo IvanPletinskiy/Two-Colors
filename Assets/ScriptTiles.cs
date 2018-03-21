@@ -117,6 +117,9 @@ public class ScriptTiles : MonoBehaviour {
 					print ("A");
 				}
 				if (hit.collider.tag == "PlayGame") {
+
+                    DialogManager.showRateDialog();
+
 					mainCamera.transform.position = new Vector3 (0f, mainCamera.transform.position.y, mainCamera.transform.position.z);
 					inGame.enabled = true;
 					startGame.enabled = false;

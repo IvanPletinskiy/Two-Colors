@@ -11,7 +11,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
+  companyName: Handen
   productName: TwoColors
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -634,7 +634,7 @@ PlayerSettings:
   apiCompatibilityLevel: 2
   cloudProjectId: c904e303-9427-41a7-bec9-3e72e8c2f924
   projectName: TwoColors
-  organizationId: almaz_man
+  organizationId: Handen
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
