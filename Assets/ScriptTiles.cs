@@ -12,7 +12,7 @@ public class ScriptTiles : MonoBehaviour {
 
 	public Text textDead;
 
-	bool ifDead= false;
+	bool isDead = false;
 
 	public Text textScore;
 
@@ -25,7 +25,7 @@ public class ScriptTiles : MonoBehaviour {
 
 	bool[] colorsNumber = new bool[4];
 
-	int lvl=1;
+	int lvlScore=0;
 
 	float spread=0.05f;
 
@@ -33,16 +33,16 @@ public class ScriptTiles : MonoBehaviour {
 
 	int count = 0;
 
-	float timer=5f;
-	bool timerCheck=false;
+	float timer = 100;
+	bool timerCheck = false;
 
-	void Game () {
+	void GenerateTiles () {
 		
-		ifDead = false;
+		isDead = false;
 
 		timerCheck = true;
 
-		timer = 5f;
+		timer = 100;
 
 		for (int i = 0; i < 4; i++) {
 			colorsNumber [i] = true;
@@ -65,15 +65,15 @@ public class ScriptTiles : MonoBehaviour {
 			if (colorsNumber [i] == true)
 				colors [i].color = Color.HSVToRGB (randomColor, 1f, 1f);
 		}
-		textLvl.text = "" + lvl;
-		lvl++;
+		textLvl.text = "" + lvlScore;
+
 		if (spread > 0.019f)
 			spread -= 0.001f;
 	}
-	void Dead(){
+	void onGameEnded(){
 		spread = 0.05f;
 		timerCheck = false;
-		if (ifDead == false)
+		if (isDead == false)
 			textDead.text = "Вы выбрали не те цвета";
 		else textDead.text = "Время закончилось";
 		textScore.text = textLvl.text;
@@ -83,14 +83,14 @@ public class ScriptTiles : MonoBehaviour {
 	}
 
 	void Update () {
-		if (timer > 0f && timerCheck==true)
-			timer -= Time.deltaTime;
-		if (timer <= 0f) {
-			ifDead = true;
-			timer = 5f;
-			Dead ();
+		if (timer > 0 && timerCheck == true)
+			timer -=Time.deltaTime;
+		if (timer <= 0) {
+			isDead = true;
+			timer = 100;
+			onGameEnded ();
 		}
-		timerText.text = "" + timer.ToString ("f2");
+		timerText.text = "" + (int)timer;
 		slider.value = timer;
 		if (Input.GetKeyDown (KeyCode.Mouse0)) {
 			Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
@@ -106,36 +106,38 @@ public class ScriptTiles : MonoBehaviour {
 					}
 
 					if (count == 2)
-						check();
+						checkSelected();
 					
 				}
 				if (hit.collider.tag == "EndGame") {
 					mainCamera.transform.position = new Vector3 (50f, mainCamera.transform.position.y, mainCamera.transform.position.z);
 					startGame.enabled = true;
 					gameOver.enabled = false;
-					lvl = 1;
-					print ("A");
+					lvlScore = 0;
 				}
 				if (hit.collider.tag == "PlayGame") {
 					mainCamera.transform.position = new Vector3 (0f, mainCamera.transform.position.y, mainCamera.transform.position.z);
 					inGame.enabled = true;
 					startGame.enabled = false;
-					lvl = 1;
-					Game ();
+					lvlScore = 0;
+					GenerateTiles ();
 				}
 			}
 		}
 
 	}
-	void check(){
-		int countTrue=0;
+	void checkSelected () {
+		int countTrue = 0;
 		for (int i = 0; i < 4; i++) {
 			if (tiles [i].transform.position.z == -4 && colorsNumber [i] == true)
 				countTrue++;
 		}
-		if (countTrue == 2)
-			Game ();
+		if (countTrue == 2) {
+			lvlScore +=(int) timer;
+			GenerateTiles ();
+		}
+			
 		else
-			Dead ();
+			onGameEnded ();
 	}
 }
