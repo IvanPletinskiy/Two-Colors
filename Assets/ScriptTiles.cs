@@ -12,7 +12,7 @@ public class ScriptTiles : MonoBehaviour {
 
 	public Text textDead;
 
-	bool ifDead= false;
+	bool isDead = false;
 
 	public Text textScore;
 
@@ -33,12 +33,12 @@ public class ScriptTiles : MonoBehaviour {
 
 	int count = 0;
 
-	float timer=5f;
-	bool timerCheck=false;
+	float timer = 5f;
+	bool timerCheck = false;
 
-	void Game () {
+	void GenerateTiles () {
 		
-		ifDead = false;
+		isDead = false;
 
 		timerCheck = true;
 
@@ -70,10 +70,10 @@ public class ScriptTiles : MonoBehaviour {
 		if (spread > 0.019f)
 			spread -= 0.001f;
 	}
-	void Dead(){
+	void onGameEnded(){
 		spread = 0.05f;
 		timerCheck = false;
-		if (ifDead == false)
+		if (isDead == false)
 			textDead.text = "Вы выбрали не те цвета";
 		else textDead.text = "Время закончилось";
 		textScore.text = textLvl.text;
@@ -86,9 +86,9 @@ public class ScriptTiles : MonoBehaviour {
 		if (timer > 0f && timerCheck==true)
 			timer -= Time.deltaTime;
 		if (timer <= 0f) {
-			ifDead = true;
+			isDead = true;
 			timer = 5f;
-			Dead ();
+			onGameEnded ();
 		}
 		timerText.text = "" + timer.ToString ("f2");
 		slider.value = timer;
@@ -106,7 +106,7 @@ public class ScriptTiles : MonoBehaviour {
 					}
 
 					if (count == 2)
-						check();
+						checkSelected();
 					
 				}
 				if (hit.collider.tag == "EndGame") {
@@ -121,21 +121,21 @@ public class ScriptTiles : MonoBehaviour {
 					inGame.enabled = true;
 					startGame.enabled = false;
 					lvl = 1;
-					Game ();
+					GenerateTiles ();
 				}
 			}
 		}
 
 	}
-	void check(){
-		int countTrue=0;
+	void checkSelected () {
+		int countTrue = 0;
 		for (int i = 0; i < 4; i++) {
 			if (tiles [i].transform.position.z == -4 && colorsNumber [i] == true)
 				countTrue++;
 		}
 		if (countTrue == 2)
-			Game ();
+			GenerateTiles ();
 		else
-			Dead ();
+			onGameEnded ();
 	}
 }
