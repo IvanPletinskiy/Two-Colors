@@ -25,7 +25,7 @@ public class ScriptTiles : MonoBehaviour {
 
 	bool[] colorsNumber = new bool[4];
 
-	int lvl=1;
+	int lvlScore=0;
 
 	float spread=0.05f;
 
@@ -33,7 +33,7 @@ public class ScriptTiles : MonoBehaviour {
 
 	int count = 0;
 
-	float timer = 5f;
+	float timer = 100;
 	bool timerCheck = false;
 
 	void GenerateTiles () {
@@ -42,7 +42,7 @@ public class ScriptTiles : MonoBehaviour {
 
 		timerCheck = true;
 
-		timer = 5f;
+		timer = 100;
 
 		for (int i = 0; i < 4; i++) {
 			colorsNumber [i] = true;
@@ -65,8 +65,8 @@ public class ScriptTiles : MonoBehaviour {
 			if (colorsNumber [i] == true)
 				colors [i].color = Color.HSVToRGB (randomColor, 1f, 1f);
 		}
-		textLvl.text = "" + lvl;
-		lvl++;
+		textLvl.text = "" + lvlScore;
+
 		if (spread > 0.019f)
 			spread -= 0.001f;
 	}
@@ -83,14 +83,14 @@ public class ScriptTiles : MonoBehaviour {
 	}
 
 	void Update () {
-		if (timer > 0f && timerCheck==true)
-			timer -= Time.deltaTime;
-		if (timer <= 0f) {
+		if (timer > 0 && timerCheck == true)
+			timer -=Time.deltaTime;
+		if (timer <= 0) {
 			isDead = true;
-			timer = 5f;
+			timer = 100;
 			onGameEnded ();
 		}
-		timerText.text = "" + timer.ToString ("f2");
+		timerText.text = "" + (int)timer;
 		slider.value = timer;
 		if (Input.GetKeyDown (KeyCode.Mouse0)) {
 			Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
@@ -113,14 +113,13 @@ public class ScriptTiles : MonoBehaviour {
 					mainCamera.transform.position = new Vector3 (50f, mainCamera.transform.position.y, mainCamera.transform.position.z);
 					startGame.enabled = true;
 					gameOver.enabled = false;
-					lvl = 1;
-					print ("A");
+					lvlScore = 0;
 				}
 				if (hit.collider.tag == "PlayGame") {
 					mainCamera.transform.position = new Vector3 (0f, mainCamera.transform.position.y, mainCamera.transform.position.z);
 					inGame.enabled = true;
 					startGame.enabled = false;
-					lvl = 1;
+					lvlScore = 0;
 					GenerateTiles ();
 				}
 			}
@@ -133,8 +132,11 @@ public class ScriptTiles : MonoBehaviour {
 			if (tiles [i].transform.position.z == -4 && colorsNumber [i] == true)
 				countTrue++;
 		}
-		if (countTrue == 2)
+		if (countTrue == 2) {
+			lvlScore +=(int) timer;
 			GenerateTiles ();
+		}
+			
 		else
 			onGameEnded ();
 	}
