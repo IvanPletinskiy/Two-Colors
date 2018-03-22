@@ -70,7 +70,7 @@ public class ScriptTiles : MonoBehaviour {
 		if (spread > 0.019f)
 			spread -= 0.001f;
 	}
-	void onGameEnded(){
+    void onGameEnded(){
 		spread = 0.05f;
 		timerCheck = false;
 		if (isDead == false)
