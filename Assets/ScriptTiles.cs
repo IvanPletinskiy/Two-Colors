@@ -33,7 +33,7 @@ public class ScriptTiles : MonoBehaviour {
 
 	int count = 0;
 
-	float timer = 100;
+	float timer = 100f;
 	bool timerCheck = false;
 
 	void GenerateTiles () {
@@ -42,7 +42,7 @@ public class ScriptTiles : MonoBehaviour {
 
 		timerCheck = true;
 
-		timer = 100;
+		timer = 100f;
 
 		for (int i = 0; i < 4; i++) {
 			colorsNumber [i] = true;
@@ -84,7 +84,7 @@ public class ScriptTiles : MonoBehaviour {
 
 	void Update () {
 		if (timer > 0 && timerCheck == true)
-			timer -=Time.deltaTime;
+			timer -=Time.deltaTime*10;
 		if (timer <= 0) {
 			isDead = true;
 			timer = 100;
