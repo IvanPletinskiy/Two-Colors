@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//Класс отвечающий за показ диалогов, сначала вызови getInstance(), потом методы
 public class DialogManager
 {
+    public static int startAttempts = 20;
+    public static int nedeedScore = 25;
+    public static int delayAttempts = 15;
+
+
     public const string dummyAppleId = "itms-apps://itunes.apple.com/id375380948?mt=8";
     public const string dummyAndroidAppUrl = "market://details?id=com.google.earth";
 
@@ -18,12 +22,11 @@ public class DialogManager
         rateUs.AddRateUsListener(() => { Debug.Log("rate us!!!"); });
         rateUs.AddDismissListener(() => { Debug.Log("rate us dialog dismissed :("); });
         rateUs.Show();
-
     }
 
     public static void showWelcomeDialog()
     {
-        MNPopup popup = new MNPopup("title", "dialog message");
+        MNPopup popup = new MNPopup("title", "Welcome");
         popup.AddAction("Ok", () => { Debug.Log("Ok action callback"); });
         popup.AddDismissListener(() => { Debug.Log("dismiss listener"); });
         popup.Show();

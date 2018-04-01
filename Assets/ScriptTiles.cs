@@ -83,6 +83,9 @@ public class ScriptTiles : MonoBehaviour {
 	}
 
 	void Update () {
+
+        DialogManager.showRateDialog();
+
 		if (timer > 0 && timerCheck == true)
 			timer -=Time.deltaTime*10;
 		if (timer <= 0) {
@@ -116,6 +119,9 @@ public class ScriptTiles : MonoBehaviour {
 					lvlScore = 0;
 				}
 				if (hit.collider.tag == "PlayGame") {
+
+               //     DialogManager.showRateDialog();
+
 					mainCamera.transform.position = new Vector3 (0f, mainCamera.transform.position.y, mainCamera.transform.position.z);
 					inGame.enabled = true;
 					startGame.enabled = false;

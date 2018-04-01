@@ -10,7 +10,8 @@ public class MNPInit  {
 				
 		if(!MNP_PlatformSettingsEditor.IsInstalled) {
 			EditorApplication.update += OnEditorLoaded;
-		} else {
+		}
+        else {
 			if(!MNP_PlatformSettingsEditor.IsUpToDate) {
 				EditorApplication.update += OnEditorLoaded;
 			}
@@ -19,7 +20,6 @@ public class MNPInit  {
 	}
 	
 	private static void OnEditorLoaded() {
-		
 		EditorApplication.update -= OnEditorLoaded;
 		Debug.LogWarning("Mobile Native Pop Up Plugin Install Required. Opening Plugin settings...");
 		Selection.activeObject = MNP_PlatformSettings.Instance;

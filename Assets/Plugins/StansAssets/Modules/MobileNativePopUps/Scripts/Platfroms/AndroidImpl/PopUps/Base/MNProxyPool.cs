@@ -11,8 +11,6 @@ public abstract class MNProxyPool {
 	public static void CallStatic(string className, string methodName, params object[] args) {
 		#if UNITY_ANDROID
 		
-		
-		
 		if(Application.platform != RuntimePlatform.Android) {
 			return;
 		}
