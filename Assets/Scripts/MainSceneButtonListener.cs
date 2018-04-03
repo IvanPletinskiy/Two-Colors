@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainSceneButtonListener : MonoBehaviour {
 
@@ -21,7 +22,7 @@ public class MainSceneButtonListener : MonoBehaviour {
         switch (action)
         {
             case "Play":
-                Application.LoadLevel("Play");
+                SceneManager.LoadScene("Play");
                 break;
         }
     }
