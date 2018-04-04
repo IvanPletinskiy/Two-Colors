@@ -576,7 +576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ffd7235d24705c49803ee2bc48122dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordText: {fileID: 0}
+  recordText: {fileID: 1537627856}
   action: Play
 --- !u!58 &1069115879
 CircleCollider2D:
@@ -863,7 +863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ffd7235d24705c49803ee2bc48122dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  recordText: {fileID: 0}
+  recordText: {fileID: 1537627856}
   action: 
 --- !u!1 &2007860535
 GameObject:
