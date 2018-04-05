@@ -34,6 +34,9 @@ public class TilesScript : MonoBehaviour {
     public bool next, lose;
 
     void Start () {
+        if (Preferences.getAttempts() == 0)
+            DialogManager.showWelcomeDialog();
+
         score = 0;
         next = false;
         lose = false;

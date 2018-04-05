@@ -19,6 +19,11 @@ public class Preferences {
         return PlayerPrefs.GetInt(TOTAL_ATTEMPTS, 0);
     }
 
+    public static void resetAttempts()
+    {
+        PlayerPrefs.SetInt(TOTAL_ATTEMPTS, 0);
+    }
+
     public static bool isWelcomeShown()
     {
         int value = PlayerPrefs.GetInt(DIALOG_WELCOME, 0);

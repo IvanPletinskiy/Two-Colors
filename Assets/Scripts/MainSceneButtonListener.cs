@@ -12,6 +12,7 @@ public class MainSceneButtonListener : MonoBehaviour {
 
     void Start()
     {
+   //     Preferences.resetAttempts();
         recordText.text = Preferences.getRecord().ToString();
     }
 
