@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class TilesScript : MonoBehaviour {
 
 	public Slider slider;
+	public RectTransform sliderRect;
 
 	float timer = 0f;
 
@@ -40,7 +41,10 @@ public class TilesScript : MonoBehaviour {
         score = 0;
         next = false;
         lose = false;
+		print (mainCamera.pixelWidth);
+		sliderRect.sizeDelta = new Vector2 (mainCamera.pixelWidth + 27, 8.60006f);
         updateLevel();
+
 	}
 
 	void Update () {
@@ -48,6 +52,8 @@ public class TilesScript : MonoBehaviour {
 			timer -= Time.deltaTime * 10f;
 			
 		}
+		if (timer <= 0f)
+			endGame ();
 		slider.value = timer; 
         if (lose)
             endGame();
@@ -61,11 +67,11 @@ public class TilesScript : MonoBehaviour {
 			Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
 			if (Physics.Raycast (ray, out hit)) {
 				if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z ==-3.14f ) {
-					hit.collider.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,-3.7f);
+					hit.collider.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,-3.44f);
 					numberOfActiveTiles++;
 					checkNumber ();
 				}
-				else if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z ==-3.7f) {
+				else if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z ==-3.44f) {
 					hit.collider.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,-3.14f);
 					numberOfActiveTiles--;
 				}
@@ -79,7 +85,7 @@ public class TilesScript : MonoBehaviour {
 		if (numberOfActiveTiles == 2) {
 			int number = 0;
 			for (int i = 0; i < 4; i++) {
-				if (tiles [i].transform.position.z == -3.7f && tiles[i].GetComponent<Renderer>().material.color == Color.HSVToRGB (randomColorDouble, 1f, 1f)) {
+				if (tiles [i].transform.position.z == -3.44f && tiles[i].GetComponent<Renderer>().material.color == Color.HSVToRGB (randomColorDouble, 1f, 1f)) {
 					number++;
 				}
 			}
