@@ -1258,7 +1258,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1909057758}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
-<<<<<<< HEAD
+
 --- !u!1 &2086497634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,5 +1327,4 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2086497634}
-=======
->>>>>>> 98b146b70499e080e8325f5f20e98b576211b0cc
+
