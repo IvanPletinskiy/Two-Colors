@@ -556,11 +556,6 @@ MonoBehaviour:
   scoreText: {fileID: 285735274}
   levelText: {fileID: 651260322}
   mainCamera: {fileID: 779704498}
-  tilesColor:
-  - {fileID: 2100000, guid: f6336ba1298d50a4fa6bd4a786ebe744, type: 2}
-  - {fileID: 2100000, guid: f7b60688e6547ab48b7f4e0160df6765, type: 2}
-  - {fileID: 2100000, guid: f27544a3dcdcc4e43b6988bd9175730a, type: 2}
-  - {fileID: 2100000, guid: e4ddba23a9a8ec84d8eb758c0bce2793, type: 2}
   tiles:
   - {fileID: 920242547}
   - {fileID: 1384204197}
@@ -1258,7 +1253,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1909057758}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
-
 --- !u!1 &2086497634
 GameObject:
   m_ObjectHideFlags: 0
@@ -1327,4 +1321,3 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2086497634}
-

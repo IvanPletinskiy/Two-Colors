@@ -75,7 +75,7 @@ public class TilesScript : MonoBehaviour {
 		if (numberOfActiveTiles == 2) {
 			int number = 0;
 			for (int i = 0; i < 4; i++) {
-				if (tiles [i].transform.position.z == -3.7f && tilesColor [i].color == Color.HSVToRGB (randomColorDouble, 1f, 1f)) {
+				if (tiles [i].transform.position.z == -3.7f && tiles[i].GetComponent<Renderer>().material.color == Color.HSVToRGB (randomColorDouble, 1f, 1f)) {
 					number++;
 				}
 			}
