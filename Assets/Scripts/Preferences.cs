@@ -10,11 +10,11 @@ public class Preferences {
 
     public static void increaseAndSaveAttempts()
     {
-        int playerAttempts = getTotalAttempts() + 1;
+        int playerAttempts = getAttempts() + 1;
         PlayerPrefs.SetInt(TOTAL_ATTEMPTS, playerAttempts);
     }
 
-    public static int getTotalAttempts()
+    public static int getAttempts()
     {
         return PlayerPrefs.GetInt(TOTAL_ATTEMPTS, 0);
     }

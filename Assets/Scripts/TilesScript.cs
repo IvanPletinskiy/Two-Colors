@@ -34,13 +34,14 @@ public class TilesScript : MonoBehaviour {
     public bool next, lose;
 
     void Start () {
+        score = 0;
         next = false;
         lose = false;
         updateLevel();
 	}
 
 	void Update () {
-		if (isTimer == true&& timer >0f) {
+		if (isTimer == true && timer > 0f) {
 			timer -= Time.deltaTime * 10f;
 			
 		}

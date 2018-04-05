@@ -8,9 +8,10 @@ public class GameEndSceneScript : MonoBehaviour {
     public Text scoreText, recordText;
 
 	void Start () {
-		scoreText.text = TilesScript.score.ToString ();
+		scoreText.text = TilesScript.score.ToString();
 
-		if (Preferences.getRecord () < TilesScript.score) {
+        Preferences.increaseAndSaveAttempts();
+        if (Preferences.getRecord () < TilesScript.score) {
 			recordText.text = "New Record!";
 			Preferences.setRecord (TilesScript.score);
 		} 
@@ -22,7 +23,7 @@ public class GameEndSceneScript : MonoBehaviour {
 		
 	}
 
-	void onMouseDownAsButton(){
+	void OnMouseUpAsButton(){
 		switch (gameObject.name) {
 		case "RestartButton":
 			SceneManager.LoadScene ("Play");
