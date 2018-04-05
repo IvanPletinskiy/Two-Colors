@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TilesScript : MonoBehaviour {
 
@@ -15,14 +16,15 @@ public class TilesScript : MonoBehaviour {
 	float randomColorSecond;
 	float randomColorLast;
 
-	int numberOfActiveTiles=0;
+	int numberOfActiveTiles = 0;
    
+	public static int score = 0;
 
 	public Material[] tilesColor = new Material[4];
 	public GameObject[] tiles = new GameObject[4];
 
     int level = 0;
-    int score = 0;
+//    int score = 0;
 
     public bool next, lose;
 
@@ -61,7 +63,7 @@ public class TilesScript : MonoBehaviour {
 
 	private void checkNumber(){
 		if (numberOfActiveTiles == 2) {
-			int number=0;
+			int number = 0;
 			for (int i = 0; i < 4; i++) {
 				if (tiles [i].transform.position.z == -3.7f && tilesColor [i].color == Color.HSVToRGB (randomColorDouble, 1f, 1f)) {
 					number++;
@@ -118,8 +120,7 @@ public class TilesScript : MonoBehaviour {
 
     private void endGame()
     {
-
+		SceneManager.LoadScene ("Game end");
     }
-
 
 }
