@@ -34,6 +34,7 @@ public class TilesScript : MonoBehaviour {
     public bool next, lose;
 
     void Start () {
+        score = 0;
         next = false;
         lose = false;
 		print (mainCamera.pixelWidth);
@@ -43,7 +44,7 @@ public class TilesScript : MonoBehaviour {
 	}
 
 	void Update () {
-		if (isTimer == true&& timer >0f) {
+		if (isTimer == true && timer > 0f) {
 			timer -= Time.deltaTime * 10f;
 			
 		}
