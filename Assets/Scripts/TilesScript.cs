@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TilesScript : MonoBehaviour {
 
@@ -19,14 +20,14 @@ public class TilesScript : MonoBehaviour {
 	float randomColorSecond;
 	float randomColorLast;
 
-	int numberOfActiveTiles=0;
+	int numberOfActiveTiles = 0;
    
+	public static int score = 0;
 
-	public Material[] tilesColor = new Material[4];
 	public GameObject[] tiles = new GameObject[4];
 
     int level = 0;
-    int score = 0;
+//    int score = 0;
 
 	bool isTimer=false;
 
@@ -72,7 +73,7 @@ public class TilesScript : MonoBehaviour {
 
 	private void checkNumber(){
 		if (numberOfActiveTiles == 2) {
-			int number=0;
+			int number = 0;
 			for (int i = 0; i < 4; i++) {
 				if (tiles [i].transform.position.z == -3.7f && tilesColor [i].color == Color.HSVToRGB (randomColorDouble, 1f, 1f)) {
 					number++;
@@ -116,10 +117,10 @@ public class TilesScript : MonoBehaviour {
 			secondTile = Random.Range (0, 4);
 		while (lastTile == firstTile || lastTile == firstDoubleTile||lastTile == secondTile)
 			lastTile = Random.Range (0, 4);
-		tilesColor [firstTile].color = Color.HSVToRGB (randomColorDouble, 1f, 1f);
-		tilesColor [firstDoubleTile].color =Color.HSVToRGB (randomColorDouble, 1f, 1f);
-		tilesColor [secondTile].color =Color.HSVToRGB (randomColorSecond, 1f, 1f);
-		tilesColor [lastTile].color =Color.HSVToRGB (randomColorLast, 1f, 1f);
+		tiles [firstTile].GetComponent<Renderer>().material.color = Color.HSVToRGB (randomColorDouble, 1f, 1f);
+		tiles [firstDoubleTile].GetComponent<Renderer>().material.color =Color.HSVToRGB (randomColorDouble, 1f, 1f);
+		tiles [secondTile].GetComponent<Renderer>().material.color =Color.HSVToRGB (randomColorSecond, 1f, 1f);
+		tiles [lastTile].GetComponent<Renderer>().material.color=Color.HSVToRGB (randomColorLast, 1f, 1f);
 		if (spread > 0.018f)
 			spread -= 0.001f;
 		isTimer = true;
@@ -132,8 +133,7 @@ public class TilesScript : MonoBehaviour {
 
     private void endGame()
     {
-
+		SceneManager.LoadScene ("Game end");
     }
-
 
 }
