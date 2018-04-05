@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class TilesScript : MonoBehaviour {
 
+	public Slider slider;
+
+	float timer = 0f;
+
     public Text scoreText, levelText;
 
 	public Camera mainCamera;
@@ -24,6 +28,8 @@ public class TilesScript : MonoBehaviour {
     int level = 0;
     int score = 0;
 
+	bool isTimer=false;
+
     public bool next, lose;
 
     void Start () {
@@ -33,6 +39,11 @@ public class TilesScript : MonoBehaviour {
 	}
 
 	void Update () {
+		if (isTimer == true&& timer >0f) {
+			timer -= Time.deltaTime * 10f;
+			
+		}
+		slider.value = timer; 
         if (lose)
             endGame();
         if (next && !lose)
@@ -77,7 +88,9 @@ public class TilesScript : MonoBehaviour {
     private void updateLevel()
     {
         level++;
-
+		score += (int)timer;
+		timer = 100f;
+		isTimer = false;
         scoreText.text = score.ToString();
         levelText.text = "Level " + level.ToString();
 
@@ -109,6 +122,7 @@ public class TilesScript : MonoBehaviour {
 		tilesColor [lastTile].color =Color.HSVToRGB (randomColorLast, 1f, 1f);
 		if (spread > 0.018f)
 			spread -= 0.001f;
+		isTimer = true;
     }
 
     private void checkResult()
