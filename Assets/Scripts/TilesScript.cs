@@ -36,7 +36,10 @@ public class TilesScript : MonoBehaviour {
     void Start () {
         next = false;
         lose = false;
+		print (mainCamera.pixelWidth);
+
         updateLevel();
+
 	}
 
 	void Update () {
@@ -44,6 +47,8 @@ public class TilesScript : MonoBehaviour {
 			timer -= Time.deltaTime * 10f;
 			
 		}
+		if (timer <= 0f)
+			endGame ();
 		slider.value = timer; 
         if (lose)
             endGame();
