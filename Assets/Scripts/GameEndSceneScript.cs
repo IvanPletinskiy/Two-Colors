@@ -10,20 +10,31 @@ public class GameEndSceneScript : MonoBehaviour {
 	void Start () {
 		scoreText.text = TilesScript.score.ToString();
 
+        string text = "";
+
         Preferences.increaseAndSaveAttempts();
         if (Preferences.getRecord () < TilesScript.score) {
-			recordText.text = "New Record!";
+
+            text  = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("newRecord", 
+                nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
+
+            
 			Preferences.setRecord (TilesScript.score);
 		} 
-		else
-			recordText.text = "Your record is " + Preferences.getRecord ().ToString ();
+		else {
+            text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("yourRecord",
+                nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
+            text += Preferences.getRecord().ToString();
+        }
+			
+        recordText.text = text;
 	}
 
 	void Update () {
-		
-	}
+        
+    }
 
-	void OnMouseUpAsButton(){
+	void OnMouseUpAsButton() {
 		switch (gameObject.name) {
 		case "RestartButton":
 			SceneManager.LoadScene ("Play");

@@ -103,7 +103,9 @@ public class TilesScript : MonoBehaviour {
 		timer = 100f;
 		isTimer = false;
         scoreText.text = score.ToString();
-        levelText.text = "Level " + level.ToString();
+        string text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("level",
+                nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
+        levelText.text = text + " " + level.ToString();
 
         updateTiles();
     }
