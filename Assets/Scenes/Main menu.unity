@@ -603,6 +603,7 @@ GameObject:
   - component: {fileID: 1481860690}
   - component: {fileID: 1481860692}
   - component: {fileID: 1481860691}
+  - component: {fileID: 1481860693}
   m_Layer: 5
   m_Name: Game Title
   m_TagString: Untagged
@@ -667,6 +668,24 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1481860689}
+--- !u!114 &1481860693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1481860689}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a06f976f6c25f3841af817b9d178dc12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsRegistered: 0
+  fieldName: appTitle
+  useCustomLanguage: 0
+  customLanguage: 30
+  AutoRegister: 1
+  logMethods: 0
+  logLevel: 0
 --- !u!1 &1537627854
 GameObject:
   m_ObjectHideFlags: 0
@@ -782,6 +801,7 @@ GameObject:
   - component: {fileID: 1960000313}
   - component: {fileID: 1960000312}
   - component: {fileID: 1960000315}
+  - component: {fileID: 1960000316}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -865,6 +885,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recordText: {fileID: 1537627856}
   action: 
+--- !u!114 &1960000316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1960000310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d79765b0a59dacb4a92c42f19fbaaf7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PreferredLanguage: 42
+  currentLanguage: 42
+  fallbackLanguage: 10
+  LoadOnAwake: 1
+  UsePreferredLanguage: 0
+  UseRemoteLanguageFile: 0
+  WIFIDownloadOnly: 0
+  LanguageURL: 
+  LanguageMap: {fileID: 4900000, guid: 39562c45bc38242418b2c68dedbf0a8c, type: 3}
+  NewLineStr: "\r\n"
+  Delimiter: 59
+  UserName: 
+  Password: 
+  Domain: 
+  logMethods: 0
+  logLevel: 1
 --- !u!1 &2007860535
 GameObject:
   m_ObjectHideFlags: 0
