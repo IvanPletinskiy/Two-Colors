@@ -42,7 +42,7 @@ public class TilesScript : MonoBehaviour {
         next = false;
         lose = false;
 		print (mainCamera.pixelWidth);
-		sliderRect.sizeDelta = new Vector2 (mainCamera.pixelWidth + 27, 8.60006f);
+		sliderRect.sizeDelta = new Vector2 (mainCamera.pixelWidth + 521, 28.1f);
         updateLevel();
 
 	}
@@ -103,8 +103,7 @@ public class TilesScript : MonoBehaviour {
 		timer = 100f;
 		isTimer = false;
         scoreText.text = score.ToString();
-        string text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("level",
-                nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
+        string text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("level",nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
         levelText.text = text + " " + level.ToString();
 
         updateTiles();
