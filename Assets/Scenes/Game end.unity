@@ -741,7 +741,6 @@ GameObject:
   - component: {fileID: 1533721280}
   - component: {fileID: 1533721279}
   - component: {fileID: 1533721283}
-  - component: {fileID: 1533721284}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -825,30 +824,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 514451322}
   recordText: {fileID: 670100254}
---- !u!114 &1533721284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1533721278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d79765b0a59dacb4a92c42f19fbaaf7b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PreferredLanguage: 42
-  currentLanguage: 42
-  fallbackLanguage: 10
-  LoadOnAwake: 1
-  UsePreferredLanguage: 0
-  UseRemoteLanguageFile: 0
-  WIFIDownloadOnly: 0
-  LanguageURL: 
-  LanguageMap: {fileID: 0}
-  NewLineStr: "\r\n"
-  Delimiter: 59
-  UserName: 
-  Password: 
-  Domain: 
-  logMethods: 0
-  logLevel: 1
