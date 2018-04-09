@@ -11,6 +11,10 @@ public class TilesScript : MonoBehaviour {
 
 	float timer = 0f;
 
+	public GameObject fillArea;
+
+	float[] startColors = new float[3];
+
     public Text scoreText, levelText;
 
 	public Camera mainCamera;
@@ -21,6 +25,9 @@ public class TilesScript : MonoBehaviour {
 	float randomColorSecond;
 	float randomColorLast;
 
+	float fillAreaColor;
+
+	bool isFillColor;
 	int numberOfActiveTiles = 0;
    
 	public static int score = 0;
@@ -39,20 +46,34 @@ public class TilesScript : MonoBehaviour {
 			Preferences.setWelcomeShown (true);
 			DialogManager.showWelcomeDialog ();
 		}
-
+		fillAreaColor = fillArea.GetComponent<Image> ().color.r;
+		startColors [0] = fillArea.GetComponent<Image> ().color.r;
+		startColors [1] = fillArea.GetComponent<Image> ().color.g;
+		startColors [2] = fillArea.GetComponent<Image> ().color.b;
         score = 0;
         next = false;
         lose = false;
 		print (mainCamera.pixelWidth);
-		sliderRect.sizeDelta = new Vector2 (mainCamera.pixelWidth + 521, 28.1f);
+		sliderRect.sizeDelta = new Vector2 (mainCamera.pixelWidth, 158.8f);
         updateLevel();
-
 	}
 
 	void Update () {
 		if (isTimer == true && timer > 0f) {
 			timer -= Time.deltaTime * 10f;
 			
+		}
+		if (timer <= 40f) {
+			if (isFillColor == true) {
+				fillArea.GetComponent<Image> ().color = new Vector4(fillArea.GetComponent<Image> ().color.r+ 0.02f,fillArea.GetComponent<Image> ().color.g- 0.02f,fillArea.GetComponent<Image> ().color.b- 0.02f,fillArea.GetComponent<Image> ().color.a);
+
+			}
+			else fillArea.GetComponent<Image> ().color = new Vector4(fillArea.GetComponent<Image> ().color.r- 0.02f,fillArea.GetComponent<Image> ().color.g+ 0.02f,fillArea.GetComponent<Image> ().color.b+0.02f,fillArea.GetComponent<Image> ().color.a);
+
+			if (fillArea.GetComponent<Image> ().color.r - fillAreaColor > 0.1f)
+				isFillColor = false;
+			if (fillAreaColor - fillArea.GetComponent<Image> ().color.r> 0.1f)
+				isFillColor = true;
 		}
 		if (timer <= 0f)
 			endGame ();
@@ -100,6 +121,7 @@ public class TilesScript : MonoBehaviour {
 
     private void updateLevel()
     {
+		fillArea.GetComponent<Image> ().color = new Vector4(startColors[0],startColors[1],startColors[2],1f);
         level++;
 		score += (int)timer;
 		timer = 100f;
@@ -107,7 +129,6 @@ public class TilesScript : MonoBehaviour {
         scoreText.text = score.ToString();
         string text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("level",nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
         levelText.text = text + " " + level.ToString();
-
         updateTiles();
     }
 
