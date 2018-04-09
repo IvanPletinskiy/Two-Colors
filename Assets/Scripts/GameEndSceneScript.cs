@@ -8,6 +8,7 @@ public class GameEndSceneScript : MonoBehaviour {
     public Text scoreText, recordText;
 
 	void Start () {
+		checkAndShowRateDialog ();
 		scoreText.text = TilesScript.score.ToString();
 
         string text = "";
@@ -43,5 +44,12 @@ public class GameEndSceneScript : MonoBehaviour {
 			SceneManager.LoadScene ("Main menu");
 			break;
 		}
+	}
+
+	void checkAndShowRateDialog() {
+		if (Preferences.getAttempts () >= DialogManager.startAttempts &&
+		   TilesScript.score >= DialogManager.nedeedScore)
+			DialogManager.showRateDialog ();
+			
 	}
 }
