@@ -21,6 +21,9 @@ public class TilesScript : MonoBehaviour {
 
 	float spread = 0.09f;
 
+	public GameObject wrongTiles;
+	public GameObject referWrongTiles;
+
 	float randomColorDouble;
 	float randomColorSecond;
 	float randomColorLast;
@@ -36,6 +39,9 @@ public class TilesScript : MonoBehaviour {
 
     int level = 0;
 //    int score = 0;
+
+//	float fadeDead=0f;
+	
 
 	bool isTimer=false;
 
@@ -61,6 +67,12 @@ public class TilesScript : MonoBehaviour {
 			timer -= Time.deltaTime * 10f;
 			
 		}
+		//fadeDead += Time.deltaTime;
+	//	if (fadeDead >= 0.2f) {
+	//		referWrongTiles.SetActive (!referWrongTiles.activeSelf);
+	//		fadeDead = 0f;
+	//	}
+
 		if (timer <= 40f) {
 			if (isFillColor == true) {
 				fillArea.GetComponent<Image> ().color = new Vector4(fillArea.GetComponent<Image> ().color.r+ 0.02f,fillArea.GetComponent<Image> ().color.g- 0.02f,fillArea.GetComponent<Image> ().color.b- 0.02f,fillArea.GetComponent<Image> ().color.a);
@@ -110,15 +122,21 @@ public class TilesScript : MonoBehaviour {
 					number++;
 				}
 			}
-			if(number ==2)
-				updateLevel();
-			else endGame();
+			if (number == 2)
+				updateLevel ();
+			else {
+				wrongTiles.SetActive(true);
+
+				isTimer = false;
+				StartCoroutine ("wait");
+			}
 
 		}
 	}
 
     private void updateLevel()
     {
+		wrongTiles.SetActive (false);
 		fillArea.GetComponent<Image> ().color = new Vector4(startColors[0],startColors[1],startColors[2],1f);
         level++;
 		score += (int)timer;
@@ -167,5 +185,10 @@ public class TilesScript : MonoBehaviour {
     {
 		SceneManager.LoadScene ("Game end");
     }
+
+	IEnumerator wait (){
+		yield return new WaitForSeconds (0.3f);
+		endGame ();
+	}
 
 }
