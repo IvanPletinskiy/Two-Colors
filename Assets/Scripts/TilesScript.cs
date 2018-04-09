@@ -53,8 +53,6 @@ public class TilesScript : MonoBehaviour {
         score = 0;
         next = false;
         lose = false;
-		print (mainCamera.pixelWidth);
-		sliderRect.sizeDelta = new Vector2 (mainCamera.pixelWidth, 158.8f);
         updateLevel();
 	}
 
