@@ -189,7 +189,7 @@ public class TilesScript : MonoBehaviour {
     }
 
 	IEnumerator wait (){
-		yield return new WaitForSeconds (0.3f);
+		yield return new WaitForSeconds (0.5f);
 		isDeadFreeze = true;
 		endGame ();
 

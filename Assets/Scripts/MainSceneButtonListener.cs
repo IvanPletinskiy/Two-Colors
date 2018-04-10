@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class MainSceneButtonListener : MonoBehaviour {
 
+	public GameObject quad;
+
     public Text recordText;
 
     public string action;
@@ -30,11 +32,13 @@ public class MainSceneButtonListener : MonoBehaviour {
 
     void OnMouseUpAsButton()
     {
+		
         switch (action)
         {
-            case "Play":
-                SceneManager.LoadScene("Play");
-                break;
+		case "Play":
+			SceneManager.LoadScene("Play");
+            break;
         }
     }
+
 }
