@@ -24,6 +24,8 @@ public class TilesScript : MonoBehaviour {
 	public GameObject wrongTiles;
 	public GameObject referWrongTiles;
 
+	bool isDeadFreeze= true;
+
 	float randomColorDouble;
 	float randomColorSecond;
 	float randomColorLast;
@@ -95,7 +97,7 @@ public class TilesScript : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Space))
 			updateTiles ();
 
-		if (Input.GetKeyDown (KeyCode.Mouse0)) {
+		if (Input.GetKeyDown (KeyCode.Mouse0) && isDeadFreeze == true) {
 			RaycastHit hit;
 			Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
 			if (Physics.Raycast (ray, out hit)) {
@@ -126,7 +128,7 @@ public class TilesScript : MonoBehaviour {
 				updateLevel ();
 			else {
 				wrongTiles.SetActive(true);
-
+				isDeadFreeze = false;
 				isTimer = false;
 				StartCoroutine ("wait");
 			}
@@ -188,7 +190,9 @@ public class TilesScript : MonoBehaviour {
 
 	IEnumerator wait (){
 		yield return new WaitForSeconds (0.3f);
+		isDeadFreeze = true;
 		endGame ();
+
 	}
 
 }
