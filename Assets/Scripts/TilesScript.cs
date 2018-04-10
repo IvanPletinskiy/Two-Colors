@@ -13,6 +13,8 @@ public class TilesScript : MonoBehaviour {
 
 	public GameObject fillArea;
 
+	public GameObject TEST;
+
 	float[] startColors = new float[3];
 
     public Text scoreText, levelText;
@@ -152,6 +154,7 @@ public class TilesScript : MonoBehaviour {
 
     private void updateTiles()
     {
+		TEST.gameObject.SetActive (false);
 		for (int i = 0; i < 4; i++) {
 			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -3.14f);
 		}
