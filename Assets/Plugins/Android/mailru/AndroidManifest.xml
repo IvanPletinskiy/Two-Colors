@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.appodeal.mailru.unity">
+  <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="25" />
+  <application>
+	<activity android:name="com.my.target.ads.MyTargetActivity" android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+	    android:hardwareAccelerated="true" />
+  </application>
+</manifest>
