@@ -60,7 +60,12 @@ public class RespawnScript : MonoBehaviour {
 		newRecord.gameObject.SetActive (isRecord);
 	}
 	void Update () {
-		
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			TilesScript.score = 0;
+			TilesScript.level = 1;
+			SceneManager.LoadScene ("Main Menu");
+		}
+
 		
 		if (Input.GetKeyUp (KeyCode.Mouse0)) {
 			RaycastHit hit;
