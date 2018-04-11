@@ -46,6 +46,10 @@ public class GameEndSceneScript : MonoBehaviour {
 		}
 	}
 
+	public void Isclick(){
+		
+	}
+
 	void checkAndShowRateDialog() {
 		if (Preferences.getAttempts () >= DialogManager.startAttempts &&
 		   TilesScript.score >= DialogManager.nedeedScore)

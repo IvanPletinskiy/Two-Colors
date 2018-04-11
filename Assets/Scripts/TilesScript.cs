@@ -13,7 +13,7 @@ public class TilesScript : MonoBehaviour {
 
 	public GameObject fillArea;
 
-	public GameObject TEST;
+	public GameObject TEST; // DON'T DELETE
 
 	float[] startColors = new float[3];
 
@@ -154,7 +154,7 @@ public class TilesScript : MonoBehaviour {
 
     private void updateTiles()
     {
-		TEST.gameObject.SetActive (false);
+		TEST.gameObject.SetActive (false); // DON'T DELETE
 		for (int i = 0; i < 4; i++) {
 			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -3.14f);
 		}
