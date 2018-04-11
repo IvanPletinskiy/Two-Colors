@@ -143,7 +143,7 @@ public class TilesScript : MonoBehaviour {
 		if (numberOfActiveTiles == 2) {
 			int number = 0;
 			for (int i = 0; i < 4; i++) {
-				if (tiles [i].transform.position.z == -3.44f && tiles[i].GetComponent<Renderer>().material.color == Color.HSVToRGB (randomColorDouble, 1f, 1f)) {
+				if (tiles [i].transform.position.z == -3.44f && tiles[i].GetComponent<Renderer>().material.color == Color.HSVToRGB (randomColorDouble, 0.8f, 1f)) {
 					number++;
 				}
 			}
@@ -195,11 +195,11 @@ public class TilesScript : MonoBehaviour {
 		} else
 			isGenerating = true;
 
-		tiles [firstTile].GetComponent<Renderer>().material.color = Color.HSVToRGB (randomColorDouble, 1f, 1f);
-		tiles [firstDoubleTile].GetComponent<Renderer>().material.color =Color.HSVToRGB (randomColorDouble, 1f, 1f);
-		tiles [secondTile].GetComponent<Renderer>().material.color =Color.HSVToRGB (randomColorSecond, 1f, 1f);
-		tiles [lastTile].GetComponent<Renderer>().material.color=Color.HSVToRGB (randomColorLast, 1f, 1f);
-		if (spread > 0.018f)
+		tiles [firstTile].GetComponent<Renderer>().material.color = Color.HSVToRGB (randomColorDouble, 0.8f, 1f);
+		tiles [firstDoubleTile].GetComponent<Renderer>().material.color =Color.HSVToRGB (randomColorDouble, 0.8f, 1f);
+		tiles [secondTile].GetComponent<Renderer>().material.color =Color.HSVToRGB (randomColorSecond, Random.Range(0.7f,0.8f), 1f);
+		tiles [lastTile].GetComponent<Renderer>().material.color=Color.HSVToRGB (randomColorLast, Random.Range(0.7f,0.8f), 1f);
+		if (spread > 0.014f)
 			spread -= 0.001f;
 		isTimer = true;
 		for (int i = 0; i < 4; i++) {

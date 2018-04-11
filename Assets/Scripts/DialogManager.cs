@@ -32,9 +32,9 @@ public class DialogManager
         Debug.Log("showWelcomeDialog");
         
         MNPopup popup = new MNPopup("title", "Welcome");
-        popup.AddAction("Ok", () => { Debug.Log("Ok action callback"); });
+		popup.AddAction("Ok", () => { Time.timeScale=1; });
         popup.AddDismissListener(() => { Debug.Log("dismiss listener"); });
+		Time.timeScale=0;
         popup.Show();
-        
     }
 }
