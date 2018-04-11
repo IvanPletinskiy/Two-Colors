@@ -6,6 +6,13 @@ using UnityEngine.SceneManagement;
 
 public class RespawnScript : MonoBehaviour {
 
+	public Text scoreText, recordText;
+
+	public Text newRecord;
+	bool isRecord = false;
+
+	string text;
+
 	public Camera mainCam;
 	public GameObject heard;
 	public static bool isHeard=true;
@@ -28,6 +35,29 @@ public class RespawnScript : MonoBehaviour {
 			heard.SetActive (true);
 		} else
 			heard.SetActive (false);
+
+		scoreText.text = TilesScript.score.ToString();
+
+		text = "";
+		if (TilesScript.score > PlayerPrefs.GetInt ("Record")) {
+			PlayerPrefs.SetInt ("Record", TilesScript.score);
+			text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation ("yourRecord",
+				nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
+			text += PlayerPrefs.GetInt ("Record").ToString ();
+			recordText.text = text;
+			print ("NEW RECORD");
+			isRecord = true;
+			if(PlayerPrefs.GetInt("IsRate") !=1)
+				DialogManager.showRateDialog ();
+
+		} else {
+			text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation ("yourRecord",
+				nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
+			text += PlayerPrefs.GetInt ("Record").ToString ();
+			recordText.text = text;
+			isRecord = false;
+		}
+		newRecord.gameObject.SetActive (isRecord);
 	}
 	void Update () {
 		
@@ -54,6 +84,23 @@ public class RespawnScript : MonoBehaviour {
 					TilesScript.level = levelPlay;
 					TilesScript.score = scorePlay;
 					SceneManager.LoadScene ("Play");
+				}
+
+				if (hit.collider.name == "RestartButton") {
+					SceneManager.LoadScene ("Play");
+					RespawnScript.isHeard = true;
+					TilesScript.isGenerating = true;
+					TilesScript.spread = 0.09f;
+					TilesScript.level = 1;
+					TilesScript.score = 0;
+				}
+				if (hit.collider.name == "HomeButton") {
+					SceneManager.LoadScene ("Main menu");
+					RespawnScript.isHeard = true;
+					TilesScript.isGenerating = true;
+					TilesScript.spread = 0.09f;
+					TilesScript.level = 1;
+					TilesScript.score = 0;
 				}
 
 			}

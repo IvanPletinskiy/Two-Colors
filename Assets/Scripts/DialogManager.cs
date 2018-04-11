@@ -22,7 +22,7 @@ public class DialogManager
         rateUs.AddDeclineListener(() => { Debug.Log("rate us declined"); });
         rateUs.AddRemindListener(() => { Debug.Log("remind me later"); });
         rateUs.AddRateUsListener(() => { Debug.Log("rate us!!!"); });
-        rateUs.AddDismissListener(() => { Debug.Log("rate us dialog dismissed :("); });
+		rateUs.AddDismissListener(() => { PlayerPrefs.SetInt("IsRate",1); });
         rateUs.Show();
         
     }

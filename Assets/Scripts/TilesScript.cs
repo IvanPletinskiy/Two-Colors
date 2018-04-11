@@ -71,11 +71,19 @@ public class TilesScript : MonoBehaviour {
         next = false;
         lose = false;
         updateLevel();
+
+		for (int i = 0; i < 4; i++) {
+			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -3.14f);
+		}
 	}
 
 	void Update () {
 
-
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			score = 0;
+			level = 1;
+			SceneManager.LoadScene ("Main Menu");
+		}
 
 		scoreText.text = score.ToString();
 		string text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("level",nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
@@ -166,9 +174,7 @@ public class TilesScript : MonoBehaviour {
     private void updateTiles()
     {
 		TEST.gameObject.SetActive (false); // DON'T DELETE
-		for (int i = 0; i < 4; i++) {
-			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -3.14f);
-		}
+
 		numberOfActiveTiles = 0;
 		if (isGenerating) {
 			lastTile = Random.Range (0, 4);
@@ -196,6 +202,9 @@ public class TilesScript : MonoBehaviour {
 		if (spread > 0.018f)
 			spread -= 0.001f;
 		isTimer = true;
+		for (int i = 0; i < 4; i++) {
+			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -3.14f);
+		}
     }
 
     private void checkResult()

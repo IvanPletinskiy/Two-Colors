@@ -7,28 +7,32 @@ using UnityEngine.SceneManagement;
 public class GameEndSceneScript : MonoBehaviour {
     public Text scoreText, recordText;
 
+	public Text newRecord;
+	bool isRecord = false;
+
 	void Start () {
-		checkAndShowRateDialog ();
 		scoreText.text = TilesScript.score.ToString();
 
         string text = "";
+		if (TilesScript.score > PlayerPrefs.GetInt ("Record")) {
+			PlayerPrefs.SetInt ("Record", TilesScript.score);
+			text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation ("yourRecord",
+				nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
+			text += PlayerPrefs.GetInt ("Record").ToString ();
+			recordText.text = text;
+			print ("NEW RECORD");
+			isRecord = true;
+			DialogManager.showRateDialog ();
 
-        Preferences.increaseAndSaveAttempts();
-        if (Preferences.getRecord () < TilesScript.score) {
-
-            text  = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("newRecord", 
-                nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
-
-            
-			Preferences.setRecord (TilesScript.score);
-		} 
-		else {
-            text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("yourRecord",
-                nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
-            text += Preferences.getRecord().ToString();
-        }
-			
-        recordText.text = text;
+		} else {
+			text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation ("yourRecord",
+				nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
+			text += PlayerPrefs.GetInt ("Record").ToString ();
+			recordText.text = text;
+			isRecord = false;
+		}
+		newRecord.gameObject.SetActive (isRecord);
+        
 	}
 
 	void Update () {
@@ -55,16 +59,6 @@ public class GameEndSceneScript : MonoBehaviour {
 			break;
 		}
 	}
-
-	public void Isclick(){
 		
-	}
-
-	void checkAndShowRateDialog() {
-		if (Preferences.getAttempts () >= DialogManager.startAttempts &&
-		   TilesScript.score >= DialogManager.nedeedScore)
-			DialogManager.showRateDialog ();
-			
-	}
 
 }

@@ -14,9 +14,11 @@ public class MainSceneButtonListener : MonoBehaviour {
 
     void Start()
     {
+
+	
    //     Preferences.resetAttempts();
 		Preferences.setWelcomeShown(false);
-        recordText.text = Preferences.getRecord().ToString();
+		recordText.text = PlayerPrefs.GetInt("Record").ToString();
     }
 
 
@@ -24,6 +26,12 @@ public class MainSceneButtonListener : MonoBehaviour {
     {
 
     }
+
+	void Update(){
+		if (Input.GetKeyDown(KeyCode.Escape)) {
+			Application.Quit();
+		}
+	}
 
     void OnMouseUp()
     {

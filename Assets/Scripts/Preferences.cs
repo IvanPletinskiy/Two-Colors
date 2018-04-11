@@ -47,14 +47,5 @@ public class Preferences {
         int value = isShown ? 1 : 0;
         PlayerPrefs.SetInt(DIALOG_RATE, value);
     }
-
-    public static int getRecord()
-    {
-        return PlayerPrefs.GetInt(RECORD, 0);
-    }
-
-    public static void setRecord(int newRecord)
-    {
-        PlayerPrefs.SetInt(RECORD, newRecord);
-    }
+		
 }
