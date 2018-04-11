@@ -62,7 +62,7 @@ public class RespawnScript : MonoBehaviour {
 	void Update () {
 		
 		
-		if (Input.GetKeyDown (KeyCode.Mouse0)) {
+		if (Input.GetKeyUp (KeyCode.Mouse0)) {
 			RaycastHit hit;
 			Ray ray = mainCam.ScreenPointToRay (new Vector2 (Input.mousePosition.x,Input.mousePosition.y));
 			print (Physics.Raycast (ray, out hit));
