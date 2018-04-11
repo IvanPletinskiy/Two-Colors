@@ -21,16 +21,21 @@ public class TilesScript : MonoBehaviour {
 
 	public Camera mainCamera;
 
-	float spread = 0.09f;
+	public static float spread = 0.09f;
 
 	public GameObject wrongTiles;
 	public GameObject referWrongTiles;
 
 	bool isDeadFreeze= true;
 
-	float randomColorDouble;
-	float randomColorSecond;
-	float randomColorLast;
+	public static float randomColorDouble;
+	public static float randomColorSecond;
+	public static float randomColorLast;
+
+	public static int firstTile;
+	public static int firstDoubleTile;
+	public static int secondTile;
+	public static int lastTile;
 
 	float fillAreaColor;
 
@@ -41,7 +46,7 @@ public class TilesScript : MonoBehaviour {
 
 	public GameObject[] tiles = new GameObject[4];
 
-    int level = 0;
+	public static int level = 0;
 //    int score = 0;
 
 //	float fadeDead=0f;
@@ -49,9 +54,12 @@ public class TilesScript : MonoBehaviour {
 
 	bool isTimer=false;
 
+	public static bool isGenerating=true;
+
     public bool next, lose;
 
     void Start () {
+		level--;
 		if (!Preferences.isWelcomeShown()) {
 			Preferences.setWelcomeShown (true);
 			DialogManager.showWelcomeDialog ();
@@ -60,17 +68,24 @@ public class TilesScript : MonoBehaviour {
 		startColors [0] = fillArea.GetComponent<Image> ().color.r;
 		startColors [1] = fillArea.GetComponent<Image> ().color.g;
 		startColors [2] = fillArea.GetComponent<Image> ().color.b;
-        score = 0;
         next = false;
         lose = false;
         updateLevel();
 	}
 
 	void Update () {
+
+
+
+		scoreText.text = score.ToString();
+		string text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("level",nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
+		levelText.text = text + " " + level.ToString();
 		if (isTimer == true && timer > 0f) {
 			timer -= Time.deltaTime * 10f;
 			
 		}
+
+	
 		//fadeDead += Time.deltaTime;
 	//	if (fadeDead >= 0.2f) {
 	//		referWrongTiles.SetActive (!referWrongTiles.activeSelf);
@@ -96,8 +111,6 @@ public class TilesScript : MonoBehaviour {
             endGame();
         if (next && !lose)
             updateLevel();
-		if (Input.GetKeyDown (KeyCode.Space))
-			updateTiles ();
 
 		if (Input.GetKeyDown (KeyCode.Mouse0) && isDeadFreeze == true) {
 			RaycastHit hit;
@@ -146,9 +159,7 @@ public class TilesScript : MonoBehaviour {
 		score += (int)timer;
 		timer = 100f;
 		isTimer = false;
-        scoreText.text = score.ToString();
-        string text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("level",nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
-        levelText.text = text + " " + level.ToString();
+        
         updateTiles();
     }
 
@@ -159,19 +170,25 @@ public class TilesScript : MonoBehaviour {
 			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -3.14f);
 		}
 		numberOfActiveTiles = 0;
-		randomColorDouble = Random.Range(0f,1f);
-		randomColorSecond = randomColorDouble - spread;
-		randomColorLast = randomColorDouble + spread;
-		int firstTile = Random.Range(0,4);
-		int firstDoubleTile= Random.Range(0,4);
-		int secondTile= Random.Range(0,4);
-		int lastTile= Random.Range(0,4);
-		while (firstDoubleTile == firstTile)
-			firstDoubleTile = Random.Range (0, 4);
-		while (secondTile == firstTile || secondTile == firstDoubleTile)
-			secondTile = Random.Range (0, 4);
-		while (lastTile == firstTile || lastTile == firstDoubleTile||lastTile == secondTile)
+		if (isGenerating) {
 			lastTile = Random.Range (0, 4);
+			secondTile = Random.Range (0, 4);
+			firstDoubleTile = Random.Range (0, 4);
+			firstTile = Random.Range (0, 4);
+
+			randomColorDouble = Random.Range (0f, 1f);
+			randomColorSecond = randomColorDouble - spread;
+			randomColorLast = randomColorDouble + spread;
+
+			while (firstDoubleTile == firstTile)
+				firstDoubleTile = Random.Range (0, 4);
+			while (secondTile == firstTile || secondTile == firstDoubleTile)
+				secondTile = Random.Range (0, 4);
+			while (lastTile == firstTile || lastTile == firstDoubleTile || lastTile == secondTile)
+				lastTile = Random.Range (0, 4);
+		} else
+			isGenerating = true;
+
 		tiles [firstTile].GetComponent<Renderer>().material.color = Color.HSVToRGB (randomColorDouble, 1f, 1f);
 		tiles [firstDoubleTile].GetComponent<Renderer>().material.color =Color.HSVToRGB (randomColorDouble, 1f, 1f);
 		tiles [secondTile].GetComponent<Renderer>().material.color =Color.HSVToRGB (randomColorSecond, 1f, 1f);

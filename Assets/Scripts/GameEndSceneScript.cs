@@ -39,9 +39,19 @@ public class GameEndSceneScript : MonoBehaviour {
 		switch (gameObject.name) {
 		case "RestartButton":
 			SceneManager.LoadScene ("Play");
+			RespawnScript.isHeard = true;
+			TilesScript.isGenerating = true;
+			TilesScript.spread = 0.09f;
+			TilesScript.level = 1;
+			TilesScript.score = 0;
 			break;
 		case "HomeButton":
 			SceneManager.LoadScene ("Main menu");
+			RespawnScript.isHeard = true;
+			TilesScript.isGenerating = true;
+			TilesScript.spread = 0.09f;
+			TilesScript.level = 2;
+			TilesScript.score = 0;
 			break;
 		}
 	}
@@ -56,4 +66,5 @@ public class GameEndSceneScript : MonoBehaviour {
 			DialogManager.showRateDialog ();
 			
 	}
+
 }
