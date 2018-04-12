@@ -44,9 +44,16 @@ public class MainSceneButtonListener : MonoBehaviour {
         switch (action)
         {
 		case "Play":
-			SceneManager.LoadScene("Play");
+			gameObject.transform.localScale = new Vector3 (0.34f, 0.34f, 1f);
+			StartCoroutine ("wait");
             break;
         }
     }
+
+	IEnumerator wait(){
+		yield return new WaitForSeconds (0.1f);
+		SceneManager.LoadScene("Play");
+		gameObject.transform.localScale = new Vector3(0.3f,0.3f,1f);
+	}
 
 }
