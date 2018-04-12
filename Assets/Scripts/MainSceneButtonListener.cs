@@ -14,8 +14,6 @@ public class MainSceneButtonListener : MonoBehaviour {
 
     void Start()
     {
-
-	
    //     Preferences.resetAttempts();
 		Preferences.setWelcomeShown(false);
 		recordText.text = PlayerPrefs.GetInt("Record").ToString();

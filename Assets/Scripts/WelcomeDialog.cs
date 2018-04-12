@@ -12,7 +12,7 @@ public class WelcomeDialog : MonoBehaviour {
 
 	void Update(){
 		if (isDialog)
-			DialogShow ();
+			DialogWelcomeShow ();
 		if (Input.GetKeyUp (KeyCode.Mouse0)) {
 			Ray ray = mainCamera.ScreenPointToRay (Input.mousePosition);
 			RaycastHit hit;
@@ -27,13 +27,12 @@ public class WelcomeDialog : MonoBehaviour {
 		}
 	}
 
-	void DialogShow(){
+	void DialogWelcomeShow(){
 		dialogPlay.SetActive (true);
 		TilesScript.isDeadFreeze = false;
 		Time.timeScale = 0;
 		isDialog = false;
 	}
-
 
 
 }
