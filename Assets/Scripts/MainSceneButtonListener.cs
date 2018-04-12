@@ -45,6 +45,7 @@ public class MainSceneButtonListener : MonoBehaviour {
         {
 		case "Play":
 			gameObject.transform.localScale = new Vector3 (0.34f, 0.34f, 1f);
+			WelcomeDialog.isDialog = true;
 			StartCoroutine ("wait");
             break;
         }
