@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class MainSceneButtonListener : MonoBehaviour {
 
-	public GameObject quad;
 
     public Text recordText;
 
@@ -14,6 +13,8 @@ public class MainSceneButtonListener : MonoBehaviour {
 
     void Start()
     {
+		WelcomeDialog.isDialog = false;
+		Time.timeScale = 1;
    //     Preferences.resetAttempts();
 		Preferences.setWelcomeShown(false);
 		recordText.text = PlayerPrefs.GetInt("Record").ToString();
@@ -44,6 +45,7 @@ public class MainSceneButtonListener : MonoBehaviour {
 		case "Play":
 			gameObject.transform.localScale = new Vector3 (0.34f, 0.34f, 1f);
 			WelcomeDialog.isDialog = true;
+			WelcomeDialog.isActive = true;
 			StartCoroutine ("wait");
             break;
         }

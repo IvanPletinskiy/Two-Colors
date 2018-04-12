@@ -31,6 +31,7 @@ public class RespawnScript : MonoBehaviour {
 	int lastTile= TilesScript.lastTile;
 
 	void Start () {
+		Time.timeScale = 1;
 		if (isHeard) {
 			heard.SetActive (true);
 		} else
@@ -62,6 +63,7 @@ public class RespawnScript : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			TilesScript.score = 0;
 			TilesScript.level = 1;
+
 			SceneManager.LoadScene ("Main Menu");
 		}
 
