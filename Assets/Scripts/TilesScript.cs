@@ -26,7 +26,7 @@ public class TilesScript : MonoBehaviour {
 	public GameObject wrongTiles;
 	public GameObject referWrongTiles;
 
-	bool isDeadFreeze= true;
+	public static bool isDeadFreeze= true;
 
 	public static float randomColorDouble;
 	public static float randomColorSecond;
