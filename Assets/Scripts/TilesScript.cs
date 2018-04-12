@@ -59,6 +59,7 @@ public class TilesScript : MonoBehaviour {
     public bool next, lose;
 
     void Start () {
+		Time.timeScale = 1;
 		level--;
 		if (!Preferences.isWelcomeShown()) {
 			Preferences.setWelcomeShown (true);
@@ -78,7 +79,12 @@ public class TilesScript : MonoBehaviour {
 	}
 
 	void Update () {
-
+		if (Input.GetKeyDown (KeyCode.Escape) && WelcomeDialog.isActive==true) {
+			WelcomeDialog.isActive = false;
+			TilesScript.isDeadFreeze = true;
+			Time.timeScale = 1;
+		}
+		else
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			score = 0;
 			level = 1;
@@ -120,7 +126,7 @@ public class TilesScript : MonoBehaviour {
         if (next && !lose)
             updateLevel();
 
-		if (Input.GetKeyDown (KeyCode.Mouse0) && isDeadFreeze == true) {
+		if (Input.GetKeyDown (KeyCode.Mouse0) ) {
 			RaycastHit hit;
 			Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
 			if (Physics.Raycast (ray, out hit)) {

@@ -13,8 +13,9 @@ public class DialogRate : MonoBehaviour {
 	void Update () {
 		if (isDialogRate && PlayerPrefs.GetInt("IsRate") != 1)
 			DialogRateShow ();
+		
 		if (Input.GetKeyUp (KeyCode.Mouse0)) {
-			Ray ray = mainCamera.ScreenPointToRay (Input.mousePosition);
+			Ray ray = mainCamera.ScreenPointToRay (new Vector2 (Input.mousePosition.x,Input.mousePosition.y));
 			RaycastHit hit;
 			if (Physics.Raycast(ray,out hit)) {
 				if (hit.collider.tag == "Button") {
