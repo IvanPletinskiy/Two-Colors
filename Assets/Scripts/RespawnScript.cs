@@ -47,8 +47,7 @@ public class RespawnScript : MonoBehaviour {
 			recordText.text = text;
 			print ("NEW RECORD");
 			isRecord = true;
-			if(PlayerPrefs.GetInt("IsRate") !=1)
-				DialogManager.showRateDialog ();
+			DialogRate.isDialogRate = true;
 
 		} else {
 			text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation ("yourRecord",
