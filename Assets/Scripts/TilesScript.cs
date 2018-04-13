@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using AppodealAds.Unity.Common;
 using UnityEngine.SceneManagement;
 
-public class TilesScript : MonoBehaviour {
+public class TilesScript : MonoBehaviour, INonSkippableVideoAdListener {
 
 	public Slider slider;
 	public RectTransform sliderRect;
@@ -52,7 +53,7 @@ public class TilesScript : MonoBehaviour {
 //	float fadeDead=0f;
 	
 
-	bool isTimer=false;
+	bool isTimer = false;
 
 	public static bool isGenerating=true;
 
@@ -213,11 +214,6 @@ public class TilesScript : MonoBehaviour {
 		}
     }
 
-    private void checkResult()
-    {
-
-    }
-
     private void endGame()
     {
 		SceneManager.LoadScene ("Game end");
@@ -229,5 +225,30 @@ public class TilesScript : MonoBehaviour {
 		endGame ();
 
 	}
+#region Rewarded Video callback handlers
+    public void onNonSkippableVideoClosed()
+    {
+        
+    }
 
+    public void onNonSkippableVideoFailedToLoad()
+    {
+    
+    }
+
+    public void onNonSkippableVideoFinished()
+    {
+      
+    }
+
+    public void onNonSkippableVideoLoaded()
+    {
+       
+    }
+
+    public void onNonSkippableVideoShown()
+    { 
+
+    }
+#endregion
 }

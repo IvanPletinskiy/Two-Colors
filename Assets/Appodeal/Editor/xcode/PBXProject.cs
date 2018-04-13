@@ -5,7 +5,6 @@ using System.IO;
 using System;
 using Unity.Appodeal.Xcode.PBX;
 
-
 namespace Unity.Appodeal.Xcode
 {
     using PBXBuildFileSection           = KnownSectionBase<PBXBuildFileData>;
