@@ -61,10 +61,6 @@ public class TilesScript : MonoBehaviour {
     void Start () {
 		Time.timeScale = 1;
 		level--;
-		if (!Preferences.isWelcomeShown()) {
-			Preferences.setWelcomeShown (true);
-			DialogManager.showWelcomeDialog ();
-		}
 		fillAreaColor = fillArea.GetComponent<Image> ().color.r;
 		startColors [0] = fillArea.GetComponent<Image> ().color.r;
 		startColors [1] = fillArea.GetComponent<Image> ().color.g;
