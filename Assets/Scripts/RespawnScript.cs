@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using AppodealAds.Unity.Common;
+using AppodealAds.Unity.Api;
 
-public class RespawnScript : MonoBehaviour {
-
+public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 	public Text scoreText, recordText;
+    GameObject adButton;
+
 
 	public Text newRecord;
 	bool isRecord = false;
@@ -25,16 +28,17 @@ public class RespawnScript : MonoBehaviour {
 	float randomColorSecond= TilesScript.randomColorSecond;
 	float randomColorLast= TilesScript.randomColorLast;
 
-	int firstTile= TilesScript.firstTile;
-	int firstDoubleTile= TilesScript.firstDoubleTile;
-	int secondTile= TilesScript.secondTile;
-	int lastTile= TilesScript.lastTile;
+	int firstTile = TilesScript.firstTile;
+	int firstDoubleTile = TilesScript.firstDoubleTile;
+	int secondTile = TilesScript.secondTile;
+	int lastTile = TilesScript.lastTile;
 
 	void Start () {
 		Time.timeScale = 1;
 		if (isHeard) {
 			heard.SetActive (true);
-		} else
+		}
+        else
 			heard.SetActive (false);
 
 		scoreText.text = TilesScript.score.ToString();
@@ -50,7 +54,8 @@ public class RespawnScript : MonoBehaviour {
 			isRecord = true;
 			DialogRate.isDialogRate = true;
 
-		} else {
+		}
+        else {
 			text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation ("yourRecord",
 				nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
 			text += PlayerPrefs.GetInt ("Record").ToString ();
@@ -60,6 +65,16 @@ public class RespawnScript : MonoBehaviour {
 		newRecord.gameObject.SetActive (isRecord);
 	}
 	void Update () {
+
+        adButton = GameObject.Find("AdButton");
+
+        if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO)) {
+            adButton.gameObject.SetActive(true);
+        }
+        else {
+            adButton.gameObject.SetActive(false);
+        }
+
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			TilesScript.score = 0;
 			TilesScript.level = 1;
@@ -94,7 +109,7 @@ public class RespawnScript : MonoBehaviour {
 
 				if (hit.collider.name == "RestartButton") {
 					SceneManager.LoadScene ("Play");
-					RespawnScript.isHeard = true;
+					isHeard = true;
 					TilesScript.isGenerating = true;
 					TilesScript.spread = 0.09f;
 					TilesScript.level = 1;
@@ -102,15 +117,73 @@ public class RespawnScript : MonoBehaviour {
 				}
 				if (hit.collider.name == "HomeButton") {
 					SceneManager.LoadScene ("Main menu");
-					RespawnScript.isHeard = true;
+					isHeard = true;
 					TilesScript.isGenerating = true;
 					TilesScript.spread = 0.09f;
 					TilesScript.level = 1;
 					TilesScript.score = 0;
 				}
-
+                if(hit.collider.name == "AdButton")
+                {
+                    showAd();
+                }
 			}
 		}
-
 	}
+
+    private void showAd()
+    {
+        Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
+    }
+
+    #region Rewarded Video callback handlers
+    public void onNonSkippableVideoClosed()
+    {
+        TilesScript.score = (int)(TilesScript.score * 1.5);
+
+        scoreText.text = TilesScript.score.ToString();
+        string text = "";
+
+        if (TilesScript.score > PlayerPrefs.GetInt("record"))
+        {
+            PlayerPrefs.SetInt("record", TilesScript.score);
+            text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("yourRecord",
+                nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
+            text += PlayerPrefs.GetInt("record").ToString();
+            recordText.text = text;
+            print("NEW RECORD");
+            isRecord = true;
+            DialogManager.showRateDialog();
+        }
+        else
+        {
+            text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("yourRecord",
+                nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
+            text += PlayerPrefs.GetInt("Record").ToString();
+            recordText.text = text;
+            isRecord = false;
+        }
+
+    }
+
+    public void onNonSkippableVideoFailedToLoad()
+    {
+
+    }
+
+    public void onNonSkippableVideoFinished()
+    {
+
+    }
+
+    public void onNonSkippableVideoLoaded()
+    {
+
+    }
+
+    public void onNonSkippableVideoShown()
+    {
+
+    }
+    #endregion
 }

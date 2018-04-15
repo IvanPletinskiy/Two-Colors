@@ -794,8 +794,9 @@ GameObject:
   m_Component:
   - component: {fileID: 691566406}
   - component: {fileID: 691566405}
+  - component: {fileID: 691566407}
   m_Layer: 0
-  m_Name: 60765 (2)
+  m_Name: AdButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -858,6 +859,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &691566407
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 691566404}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.62
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &778592516
 GameObject:
   m_ObjectHideFlags: 0
@@ -1382,6 +1395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 514451322}
   recordText: {fileID: 670100254}
+  adButton: {fileID: 0}
   newRecord: {fileID: 1169706659}
   mainCam: {fileID: 1533721281}
   heard: {fileID: 2036481677}

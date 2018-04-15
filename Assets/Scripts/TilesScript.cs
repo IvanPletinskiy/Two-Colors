@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using AppodealAds.Unity.Common;
 using UnityEngine.SceneManagement;
+using AppodealAds.Unity.Api;
 
 public class TilesScript : MonoBehaviour, INonSkippableVideoAdListener {
 
@@ -216,10 +217,23 @@ public class TilesScript : MonoBehaviour, INonSkippableVideoAdListener {
 
     private void endGame()
     {
-		SceneManager.LoadScene ("Game end");
+//        if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
+//            showHeart();
+//        else
+		    SceneManager.LoadScene ("Game end");
     }
 
-	IEnumerator wait (){
+    private void showHeart()
+    {
+       
+    }
+
+    private void showAd()
+    {
+        Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
+    }
+
+    IEnumerator wait (){
 		yield return new WaitForSeconds (0.5f);
 		isDeadFreeze = true;
 		endGame ();
