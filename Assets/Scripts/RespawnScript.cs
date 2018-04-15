@@ -15,8 +15,6 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 
 	string text;
 
-	public GameObject adButton;
-
 	public Camera mainCam;
 	public GameObject heard;
 	public static bool isHeard=true;
@@ -36,7 +34,11 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 
 	void Start () {
 		Time.timeScale = 1;
-
+		if (isHeard) {
+			heard.SetActive (true);
+		}
+        else
+			heard.SetActive (false);
 
 		scoreText.text = TilesScript.score.ToString();
 
@@ -63,11 +65,8 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 	}
 	void Update () {
 
-		if (isHeard) {
-			heard.SetActive (true);
-		}
-		else
-			heard.SetActive (false);
+        GameObject adButton = GameObject.Find("AdButton");
+
         if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO)) {
             adButton.gameObject.SetActive(true);
         }
@@ -89,7 +88,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 			print (Physics.Raycast (ray, out hit));
 			if (Physics.Raycast (ray, out hit)) {
 				if (hit.collider.tag == "Resp") {
-					/*isHeard = false;
+					isHeard = false;
 
 					TilesScript.randomColorDouble = randomColorDouble;
 					TilesScript.randomColorSecond = randomColorSecond;
@@ -104,12 +103,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 					TilesScript.spread = spreadPlay;
 					TilesScript.level = levelPlay;
 					TilesScript.score = scorePlay;
-					SceneManager.LoadScene ("Play");*/
-					showAd ();
-				}
-				if (hit.collider.name == "pass") {
-					isHeard = false;
-					print ("Yes");
+					SceneManager.LoadScene ("Play");
 				}
 
 				if (hit.collider.name == "RestartButton") {
