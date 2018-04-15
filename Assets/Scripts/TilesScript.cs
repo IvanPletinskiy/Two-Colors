@@ -59,7 +59,7 @@ public class TilesScript : MonoBehaviour {
     public bool next, lose;
 
     void Start () {
-		Time.timeScale = 1;
+
 		level--;
 		fillAreaColor = fillArea.GetComponent<Image> ().color.r;
 		startColors [0] = fillArea.GetComponent<Image> ().color.r;
