@@ -2,7 +2,11 @@ fileFormatVersion: 2
 guid: 81ec1ddde2f81bf41adde546d59e464b
 labels:
 - gpsr
+<<<<<<< HEAD
 timeCreated: 1523828666
+=======
+timeCreated: 1523825436
+>>>>>>> parent of c4f74b9... Revert "То что ты просил"
 licenseType: Free
 PluginImporter:
   externalObjects: {}
