@@ -1,13 +1,5 @@
 fileFormatVersion: 2
 guid: 3d13994125f87f04094fadee3b51b375
-labels:
-- gpsr
-<<<<<<< HEAD:Assets/Plugins/Android/play-services-base-11.0.4.aar.meta
-timeCreated: 1523828657
-=======
-timeCreated: 1523825435
->>>>>>> parent of c4f74b9... Revert "То что ты просил":Assets/Plugins/Android/play-services-base-11.0.4.aar.meta
-licenseType: Free
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2

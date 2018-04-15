@@ -8,7 +8,6 @@ using AppodealAds.Unity.Common;
 
 public class MainSceneButtonListener : MonoBehaviour {
 
-	public GameObject quad;
 
     public Text recordText;
 
@@ -16,6 +15,8 @@ public class MainSceneButtonListener : MonoBehaviour {
 
     void Start()
     {
+		WelcomeDialog.isDialog = false;
+		Time.timeScale = 1;
         initializeAd();    
    //     Preferences.resetAttempts();
 		Preferences.setWelcomeShown(false);
@@ -47,6 +48,8 @@ public class MainSceneButtonListener : MonoBehaviour {
 		case "Play":
 			gameObject.transform.localScale = new Vector3 (0.34f, 0.34f, 1f);
 			StartCoroutine ("wait");
+			WelcomeDialog.isDialog = true;
+			WelcomeDialog.isActive = true;
             break;
         }
     }
