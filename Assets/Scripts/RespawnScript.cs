@@ -8,7 +8,6 @@ using AppodealAds.Unity.Api;
 
 public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 	public Text scoreText, recordText;
-    GameObject adButton;
 
 
 	public Text newRecord;
@@ -66,7 +65,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 	}
 	void Update () {
 
-        adButton = GameObject.Find("AdButton");
+        GameObject adButton = GameObject.Find("AdButton");
 
         if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO)) {
             adButton.gameObject.SetActive(true);
