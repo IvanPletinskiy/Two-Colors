@@ -6,9 +6,9 @@ using UnityEngine.UI;
 using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
 
-public class MainSceneButtonListener : MonoBehaviour {
+public class MainSceneButtonListener : MonoBehaviour
+{
 
-	public GameObject quad;
 
     public Text recordText;
 
@@ -22,22 +22,25 @@ public class MainSceneButtonListener : MonoBehaviour {
     {
         initializeAd();
         audioSource = GetComponent<AudioSource>();
-        //     Preferences.resetAttempts();
+        WelcomeDialog.isDialog = false;
+        Time.timeScale = 1;
         Preferences.setWelcomeShown(false);
-		recordText.text = PlayerPrefs.GetInt("Record").ToString();
+        recordText.text = PlayerPrefs.GetInt("Record").ToString();
     }
 
 
-	void OnMouseDown()
+    void OnMouseDown()
     {
 
     }
 
-	void Update(){
-		if (Input.GetKeyDown(KeyCode.Escape)) {
-			Application.Quit();
-		}
-	}
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
 
     void OnMouseUp()
     {
@@ -46,13 +49,14 @@ public class MainSceneButtonListener : MonoBehaviour {
 
     void OnMouseUpAsButton()
     {
-		
         switch (action)
         {
-		    case "Play":
+            case "Play":
                 audioSource.PlayOneShot(clip);
-                gameObject.transform.localScale = new Vector3 (0.34f, 0.34f, 1f);
-			    StartCoroutine ("wait");
+                gameObject.transform.localScale = new Vector3(0.34f, 0.34f, 1f);
+                StartCoroutine("wait");
+                WelcomeDialog.isDialog = true;
+                WelcomeDialog.isActive = true;
                 break;
         }
     }
@@ -63,11 +67,10 @@ public class MainSceneButtonListener : MonoBehaviour {
         Appodeal.initialize(appKey, Appodeal.NON_SKIPPABLE_VIDEO);
     }
 
-	IEnumerator wait(){
-		yield return new WaitForSeconds (0.1f);
-		SceneManager.LoadScene("Play");
-		gameObject.transform.localScale = new Vector3(0.3f,0.3f,1f);
-	}
-
-
+    IEnumerator wait()
+    {
+        yield return new WaitForSeconds(0.1f);
+        SceneManager.LoadScene("Play");
+        gameObject.transform.localScale = new Vector3(0.3f, 0.3f, 1f);
+    }
 }

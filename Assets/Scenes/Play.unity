@@ -904,6 +904,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 1476763766}
   sliderRect: {fileID: 1476763765}
+  clickSound: {fileID: 8300000, guid: b14634e5382b7f24d8cc1dbb6a4679d9, type: 3}
+  audioSource: {fileID: 0}
+  moneySound: {fileID: 8300000, guid: a76bd4d75e625534bb905166db5b2ef7, type: 3}
   fillArea: {fileID: 2086497634}
   TEST: {fileID: 1542629988}
   scoreText: {fileID: 285735274}
@@ -992,7 +995,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
