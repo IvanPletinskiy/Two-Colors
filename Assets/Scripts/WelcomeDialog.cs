@@ -29,7 +29,6 @@ public class WelcomeDialog : MonoBehaviour {
 					TEST.SetActive (false);
 				}
 			}
-
 		}
 	}
 
@@ -39,6 +38,4 @@ public class WelcomeDialog : MonoBehaviour {
 		Time.timeScale = 0;
 		isDialog = false;
 	}
-
-
 }

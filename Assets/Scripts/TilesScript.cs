@@ -11,6 +11,10 @@ public class TilesScript : MonoBehaviour, INonSkippableVideoAdListener {
 	public Slider slider;
 	public RectTransform sliderRect;
 
+    public AudioClip clickSound;
+    public AudioSource audioSource;
+    public AudioClip moneySound;
+
 	float timer = 0f;
 
 	public GameObject fillArea;
@@ -61,7 +65,9 @@ public class TilesScript : MonoBehaviour, INonSkippableVideoAdListener {
     public bool next, lose;
 
     void Start () {
-		Time.timeScale = 1;
+        audioSource = GetComponent<AudioSource>();
+
+        Time.timeScale = 1;
 		level--;
 		if (!Preferences.isWelcomeShown()) {
 			Preferences.setWelcomeShown (true);
@@ -132,22 +138,22 @@ public class TilesScript : MonoBehaviour, INonSkippableVideoAdListener {
 			RaycastHit hit;
 			Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
 			if (Physics.Raycast (ray, out hit)) {
+                playSound(clickSound);    
 				if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z ==-3.14f ) {
 					hit.collider.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,-3.44f);
 					numberOfActiveTiles++;
 					checkNumber ();
 				}
-				else if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z ==-3.44f) {
+				else 
+                if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z ==-3.44f) {
 					hit.collider.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,-3.14f);
 					numberOfActiveTiles--;
 				}
 			}
 		}
-
-
     }
 
-	private void checkNumber(){
+	private void checkNumber() {
 		if (numberOfActiveTiles == 2) {
 			int number = 0;
 			for (int i = 0; i < 4; i++) {
@@ -155,20 +161,21 @@ public class TilesScript : MonoBehaviour, INonSkippableVideoAdListener {
 					number++;
 				}
 			}
-			if (number == 2)
-				updateLevel ();
-			else {
-				wrongTiles.SetActive(true);
-				isDeadFreeze = false;
-				isTimer = false;
-				StartCoroutine ("wait");
-			}
-
+            if (number == 2) {
+                updateLevel();
+                playSound(moneySound);
+            }
+            else
+            {
+                wrongTiles.SetActive(true);
+                isDeadFreeze = false;
+                isTimer = false;
+                StartCoroutine("wait");
+            }
 		}
 	}
 
-    private void updateLevel()
-    {
+    private void updateLevel() {
 		wrongTiles.SetActive (false);
 		fillArea.GetComponent<Image> ().color = new Vector4(startColors[0],startColors[1],startColors[2],1f);
         level++;
@@ -179,8 +186,7 @@ public class TilesScript : MonoBehaviour, INonSkippableVideoAdListener {
         updateTiles();
     }
 
-    private void updateTiles()
-    {
+    private void updateTiles() {
 		TEST.gameObject.SetActive (false); // DON'T DELETE
 
 		numberOfActiveTiles = 0;
@@ -213,6 +219,10 @@ public class TilesScript : MonoBehaviour, INonSkippableVideoAdListener {
 		for (int i = 0; i < 4; i++) {
 			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -3.14f);
 		}
+    }
+
+    public void playSound(AudioClip clip) {
+        audioSource.PlayOneShot(clip);
     }
 
     private void endGame()

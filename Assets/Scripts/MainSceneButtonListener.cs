@@ -14,11 +14,16 @@ public class MainSceneButtonListener : MonoBehaviour {
 
     public string action;
 
+    public AudioClip clip;
+    AudioSource audioSource;
+
+
     void Start()
     {
-        initializeAd();    
-   //     Preferences.resetAttempts();
-		Preferences.setWelcomeShown(false);
+        initializeAd();
+        audioSource = GetComponent<AudioSource>();
+        //     Preferences.resetAttempts();
+        Preferences.setWelcomeShown(false);
 		recordText.text = PlayerPrefs.GetInt("Record").ToString();
     }
 
@@ -44,10 +49,11 @@ public class MainSceneButtonListener : MonoBehaviour {
 		
         switch (action)
         {
-		case "Play":
-			gameObject.transform.localScale = new Vector3 (0.34f, 0.34f, 1f);
-			StartCoroutine ("wait");
-            break;
+		    case "Play":
+                audioSource.PlayOneShot(clip);
+                gameObject.transform.localScale = new Vector3 (0.34f, 0.34f, 1f);
+			    StartCoroutine ("wait");
+                break;
         }
     }
 
