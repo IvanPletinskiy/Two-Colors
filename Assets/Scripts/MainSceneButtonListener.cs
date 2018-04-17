@@ -5,15 +5,17 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi;
+using UnityEngine.SocialPlatforms;
+using GooglePlayGames;
+using UnityEngine.SocialPlatforms;
 
 public class MainSceneButtonListener : MonoBehaviour
 {
-
-
     public Text recordText;
 
     public string action;
-
     public AudioClip clip;
     AudioSource audioSource;
 
@@ -65,6 +67,19 @@ public class MainSceneButtonListener : MonoBehaviour
     {
         string appKey = "b1312497ddd5c9fdc3ba969a9488d90b5278eb4b1f8c0a22";
         Appodeal.initialize(appKey, Appodeal.NON_SKIPPABLE_VIDEO);
+    }
+
+    public void initializeGPS()
+    {
+        // Рекомендовано для откладки:
+        PlayGamesPlatform.DebugLogEnabled = true;
+        // Активировать Google Play Games Platform
+        PlayGamesPlatform.Activate();
+        // Аутентификация игрока:
+        Social.localUser.Authenticate((bool success) => {
+            // Удачно или нет?
+        });
+
     }
 
     IEnumerator wait()
