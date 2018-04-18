@@ -3,36 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using AppodealAds.Unity.Api;
-using AppodealAds.Unity.Common;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using UnityEngine.SocialPlatforms;
-
+using GooglePlayGames;
+using UnityEngine.SocialPlatforms;
+using GooglePlayGames;
+using UnityEngine.SocialPlatforms;
 
 public class MainSceneButtonListener : MonoBehaviour
 {
+
+
     public Text recordText;
 
     public string action;
+
     public AudioClip clip;
     AudioSource audioSource;
+
+    void Awake()
+    {
+        initializeAd();
+        initializeGPS();
+    }
 
 
     void Start()
     {
-        initializeAd();
         audioSource = GetComponent<AudioSource>();
         WelcomeDialog.isDialog = false;
         Time.timeScale = 1;
         Preferences.setWelcomeShown(false);
         recordText.text = PlayerPrefs.GetInt("Record").ToString();
-    }
-
-
-    void OnMouseDown()
-    {
-
     }
 
     void Update()
@@ -43,14 +46,9 @@ public class MainSceneButtonListener : MonoBehaviour
         }
     }
 
-    void OnMouseUp()
-    {
-
-    }
-
     void OnMouseUpAsButton()
     {
-        switch (action)
+        switch (gameObject.name)
         {
             case "Play":
                 audioSource.PlayOneShot(clip);
@@ -59,29 +57,36 @@ public class MainSceneButtonListener : MonoBehaviour
                 WelcomeDialog.isDialog = true;
                 WelcomeDialog.isActive = true;
                 break;
+            case "ShowLeaderboard":
+                Debug.Log("ShowLeaderboard Button");
+                PlayGamesPlatform.Instance.ShowLeaderboardUI("CgkInY7b68gcEAIQAA");
+                break;
         }
     }
 
     public void initializeAd()
     {
-        string appKey = "b1312497ddd5c9fdc3ba969a9488d90b5278eb4b1f8c0a22";
-        Appodeal.initialize(appKey, Appodeal.NON_SKIPPABLE_VIDEO);
+//        string appKey = "b1312497ddd5c9fdc3ba969a9488d90b5278eb4b1f8c0a22";
+//        Appodeal.initialize(appKey, Appodeal.NON_SKIPPABLE_VIDEO);
     }
 
     public void initializeGPS()
     {
         // Рекомендовано для откладки:
         PlayGamesPlatform.DebugLogEnabled = true;
+        
+        if(!Social.localUser.authenticated)
+            // Аутентификация игрока:
+            Social.localUser.Authenticate((bool success) => {
+                // Удачно или нет?
+            
+            });
+
         // Активировать Google Play Games Platform
         PlayGamesPlatform.Activate();
-        // Аутентификация игрока:
-        Social.localUser.Authenticate((bool success) => {
-            // Удачно или нет?
-        });
-
     }
 
-    IEnumerator wait()
+IEnumerator wait()
     {
         yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene("Play");

@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using AppodealAds.Unity.Common;
-using AppodealAds.Unity.Api;
 
-public class GameEndSceneScript : MonoBehaviour, INonSkippableVideoAdListener {
+
+public class GameEndSceneScript : MonoBehaviour {
     public Text scoreText, recordText;
     public Button adButton;
 
@@ -14,9 +13,8 @@ public class GameEndSceneScript : MonoBehaviour, INonSkippableVideoAdListener {
 	bool isRecord = false;
 
 	void Start () {
-        Debug.Log("GameEndScript is loaded " + Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO));
+  //      Debug.Log("GameEndScript is loaded " + Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO));
         scoreText.text = TilesScript.score.ToString();
-
         string text = "";
 		if (TilesScript.score > PlayerPrefs.GetInt ("record")) {
 			PlayerPrefs.SetInt ("record", TilesScript.score);
@@ -27,7 +25,6 @@ public class GameEndSceneScript : MonoBehaviour, INonSkippableVideoAdListener {
 			print ("NEW RECORD");
 			isRecord = true;
 			DialogManager.showRateDialog();
-
 		}
         else {
 			text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation ("yourRecord",
@@ -37,11 +34,9 @@ public class GameEndSceneScript : MonoBehaviour, INonSkippableVideoAdListener {
 			isRecord = false;
 		}
 		newRecord.gameObject.SetActive (isRecord);
-        
 	}
 
 	void Update () {
-            
 
     }
 
@@ -71,7 +66,7 @@ public class GameEndSceneScript : MonoBehaviour, INonSkippableVideoAdListener {
 
     private void showAd()
     {
-        Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
+//        Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
     }
 
     #region Rewarded Video callback handlers
