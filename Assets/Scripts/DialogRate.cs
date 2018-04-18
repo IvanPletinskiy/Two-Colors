@@ -33,6 +33,7 @@ public class DialogRate : MonoBehaviour {
 					Time.timeScale = 1;
 				}
 			}
+
 		}
 	}
 
