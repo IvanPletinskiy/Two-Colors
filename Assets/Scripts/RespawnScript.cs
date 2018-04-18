@@ -86,7 +86,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 		if (Input.GetKeyUp (KeyCode.Mouse0)) {
 			RaycastHit hit;
 			Ray ray = mainCam.ScreenPointToRay (new Vector2 (Input.mousePosition.x,Input.mousePosition.y));
-			print (Physics.Raycast(ray,out hit));
+			print (Physics.Raycast (ray, out hit));
 			if (Physics.Raycast (ray, out hit)) {
 				if (hit.collider.tag == "Resp") {
 					/*isHeard = false;
@@ -131,7 +131,6 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
                 if(hit.collider.name == "AdButton")
                 {
                     showAd();
-
                 }
 			}
 		}
@@ -140,7 +139,6 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
     private void showAd()
     {
         Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
-		print ("Ad");
     }
 
     #region Rewarded Video callback handlers
