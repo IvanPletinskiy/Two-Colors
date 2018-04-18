@@ -15,14 +15,12 @@ public class MainSceneButtonListener : MonoBehaviour
     public Text recordText;
 
     public string action;
-    public AudioClip clip;
-    AudioSource audioSource;
 
 
     void Start()
     {
+		PlayerPrefs.SetInt ("onlyOneDialog", 0);//ТОЛЬКО ДЛЯ ТЕСТА
         initializeAd();
-        audioSource = GetComponent<AudioSource>();
         WelcomeDialog.isDialog = false;
         Time.timeScale = 1;
         Preferences.setWelcomeShown(false);
@@ -52,8 +50,8 @@ public class MainSceneButtonListener : MonoBehaviour
     {
         switch (action)
         {
-            case "Play":
-                audioSource.PlayOneShot(clip);
+		case "Play":
+				GetComponent<AudioSource> ().Play();
                 gameObject.transform.localScale = new Vector3(0.34f, 0.34f, 1f);
                 StartCoroutine("wait");
                 WelcomeDialog.isDialog = true;

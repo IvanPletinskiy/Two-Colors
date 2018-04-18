@@ -65,6 +65,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 
 		if (isHeard) {
 			heard.SetActive (true);
+			newRecord.gameObject.SetActive (false);
 		}
 		else
 			heard.SetActive (false);

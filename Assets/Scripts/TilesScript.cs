@@ -12,7 +12,6 @@ public class TilesScript : MonoBehaviour, INonSkippableVideoAdListener {
 	public RectTransform sliderRect;
 
     public AudioClip clickSound;
-    public AudioSource audioSource;
     public AudioClip moneySound;
 
 	float timer = 0f;
@@ -65,7 +64,6 @@ public class TilesScript : MonoBehaviour, INonSkippableVideoAdListener {
     public bool next, lose;
 
     void Start () {
-        audioSource = GetComponent<AudioSource>();
 
         Time.timeScale = 1;
 		level--;
@@ -138,7 +136,7 @@ public class TilesScript : MonoBehaviour, INonSkippableVideoAdListener {
 			RaycastHit hit;
 			Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
 			if (Physics.Raycast (ray, out hit)) {
-                playSound(clickSound);    
+				GetComponent<AudioSource> ().PlayOneShot(clickSound);
 				if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z ==-3.14f ) {
 					hit.collider.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,-3.44f);
 					numberOfActiveTiles++;
@@ -163,7 +161,7 @@ public class TilesScript : MonoBehaviour, INonSkippableVideoAdListener {
 			}
             if (number == 2) {
                 updateLevel();
-                playSound(moneySound);
+				GetComponent<AudioSource> ().PlayOneShot(moneySound);
             }
             else
             {
@@ -220,10 +218,7 @@ public class TilesScript : MonoBehaviour, INonSkippableVideoAdListener {
 			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -3.14f);
 		}
     }
-
-    public void playSound(AudioClip clip) {
-        audioSource.PlayOneShot(clip);
-    }
+		
 
     private void endGame()
     {

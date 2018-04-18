@@ -14,8 +14,8 @@ public class WelcomeDialog : MonoBehaviour {
 	public static bool isActive=true;
 
 	void Update(){
-		dialogPlay.SetActive (isActive);
-		if (isDialog)
+		
+		if (isDialog && PlayerPrefs.GetInt("onlyOneDialog") !=1)
 			DialogWelcomeShow ();
 		if (Input.GetKeyUp (KeyCode.Mouse0)) {
 			Ray ray =mainCamera.ScreenPointToRay (new Vector2 (Input.mousePosition.x,Input.mousePosition.y));
@@ -23,7 +23,7 @@ public class WelcomeDialog : MonoBehaviour {
 			if (Physics.Raycast(ray,out hit)) {
 				if (hit.collider.tag == "Button") {
 					isActive = false;
-
+					dialogPlay.SetActive (isActive);
 					TilesScript.isDeadFreeze = true;
 					Time.timeScale = 1;
 					TEST.SetActive (false);
@@ -36,6 +36,7 @@ public class WelcomeDialog : MonoBehaviour {
 		dialogPlay.SetActive (isActive);
 		TilesScript.isDeadFreeze = false;
 		Time.timeScale = 0;
+		PlayerPrefs.SetInt ("onlyOneDialog", 1);
 		isDialog = false;
 	}
 }
