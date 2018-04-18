@@ -139,6 +139,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
     private void showAd()
     {
         Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
+
 		print ("Ad");
 		isHeard = false;
 
