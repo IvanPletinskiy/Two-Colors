@@ -1,17 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/Plugins/Android/play-services-ads-10.2.1.aar.meta
 guid: 4aef4fc0e4330bb4a960fa280a70b29e
-timeCreated: 1523999202
-licenseType: Free
-=======
-guid: 7ca20a79ed8246098137c44d4fc18540
-labels:
-- gvh
-- gvh_targets-editor
-- gvh_version-1.2.61.0
-timeCreated: 1473798236
-licenseType: Pro
->>>>>>> f1457651b0642b7acd43fff9583720ebaf4a1147:Assets/PlayServicesResolver/Editor/Google.IOSResolver_v1.2.61.0.dll.meta
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
