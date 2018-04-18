@@ -139,6 +139,23 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
     private void showAd()
     {
         Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
+		print ("Ad");
+		isHeard = false;
+
+		TilesScript.randomColorDouble = randomColorDouble;
+		TilesScript.randomColorSecond = randomColorSecond;
+		TilesScript.randomColorLast = randomColorLast;
+
+		TilesScript.firstTile = firstTile;
+		TilesScript.firstDoubleTile = firstDoubleTile;
+		TilesScript.secondTile = secondTile;
+		TilesScript.lastTile = lastTile;
+
+		TilesScript.isGenerating = false;
+		TilesScript.spread = spreadPlay;
+		TilesScript.level = levelPlay;
+		TilesScript.score = scorePlay;
+		SceneManager.LoadScene ("Play");
     }
 
     #region Rewarded Video callback handlers

@@ -8,8 +8,7 @@ using AppodealAds.Unity.Common;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using UnityEngine.SocialPlatforms;
-using GooglePlayGames;
-using UnityEngine.SocialPlatforms;
+
 
 public class MainSceneButtonListener : MonoBehaviour
 {
