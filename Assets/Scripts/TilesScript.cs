@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using AppodealAds.Unity.Common;
 using UnityEngine.SceneManagement;
-using AppodealAds.Unity.Api;
 
-public class TilesScript : MonoBehaviour, INonSkippableVideoAdListener {
-
+public class TilesScript : MonoBehaviour {
+	//Идентификатор приложения: ca-app-pub-8846064674071043~1339025968
+	//f41936dc9c4122ac7298a437a449af4b178cf19859f5c599
 	public Slider slider;
 	public RectTransform sliderRect;
 
@@ -240,7 +239,7 @@ public class TilesScript : MonoBehaviour, INonSkippableVideoAdListener {
 
     private void showAd()
     {
-        Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
+       
     }
 
     IEnumerator wait (){

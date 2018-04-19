@@ -235,8 +235,8 @@ namespace Unity.Appodeal.Xcode
 
                 if (fileRef != null)
                 {
-                    pPath = PBX.Utils.CombinePaths(projectPath, fileRef.name);
-                    PBX.Utils.CombinePaths(realPath, realPathTree, fileRef.path, fileRef.tree, out rPath, out rTree);
+                    pPath = Utils.CombinePaths(projectPath, fileRef.name);
+                    Utils.CombinePaths(realPath, realPathTree, fileRef.path, fileRef.tree, out rPath, out rTree);
 
                     if (!m_ProjectPathToFileRefMap.ContainsKey(pPath))
                     {
@@ -261,8 +261,8 @@ namespace Unity.Appodeal.Xcode
                 PBXGroupData gr = groups[guid];
                 if (gr != null)
                 {
-                    pPath = PBX.Utils.CombinePaths(projectPath, gr.name);
-                    PBX.Utils.CombinePaths(realPath, realPathTree, gr.path, gr.tree, out rPath, out rTree);
+                    pPath = Utils.CombinePaths(projectPath, gr.name);
+                    Utils.CombinePaths(realPath, realPathTree, gr.path, gr.tree, out rPath, out rTree);
 
                     if (!m_ProjectPathToGroupMap.ContainsKey(pPath))
                     {

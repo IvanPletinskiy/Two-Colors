@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using AppodealAds.Unity.Common;
-using AppodealAds.Unity.Api;
 
-public class GameEndSceneScript : MonoBehaviour, INonSkippableVideoAdListener {
+
+public class GameEndSceneScript : MonoBehaviour {
     public Text scoreText, recordText;
     public Button adButton;
 
@@ -14,7 +13,7 @@ public class GameEndSceneScript : MonoBehaviour, INonSkippableVideoAdListener {
 	bool isRecord = false;
 
 	void Start () {
-        Debug.Log("GameEndScript is loaded " + Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO));
+        
         scoreText.text = TilesScript.score.ToString();
 
         string text = "";
@@ -71,7 +70,7 @@ public class GameEndSceneScript : MonoBehaviour, INonSkippableVideoAdListener {
 
     private void showAd()
     {
-        Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
+        
     }
 
     #region Rewarded Video callback handlers

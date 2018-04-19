@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using AppodealAds.Unity.Api;
-using AppodealAds.Unity.Common;
-using GooglePlayGames;
-using GooglePlayGames.BasicApi;
+using GoogleMobileAds.Api;
 using UnityEngine.SocialPlatforms;
 
 
 public class MainSceneButtonListener : MonoBehaviour
 {
     public Text recordText;
+
+	public static string adRevive = "ca-app-pub-8846064674071043/2962442284";
+	public static string adXscore = "ca-app-pub-8846064674071043/5358162027";
 
     public string action;
     public AudioClip clip;
@@ -64,16 +64,16 @@ public class MainSceneButtonListener : MonoBehaviour
 
     public void initializeAd()
     {
-        string appKey = "b1312497ddd5c9fdc3ba969a9488d90b5278eb4b1f8c0a22";
-        Appodeal.initialize(appKey, Appodeal.NON_SKIPPABLE_VIDEO);
+       // string appKey = "b1312497ddd5c9fdc3ba969a9488d90b5278eb4b1f8c0a22";
+        
     }
 
     public void initializeGPS()
     {
         // Рекомендовано для откладки:
-        PlayGamesPlatform.DebugLogEnabled = true;
+        //PlayGamesPlatform.DebugLogEnabled = true;
         // Активировать Google Play Games Platform
-        PlayGamesPlatform.Activate();
+        //PlayGamesPlatform.Activate();
         // Аутентификация игрока:
         Social.localUser.Authenticate((bool success) => {
             // Удачно или нет?

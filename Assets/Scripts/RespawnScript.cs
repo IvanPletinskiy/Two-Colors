@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using AppodealAds.Unity.Common;
-using AppodealAds.Unity.Api;
+using GoogleMobileAds.Api;
 
-public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
+
+public class RespawnScript : MonoBehaviour {
 	public Text scoreText, recordText;
 
 
@@ -68,12 +68,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 		}
 		else
 			heard.SetActive (false);
-        if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO)) {
-            adButton.gameObject.SetActive(true);
-        }
-        else {
-            adButton.gameObject.SetActive(false);
-        }
+       
 
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			TilesScript.score = 0;
@@ -139,11 +134,11 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 
     private void showAd()
     {
-        Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
+        
 		print ("Ad");
 		isHeard = false;
 
-		TilesScript.randomColorDouble = randomColorDouble;
+		/*TilesScript.randomColorDouble = randomColorDouble;
 		TilesScript.randomColorSecond = randomColorSecond;
 		TilesScript.randomColorLast = randomColorLast;
 
@@ -156,7 +151,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 		TilesScript.spread = spreadPlay;
 		TilesScript.level = levelPlay;
 		TilesScript.score = scorePlay;
-		SceneManager.LoadScene ("Play");
+		SceneManager.LoadScene ("Play");*/
     }
 
     #region Rewarded Video callback handlers
