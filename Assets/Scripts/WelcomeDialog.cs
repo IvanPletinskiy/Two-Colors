@@ -15,8 +15,9 @@ public class WelcomeDialog : MonoBehaviour {
 
 	void Update(){
 		
-		if (isDialog && PlayerPrefs.GetInt("onlyOneDialog") !=1)
+		if (isDialog && PlayerPrefs.GetInt("onlyOneDialog")!= 1)
 			DialogWelcomeShow ();
+			
 		if (Input.GetKeyUp (KeyCode.Mouse0)) {
 			Ray ray =mainCamera.ScreenPointToRay (new Vector2 (Input.mousePosition.x,Input.mousePosition.y));
 			RaycastHit hit;

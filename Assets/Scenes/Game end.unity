@@ -1486,6 +1486,7 @@ MonoBehaviour:
   adButton: {fileID: 691566404}
   mainCam: {fileID: 1533721281}
   heard: {fileID: 2047759358}
+  dialogRate: {fileID: 1181036053}
 --- !u!114 &1533721284
 MonoBehaviour:
   m_ObjectHideFlags: 0
