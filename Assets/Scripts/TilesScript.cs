@@ -137,7 +137,7 @@ public class TilesScript : MonoBehaviour {//, INonSkippableVideoAdListener
         if (next && !lose)
             updateLevel();
 
-		if (Input.GetKeyDown (KeyCode.Mouse0) ) {
+		if (Input.GetKeyDown (KeyCode.Mouse0)&& isDeadFreeze ) {
 			RaycastHit hit;
 			Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
 			if (Physics.Raycast (ray, out hit)) {

@@ -23,7 +23,6 @@ public class MainSceneButtonListener : MonoBehaviour
         initializeAd();
         WelcomeDialog.isDialog = false;
         Time.timeScale = 1;
-        Preferences.setWelcomeShown(false);
         recordText.text = PlayerPrefs.GetInt("Record").ToString();
     }
 
@@ -67,7 +66,7 @@ public class MainSceneButtonListener : MonoBehaviour
 
     public void initializeAd()
     {
-        string appKey = "b1312497ddd5c9fdc3ba969a9488d90b5278eb4b1f8c0a22";
+        //string appKey = "b1312497ddd5c9fdc3ba969a9488d90b5278eb4b1f8c0a22";
         //Appodeal.initialize(appKey, Appodeal.NON_SKIPPABLE_VIDEO);
     }
 

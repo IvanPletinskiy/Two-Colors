@@ -11,7 +11,7 @@ public class DialogRate : MonoBehaviour {
 	public static bool isDialogRate=false;
 
 	void Update () {
-		if (isDialogRate && PlayerPrefs.GetInt("IsRate") != 1)
+		if (isDialogRate && PlayerPrefs.GetInt("IsRate") != 1 && RespawnScript.isHeard == false)
 			DialogRateShow ();
 		
 		if (Input.GetKeyUp (KeyCode.Mouse0)) {

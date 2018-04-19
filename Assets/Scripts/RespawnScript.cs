@@ -35,6 +35,7 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
 	int secondTile = TilesScript.secondTile;
 	int lastTile = TilesScript.lastTile;
 
+
 	void Start () {
 		Time.timeScale = 1;
 
@@ -133,12 +134,14 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
 				}
                 if(hit.collider.name == "AdButton")
                 {
-                    showAd();
+                    showAdXScore();
                 }
 			}
 		}
 	}
-
+	private void showAdXScore(){
+		
+	}
     private void showAd()
     {
         //Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
