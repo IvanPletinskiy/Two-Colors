@@ -1,5 +1,5 @@
-lastUpgrade=00934
-proj.pluginVersion=0.9.34
+lastUpgrade=00950
+proj.pluginVersion=0.9.50
 proj.AppId=981625915165
 and.BundleId=com.handen.twocolors
 proj.classDir=Assets

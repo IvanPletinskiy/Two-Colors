@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/Plugins/Android/play-services-games-10.2.1.aar.meta
-guid: f79b70902700d5343baf396e6813f146
-timeCreated: 1523999202
-=======
 guid: ef7b93f3f51ca1a45a92a724249b5f7f
 timeCreated: 1524064164
->>>>>>> f1457651b0642b7acd43fff9583720ebaf4a1147:Assets/Plugins/Android/com.android.support.support-compat-25.2.0.aar.meta
 licenseType: Free
 PluginImporter:
   externalObjects: {}

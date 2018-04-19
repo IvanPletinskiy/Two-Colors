@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using GoogleMobileAds.Api;
 
-
-public class RespawnScript : MonoBehaviour {
+public class RespawnScript : MonoBehaviour  {
 	public Text scoreText, recordText;
 
 
@@ -37,10 +35,9 @@ public class RespawnScript : MonoBehaviour {
 	void Start () {
 		Time.timeScale = 1;
 
-
 		scoreText.text = TilesScript.score.ToString();
-
-		text = "";
+        
+        text = "";
 		if (TilesScript.score > PlayerPrefs.GetInt ("Record")) {
 			PlayerPrefs.SetInt ("Record", TilesScript.score);
 			text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation ("yourRecord",
@@ -65,11 +62,15 @@ public class RespawnScript : MonoBehaviour {
 
 		if (isHeard) {
 			heard.SetActive (true);
-			newRecord.gameObject.SetActive (false);
 		}
 		else
 			heard.SetActive (false);
-       
+  //      if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO)) {
+  //          adButton.gameObject.SetActive(true);
+  //      }
+ //       else {
+ //           adButton.gameObject.SetActive(false);
+ //       }
 
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			TilesScript.score = 0;
@@ -82,7 +83,7 @@ public class RespawnScript : MonoBehaviour {
 		if (Input.GetKeyUp (KeyCode.Mouse0)) {
 			RaycastHit hit;
 			Ray ray = mainCam.ScreenPointToRay (new Vector2 (Input.mousePosition.x,Input.mousePosition.y));
-			print (Physics.Raycast (ray, out hit));
+			print (Physics.Raycast(ray,out hit));
 			if (Physics.Raycast (ray, out hit)) {
 				if (hit.collider.tag == "Resp") {
 					/*isHeard = false;
@@ -134,29 +135,8 @@ public class RespawnScript : MonoBehaviour {
 
     private void showAd()
     {
-<<<<<<< HEAD
-        
-=======
-        Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
-
->>>>>>> c7c82d1e9327244ce8512585391c58b1c98fa994
-		print ("Ad");
-		isHeard = false;
-
-		/*TilesScript.randomColorDouble = randomColorDouble;
-		TilesScript.randomColorSecond = randomColorSecond;
-		TilesScript.randomColorLast = randomColorLast;
-
-		TilesScript.firstTile = firstTile;
-		TilesScript.firstDoubleTile = firstDoubleTile;
-		TilesScript.secondTile = secondTile;
-		TilesScript.lastTile = lastTile;
-
-		TilesScript.isGenerating = false;
-		TilesScript.spread = spreadPlay;
-		TilesScript.level = levelPlay;
-		TilesScript.score = scorePlay;
-		SceneManager.LoadScene ("Play");*/
+//        Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
+//		print ("Ad");
     }
 
     #region Rewarded Video callback handlers

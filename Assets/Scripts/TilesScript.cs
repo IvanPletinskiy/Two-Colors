@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
 using UnityEngine.SceneManagement;
 
+
 public class TilesScript : MonoBehaviour {
-	//Идентификатор приложения: ca-app-pub-8846064674071043~1339025968
-	//f41936dc9c4122ac7298a437a449af4b178cf19859f5c599
+
 	public Slider slider;
 	public RectTransform sliderRect;
 
     public AudioClip clickSound;
+    public AudioSource audioSource;
     public AudioClip moneySound;
 
 	float timer = 0f;
@@ -63,6 +65,7 @@ public class TilesScript : MonoBehaviour {
     public bool next, lose;
 
     void Start () {
+        audioSource = GetComponent<AudioSource>();
 
         Time.timeScale = 1;
 		level--;
@@ -135,7 +138,7 @@ public class TilesScript : MonoBehaviour {
 			RaycastHit hit;
 			Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
 			if (Physics.Raycast (ray, out hit)) {
-				GetComponent<AudioSource> ().PlayOneShot(clickSound);
+                playSound(clickSound);    
 				if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z ==-3.14f ) {
 					hit.collider.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,-3.44f);
 					numberOfActiveTiles++;
@@ -160,7 +163,7 @@ public class TilesScript : MonoBehaviour {
 			}
             if (number == 2) {
                 updateLevel();
-				GetComponent<AudioSource> ().PlayOneShot(moneySound);
+                playSound(moneySound);
             }
             else
             {
@@ -217,7 +220,10 @@ public class TilesScript : MonoBehaviour {
 			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -3.14f);
 		}
     }
-		
+
+    public void playSound(AudioClip clip) {
+        audioSource.PlayOneShot(clip);
+    }
 
     private void endGame()
     {
@@ -234,7 +240,7 @@ public class TilesScript : MonoBehaviour {
 
     private void showAd()
     {
-       
+ //       Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
     }
 
     IEnumerator wait (){
