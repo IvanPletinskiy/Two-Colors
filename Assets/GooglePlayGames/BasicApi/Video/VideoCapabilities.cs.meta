@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Appodeal/Editor/xcode/AssetCatalog.cs.meta
+guid: 2e14d6a3744774b6786ef24b52331f08
+timeCreated: 1502787004
+licenseType: Free
+=======
+guid: 66d5aef9f073a4950932c5583b7584b2
+labels:
+- gvh
+- gvh_version-0.9.50
+timeCreated: 1489093751
+licenseType: Pro
+>>>>>>> c7c82d1e9327244ce8512585391c58b1c98fa994:Assets/GooglePlayGames/BasicApi/Video/VideoCapabilities.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
