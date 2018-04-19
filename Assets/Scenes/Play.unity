@@ -906,6 +906,7 @@ MonoBehaviour:
   sliderRect: {fileID: 1476763765}
   clickSound: {fileID: 8300000, guid: b14634e5382b7f24d8cc1dbb6a4679d9, type: 3}
   moneySound: {fileID: 8300000, guid: a76bd4d75e625534bb905166db5b2ef7, type: 3}
+  gameOverSound: {fileID: 0}
   fillArea: {fileID: 2086497634}
   TEST: {fileID: 1542629988}
   scoreText: {fileID: 285735274}

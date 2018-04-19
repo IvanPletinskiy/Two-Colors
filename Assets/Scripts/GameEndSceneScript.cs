@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class GameEndSceneScript : MonoBehaviour {//, INonSkippableVideoAdListener
     public Text scoreText, recordText;
     public Button adButton;
+    public AudioClip gameOverClip;
 
 	public Text newRecord;
 	bool isRecord = false;
@@ -16,6 +17,8 @@ public class GameEndSceneScript : MonoBehaviour {//, INonSkippableVideoAdListene
 	void Start () {
         //Debug.Log("GameEndScript is loaded " + Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO));
         scoreText.text = TilesScript.score.ToString();
+
+        GetComponent<AudioSource>().PlayOneShot(gameOverClip);
 
         string text = "";
 		if (TilesScript.score > PlayerPrefs.GetInt ("record")) {
@@ -41,7 +44,6 @@ public class GameEndSceneScript : MonoBehaviour {//, INonSkippableVideoAdListene
 	}
 
 	void Update () {
-            
 
     }
 

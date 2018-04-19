@@ -9,8 +9,9 @@ using UnityEngine.SceneManagement;
 public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
 	public Text scoreText, recordText;
 
+    public AudioClip gameOverClip;
 
-	public Text newRecord;
+    public Text newRecord;
 	bool isRecord = false;
 
 	string text;
@@ -37,8 +38,9 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
 	void Start () {
 		Time.timeScale = 1;
 
+        GetComponent<AudioSource>().PlayOneShot(gameOverClip);
 
-		scoreText.text = TilesScript.score.ToString();
+        scoreText.text = TilesScript.score.ToString();
 
 		text = "";
 		if (TilesScript.score > PlayerPrefs.GetInt ("Record")) {

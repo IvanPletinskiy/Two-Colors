@@ -13,6 +13,7 @@ public class TilesScript : MonoBehaviour {//, INonSkippableVideoAdListener
 
     public AudioClip clickSound;
     public AudioClip moneySound;
+    public AudioClip gameOverSound;
 
 	float timer = 0f;
 
@@ -31,7 +32,7 @@ public class TilesScript : MonoBehaviour {//, INonSkippableVideoAdListener
 	public GameObject wrongTiles;
 	public GameObject referWrongTiles;
 
-	public static bool isDeadFreeze= true;
+	public static bool isDeadFreeze = true;
 
 	public static float randomColorDouble;
 	public static float randomColorSecond;
@@ -85,17 +86,21 @@ public class TilesScript : MonoBehaviour {//, INonSkippableVideoAdListener
 	}
 
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Escape) && WelcomeDialog.isActive==true) {
-			WelcomeDialog.isActive = false;
-			TilesScript.isDeadFreeze = true;
-			Time.timeScale = 1;
-		}
-		else
-		if (Input.GetKeyDown(KeyCode.Escape)) {
-			score = 0;
-			level = 1;
-			SceneManager.LoadScene ("Main Menu");
-		}
+        if (Input.GetKeyDown(KeyCode.Escape) && WelcomeDialog.isActive == true)
+        {
+            WelcomeDialog.isActive = false;
+            TilesScript.isDeadFreeze = true;
+            Time.timeScale = 1;
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                score = 0;
+                level = 1;
+                SceneManager.LoadScene("Main Menu");
+            }
+        }
 
 		scoreText.text = score.ToString();
 		string text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("level",nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
@@ -136,17 +141,17 @@ public class TilesScript : MonoBehaviour {//, INonSkippableVideoAdListener
 			RaycastHit hit;
 			Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
 			if (Physics.Raycast (ray, out hit)) {
-				GetComponent<AudioSource> ().PlayOneShot(clickSound);
+				playSound(clickSound);
 				if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z ==-3.14f ) {
 					hit.collider.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,-3.44f);
 					numberOfActiveTiles++;
 					checkNumber ();
 				}
 				else 
-                if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z ==-3.44f) {
-					hit.collider.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,-3.14f);
-					numberOfActiveTiles--;
-				}
+                    if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z ==-3.44f) {
+					    hit.collider.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,-3.14f);
+					    numberOfActiveTiles--;
+				    }
 			}
 		}
     }
@@ -161,7 +166,7 @@ public class TilesScript : MonoBehaviour {//, INonSkippableVideoAdListener
 			}
             if (number == 2) {
                 updateLevel();
-				GetComponent<AudioSource> ().PlayOneShot(moneySound);
+				playSound(moneySound);
             }
             else
             {
@@ -218,6 +223,11 @@ public class TilesScript : MonoBehaviour {//, INonSkippableVideoAdListener
 			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -3.14f);
 		}
     }
+
+    private void playSound(AudioClip clip)
+    {
+        GetComponent<AudioSource>().PlayOneShot(clip);
+    }
 		
 
     private void endGame()
@@ -226,11 +236,6 @@ public class TilesScript : MonoBehaviour {//, INonSkippableVideoAdListener
 //            showHeart();
 //        else
 		    SceneManager.LoadScene ("Game end");
-    }
-
-    private void showHeart()
-    {
-       
     }
 
     private void showAd()

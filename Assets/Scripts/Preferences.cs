@@ -7,6 +7,7 @@ public class Preferences {
 	public static string DIALOG_RATE = "dialog_rate";
     public static string TOTAL_ATTEMPTS = "total_attempts";
     public static string RECORD = "record";
+    public static string AUTHENTICATED = "authenticated";
 
     public static void increaseAndSaveAttempts()
     {
@@ -46,6 +47,18 @@ public class Preferences {
     {
         int value = isShown ? 1 : 0;
         PlayerPrefs.SetInt(DIALOG_RATE, value);
+    }
+
+    public static bool isAuthenticated()
+    {
+        int value = PlayerPrefs.GetInt(AUTHENTICATED, 0);
+        return value == 1;
+    }
+
+    public static void setAuthenticated(bool isAuthenticated)
+    {
+        int value = isAuthenticated ? 1 : 0;
+        PlayerPrefs.SetInt(AUTHENTICATED, value);
     }
 		
 }

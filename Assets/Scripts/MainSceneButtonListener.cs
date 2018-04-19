@@ -16,7 +16,6 @@ public class MainSceneButtonListener : MonoBehaviour
 
     public string action;
 
-
     void Start()
     {
 		//PlayerPrefs.SetInt ("IsRate", 0);//ТОЛЬКО ДЛЯ ТЕСТА
@@ -26,6 +25,11 @@ public class MainSceneButtonListener : MonoBehaviour
         Time.timeScale = 1;
         Preferences.setWelcomeShown(false);
         recordText.text = PlayerPrefs.GetInt("Record").ToString();
+    }
+
+    void Awake()
+    {
+        initializeGPS();
     }
 
 
@@ -51,7 +55,7 @@ public class MainSceneButtonListener : MonoBehaviour
     {
         switch (action)
         {
-		case "Play":
+		    case "Play":
 				GetComponent<AudioSource> ().Play();
                 gameObject.transform.localScale = new Vector3(0.34f, 0.34f, 1f);
                 StartCoroutine("wait");
@@ -69,14 +73,18 @@ public class MainSceneButtonListener : MonoBehaviour
 
     public void initializeGPS()
     {
-        // Рекомендовано для откладки:
-        PlayGamesPlatform.DebugLogEnabled = true;
-        // Активировать Google Play Games Platform
-        PlayGamesPlatform.Activate();
-        // Аутентификация игрока:
-        Social.localUser.Authenticate((bool success) => {
-            // Удачно или нет?
-        });
+        if (!Preferences.isAuthenticated())
+        {
+            // Рекомендовано для откладки:
+            PlayGamesPlatform.DebugLogEnabled = true;
+            // Активировать Google Play Games Platform
+            PlayGamesPlatform.Activate();
+            // Аутентификация игрока:
+            Social.localUser.Authenticate((bool isAuthenticated) =>
+            {            
+                Preferences.setAuthenticated(isAuthenticated);
+            });
+        }
 
     }
 
