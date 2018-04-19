@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using AppodealAds.Unity.Common;
-using AppodealAds.Unity.Api;
+//using AppodealAds.Unity.Common;
+//using AppodealAds.Unity.Api;
 
-public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
+public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
 	public Text scoreText, recordText;
 
 
@@ -69,12 +69,12 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 		}
 		else
 			heard.SetActive (false);
-        if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO)) {
+        /*if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO)) {
             adButton.gameObject.SetActive(true);
         }
         else {
             adButton.gameObject.SetActive(false);
-        }
+        }*/
 
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			TilesScript.score = 0;
@@ -139,7 +139,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 
     private void showAd()
     {
-        Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
+        //Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
 
 		print ("Ad");
 		isHeard = false;

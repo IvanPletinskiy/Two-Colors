@@ -905,7 +905,6 @@ MonoBehaviour:
   slider: {fileID: 1476763766}
   sliderRect: {fileID: 1476763765}
   clickSound: {fileID: 8300000, guid: b14634e5382b7f24d8cc1dbb6a4679d9, type: 3}
-  audioSource: {fileID: 0}
   moneySound: {fileID: 8300000, guid: a76bd4d75e625534bb905166db5b2ef7, type: 3}
   fillArea: {fileID: 2086497634}
   TEST: {fileID: 1542629988}
@@ -1642,8 +1641,9 @@ GameObject:
   - component: {fileID: 1386545782}
   - component: {fileID: 1386545784}
   - component: {fileID: 1386545783}
+  - component: {fileID: 1386545785}
   m_Layer: 5
-  m_Name: WelcomeText
+  m_Name: TitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1706,6 +1706,24 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1386545781}
+--- !u!114 &1386545785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1386545781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a06f976f6c25f3841af817b9d178dc12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsRegistered: 0
+  fieldName: welcome
+  useCustomLanguage: 0
+  customLanguage: 0
+  AutoRegister: 1
+  logMethods: 0
+  logLevel: 0
 --- !u!1 &1390065731
 GameObject:
   m_ObjectHideFlags: 0
@@ -2023,8 +2041,9 @@ GameObject:
   - component: {fileID: 1533934685}
   - component: {fileID: 1533934687}
   - component: {fileID: 1533934686}
+  - component: {fileID: 1533934688}
   m_Layer: 5
-  m_Name: Text
+  m_Name: WelcomeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2089,6 +2108,24 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1533934684}
+--- !u!114 &1533934688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1533934684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a06f976f6c25f3841af817b9d178dc12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsRegistered: 0
+  fieldName: welcomeText
+  useCustomLanguage: 0
+  customLanguage: 0
+  AutoRegister: 1
+  logMethods: 0
+  logLevel: 0
 --- !u!1 &1542629988
 GameObject:
   m_ObjectHideFlags: 0

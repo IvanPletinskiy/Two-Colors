@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using AppodealAds.Unity.Common;
+//using AppodealAds.Unity.Common;
 using System;
 
-public class AdManager : MonoBehaviour, INonSkippableVideoAdListener {
+public class AdManager : MonoBehaviour {//, INonSkippableVideoAdListener
     public void onNonSkippableVideoClosed()
     {
         throw new NotImplementedException();

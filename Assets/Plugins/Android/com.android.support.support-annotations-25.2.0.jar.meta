@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/Plugins/Android/play-services-drive-10.2.1.aar.meta
-guid: cf6a11514fb568b4e841e0f9b176c195
-timeCreated: 1523999202
-=======
 guid: e84fe38aadd061542a67584e9a25a310
 timeCreated: 1524064164
->>>>>>> f1457651b0642b7acd43fff9583720ebaf4a1147:Assets/Plugins/Android/com.android.support.support-annotations-25.2.0.jar.meta
 licenseType: Free
 PluginImporter:
   externalObjects: {}

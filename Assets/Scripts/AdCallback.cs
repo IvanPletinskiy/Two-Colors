@@ -1,10 +1,10 @@
-﻿using AppodealAds.Unity.Common;
+﻿//using AppodealAds.Unity.Common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class AdCallback : INonSkippableVideoAdListener {
+public class AdCallback {// : INonSkippableVideoAdListener
 
     AdCallback()
     {
