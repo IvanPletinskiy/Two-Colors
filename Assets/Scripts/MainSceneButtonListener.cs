@@ -19,7 +19,7 @@ public class MainSceneButtonListener : MonoBehaviour
     void Start()
     {
 		//PlayerPrefs.SetInt ("IsRate", 0);//ТОЛЬКО ДЛЯ ТЕСТА
-		PlayerPrefs.SetInt ("onlyOneDialog", 0);//ТОЛЬКО ДЛЯ ТЕСТА
+//		PlayerPrefs.SetInt ("onlyOneDialog", 0);//ТОЛЬКО ДЛЯ ТЕСТА
         initializeAd();
         WelcomeDialog.isDialog = false;
         Time.timeScale = 1;
@@ -63,7 +63,31 @@ public class MainSceneButtonListener : MonoBehaviour
                 break;
 			case "ShowLeaderboard" :
 				Debug.Log("Inside ShowLeaderboard");
-				break;	
+                gameObject.transform.localScale = new Vector3(0.21f, 0.21f, 1f);
+                StartCoroutine("leaderboardButtonCourite");
+                PlayGamesPlatform.Instance.ShowLeaderboardUI();
+                /*
+                if (Social.localUser.authenticated)
+                    Social.ShowLeaderboardUI();
+                else
+                {
+                    // authenticate user:
+                    Social.localUser.Authenticate((bool success) => {
+                        // handle success or failure
+                        if (success)
+                        {
+                            Debug.Log("Login Success....");
+                     //       PostHighScoreOnLeaderBoard();
+                            Social.ShowLeaderboardUI();
+                        }
+                        else
+                        {
+                            Debug.Log("Login Failed....");
+                        }
+                    });
+                }
+                */
+                break;	
         }
     }
 
@@ -95,5 +119,10 @@ public class MainSceneButtonListener : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene("Play");
         gameObject.transform.localScale = new Vector3(0.3f, 0.3f, 1f);
+    }
+    IEnumerator leaderboardButtonCourite()
+    {
+        yield return new WaitForSeconds(0.1f);
+        gameObject.transform.localScale = new Vector3(0.174f, 0.174f, 1f);
     }
 }

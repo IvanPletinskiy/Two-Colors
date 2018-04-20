@@ -10,18 +10,21 @@ public class WelcomeDialog : MonoBehaviour {
 
 	public Camera mainCamera;
 
-	public static bool isDialog=false;
-	public static bool isActive=true;
+	public static bool isDialog = false;
+	public static bool isActive = true;
 
 	void Update(){
-		
-		if (isDialog && PlayerPrefs.GetInt("onlyOneDialog")!= 1)
-			DialogWelcomeShow ();
+
+        if (isDialog && Preferences.isWelcomeShown())
+        {
+            DialogWelcomeShow();
+            Preferences.setWelcomeShown(true);
+        }
 			
 		if (Input.GetKeyUp (KeyCode.Mouse0)) {
-			Ray ray =mainCamera.ScreenPointToRay (new Vector2 (Input.mousePosition.x,Input.mousePosition.y));
+			Ray ray = mainCamera.ScreenPointToRay (new Vector2 (Input.mousePosition.x,Input.mousePosition.y));
 			RaycastHit hit;
-			if (Physics.Raycast(ray,out hit)) {
+			if (Physics.Raycast(ray, out hit)) {
 				if (hit.collider.tag == "Button") {
 					isActive = false;
 					dialogPlay.SetActive (isActive);

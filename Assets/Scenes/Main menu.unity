@@ -491,6 +491,7 @@ GameObject:
   - component: {fileID: 657780657}
   - component: {fileID: 657780656}
   - component: {fileID: 657780658}
+  - component: {fileID: 657780659}
   m_Layer: 0
   m_Name: ShowLeaderboard
   m_TagString: Untagged
@@ -570,6 +571,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2.56
+--- !u!114 &657780659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 657780655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ffd7235d24705c49803ee2bc48122dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordText: {fileID: 1537627856}
+  action: Play
 --- !u!1 &940067871
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,6 +669,7 @@ GameObject:
   - component: {fileID: 1069115879}
   - component: {fileID: 1069115880}
   - component: {fileID: 1069115881}
+  - component: {fileID: 1069115878}
   m_Layer: 0
   m_Name: Play
   m_TagString: Untagged
@@ -720,6 +735,19 @@ Transform:
   m_Father: {fileID: 1577059371}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1069115878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1069115875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ffd7235d24705c49803ee2bc48122dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recordText: {fileID: 1537627856}
+  action: Play
 --- !u!58 &1069115879
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1104,7 +1132,6 @@ GameObject:
   - component: {fileID: 1960000313}
   - component: {fileID: 1960000316}
   - component: {fileID: 1960000312}
-  - component: {fileID: 1960000315}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1179,19 +1206,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1960000315
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1960000310}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ffd7235d24705c49803ee2bc48122dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  recordText: {fileID: 1537627856}
-  action: Play
 --- !u!114 &1960000316
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -28,13 +28,18 @@ public class Preferences {
     public static bool isWelcomeShown()
     {
         int value = PlayerPrefs.GetInt(DIALOG_WELCOME, 0);
-        return value == 1;
+        if (value == 1)
+            return true;
+        else
+            return false;
     }
 
     public static void setWelcomeShown(bool isShown)
     {
-        int value = isShown ? 1 : 0;
-        PlayerPrefs.SetInt(DIALOG_WELCOME ,value);
+        if(isShown)
+            PlayerPrefs.SetInt(DIALOG_WELCOME, 1);
+        else
+            PlayerPrefs.SetInt(DIALOG_WELCOME , 0);
     }
 
     public static bool isRateShown()

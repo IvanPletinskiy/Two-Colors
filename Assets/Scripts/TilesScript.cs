@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 //using AppodealAds.Unity.Api;
 
-public class TilesScript : MonoBehaviour {//, INonSkippableVideoAdListener
+public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 
 	public Slider slider;
 	public RectTransform sliderRect;
@@ -68,10 +68,10 @@ public class TilesScript : MonoBehaviour {//, INonSkippableVideoAdListener
 
         Time.timeScale = 1;
 		level--;
-		if (!Preferences.isWelcomeShown()) {
-			Preferences.setWelcomeShown (true);
-			DialogManager.showWelcomeDialog ();
-		}
+//		if (!Preferences.isWelcomeShown()) {
+//			Preferences.setWelcomeShown (true);
+//			DialogManager.showWelcomeDialog ();
+//		}
 		fillAreaColor = fillArea.GetComponent<Image> ().color.r;
 		startColors [0] = fillArea.GetComponent<Image> ().color.r;
 		startColors [1] = fillArea.GetComponent<Image> ().color.g;
