@@ -52,9 +52,11 @@ public class MainSceneButtonListener : MonoBehaviour
 
     void OnMouseUpAsButton()
     {
+		print ("Yes");
 		switch (gameObject.name)
         {
 		    case "Play":
+				print ("Yesa");
 				GetComponent<AudioSource> ().Play();
                 gameObject.transform.localScale = new Vector3(0.34f, 0.34f, 1f);
                 StartCoroutine("wait");
