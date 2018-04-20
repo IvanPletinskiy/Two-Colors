@@ -52,7 +52,7 @@ public class MainSceneButtonListener : MonoBehaviour
 
     void OnMouseUpAsButton()
     {
-        switch (action)
+		switch (gameObject.name)
         {
 		    case "Play":
 				GetComponent<AudioSource> ().Play();
@@ -61,6 +61,9 @@ public class MainSceneButtonListener : MonoBehaviour
                 WelcomeDialog.isDialog = true;
                 WelcomeDialog.isActive = true;
                 break;
+			case "ShowLeaderboard" :
+				Debug.Log("Inside ShowLeaderboard");
+				break;	
         }
     }
 
