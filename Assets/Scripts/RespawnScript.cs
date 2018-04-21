@@ -38,8 +38,8 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
 
 	void Start () {
 		Time.timeScale = 1;
-
-        GetComponent<AudioSource>().PlayOneShot(gameOverClip);
+		if(!isHeard)
+        	GetComponent<AudioSource>().PlayOneShot(gameOverClip);
 
         scoreText.text = TilesScript.score.ToString();
 

@@ -18,6 +18,7 @@ public class MainSceneButtonListener : MonoBehaviour
 
     void Start()
     {
+		//PlayerPrefs.SetInt(Preferences.DIALOG_WELCOME, 0);//ВАНЯ, ЭТО ДЛЯ ТОГО ЧТО БЫ ПРОВЕРЯТЬ ДИАЛОГ НА РАБОТОСПОСОБНОСТЬ
 		//PlayerPrefs.SetInt ("IsRate", 0);//ТОЛЬКО ДЛЯ ТЕСТА
 //		PlayerPrefs.SetInt ("onlyOneDialog", 0);//ТОЛЬКО ДЛЯ ТЕСТА
         initializeAd();

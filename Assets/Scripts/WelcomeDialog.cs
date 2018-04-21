@@ -14,11 +14,10 @@ public class WelcomeDialog : MonoBehaviour {
 	public static bool isActive = true;
 
 	void Update(){
-
         if (isDialog && Preferences.isWelcomeShown())
         {
-            DialogWelcomeShow();
-            Preferences.setWelcomeShown(true);
+			print ("aa");
+			DialogWelcomeShow ();
         }
 			
 		if (Input.GetKeyUp (KeyCode.Mouse0)) {
@@ -40,7 +39,7 @@ public class WelcomeDialog : MonoBehaviour {
 		dialogPlay.SetActive (isActive);
 		TilesScript.isDeadFreeze = false;
 		Time.timeScale = 0;
-		PlayerPrefs.SetInt ("onlyOneDialog", 1);
+		Preferences.setWelcomeShown(true);
 		isDialog = false;
 	}
 }
