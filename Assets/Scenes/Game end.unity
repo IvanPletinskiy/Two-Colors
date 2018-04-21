@@ -1669,7 +1669,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 514451322}
   recordText: {fileID: 670100254}
-  gameOverClip: {fileID: 8300000, guid: bda0916c7d2c3764cbfba72d7ced3585, type: 3}
+  gameOverClip: {fileID: 8300000, guid: 2213269566d2af844ace44f8abe9ac33, type: 3}
+  gameRecordClip: {fileID: 8300000, guid: dc3f337e7b6c66c43bfe41d7bd0edff6, type: 3}
   newRecord: {fileID: 1169706659}
   adButton: {fileID: 691566404}
   mainCam: {fileID: 1533721281}
@@ -1698,7 +1699,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.202
+  m_Volume: 0.671
   m_Pitch: 1
   Loop: 0
   Mute: 0

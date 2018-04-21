@@ -10,6 +10,7 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
 	public Text scoreText, recordText;
 
     public AudioClip gameOverClip;
+	public AudioClip gameRecordClip;
 
     public Text newRecord;
 	bool isRecord = false;
@@ -38,13 +39,12 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
 
 	void Start () {
 		Time.timeScale = 1;
-		if(!isHeard)
-        	GetComponent<AudioSource>().PlayOneShot(gameOverClip);
+
 
         scoreText.text = TilesScript.score.ToString();
 
 		text = "";
-		if (TilesScript.score > PlayerPrefs.GetInt ("Record")) {
+		if (TilesScript.score > PlayerPrefs.GetInt ("Record") && !isHeard) {
 			PlayerPrefs.SetInt ("Record", TilesScript.score);
 			text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation ("yourRecord",
 				nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
@@ -53,6 +53,7 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
 			print ("NEW RECORD");
 			isRecord = true;
 			DialogRate.isDialogRate = true;
+			GetComponent<AudioSource>().PlayOneShot(gameRecordClip);
 
 		}
         else {
@@ -63,9 +64,11 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
 			isRecord = false;
 		}
 		newRecord.gameObject.SetActive (isRecord);
+		if(!isHeard && !isRecord)
+			GetComponent<AudioSource>().PlayOneShot(gameOverClip);
 	}
 	void Update () {
-
+		
 		if (isHeard) {
 			heard.SetActive (true);
 			newRecord.gameObject.SetActive (false);
@@ -113,7 +116,7 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
 				}
 				if (hit.collider.name == "pass") {
 					isHeard = false;
-					print ("Yes");
+					Start ();
 				}
 
 				if (hit.collider.name == "RestartButton") {
