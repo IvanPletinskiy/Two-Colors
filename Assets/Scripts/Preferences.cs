@@ -8,12 +8,14 @@ public class Preferences {
     public static string TOTAL_ATTEMPTS = "total_attempts";
     public static string RECORD = "record";
     public static string AUTHENTICATED = "authenticated";
+	public static string MUSIC = "music";
 
     public static void increaseAndSaveAttempts()
     {
         int playerAttempts = getAttempts() + 1;
         PlayerPrefs.SetInt(TOTAL_ATTEMPTS, playerAttempts);
     }
+
 
     public static int getAttempts()
     {
@@ -62,5 +64,18 @@ public class Preferences {
         int value = isAuthenticated ? 1 : 0;
         PlayerPrefs.SetInt(AUTHENTICATED, value);
     }
+
+	public static bool isMusic() {
+		if (PlayerPrefs.GetInt (MUSIC) != 1)
+			return true;
+		else
+			return false;
+	}
+
+	public static void setMusic(bool isMus){
+		if (isMus)
+			PlayerPrefs.SetInt (MUSIC, 1);
+		else PlayerPrefs.SetInt (MUSIC, 0);
+	}
 		
 }

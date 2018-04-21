@@ -226,7 +226,8 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 
     private void playSound(AudioClip clip)
     {
-        GetComponent<AudioSource>().PlayOneShot(clip);
+		if(Preferences.isMusic())
+        	GetComponent<AudioSource>().PlayOneShot(clip);
     }
 		
 

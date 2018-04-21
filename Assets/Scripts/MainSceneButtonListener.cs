@@ -14,6 +14,8 @@ public class MainSceneButtonListener : MonoBehaviour
 {
     public Text recordText;
 
+	public GameObject offMusic;
+
     public string action;
 
     void Start()
@@ -40,6 +42,7 @@ public class MainSceneButtonListener : MonoBehaviour
 
     void Update()
     {
+		offMusic.SetActive (!Preferences.isMusic ());
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -53,12 +56,16 @@ public class MainSceneButtonListener : MonoBehaviour
 
     void OnMouseUpAsButton()
     {
-		print ("Yes");
 		switch (gameObject.name)
         {
+			case "Music":
+				Preferences.setMusic (Preferences.isMusic ());
+				print (Preferences.isMusic ());
+				break;
 		    case "Play":
 				print ("Yesa");
-				GetComponent<AudioSource> ().Play();
+				if(Preferences.isMusic())
+					GetComponent<AudioSource> ().Play();
                 gameObject.transform.localScale = new Vector3(0.34f, 0.34f, 1f);
                 StartCoroutine("wait");
                 WelcomeDialog.isDialog = true;

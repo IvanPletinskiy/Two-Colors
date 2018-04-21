@@ -53,7 +53,8 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
 			print ("NEW RECORD");
 			isRecord = true;
 			DialogRate.isDialogRate = true;
-			GetComponent<AudioSource>().PlayOneShot(gameRecordClip);
+			if(Preferences.isMusic())
+				GetComponent<AudioSource>().PlayOneShot(gameRecordClip);
 
 		}
         else {
@@ -64,7 +65,7 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
 			isRecord = false;
 		}
 		newRecord.gameObject.SetActive (isRecord);
-		if(!isHeard && !isRecord)
+		if(!isHeard && !isRecord && Preferences.isMusic())
 			GetComponent<AudioSource>().PlayOneShot(gameOverClip);
 	}
 	void Update () {
