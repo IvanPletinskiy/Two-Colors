@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 //using AppodealAds.Unity.Common;
 //using AppodealAds.Unity.Api;
 
@@ -45,6 +46,7 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
 
 		text = "";
 		if (TilesScript.score > PlayerPrefs.GetInt ("Record") && !isHeard) {
+            postRecord();
 			PlayerPrefs.SetInt ("Record", TilesScript.score);
 			text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation ("yourRecord",
 				nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
@@ -68,7 +70,26 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
 		if(!isHeard && !isRecord && Preferences.isMusic())
 			GetComponent<AudioSource>().PlayOneShot(gameOverClip);
 	}
-	void Update () {
+
+    private void postRecord()
+    {
+        //if (Social.localUser.authenticated)
+        //{
+            Social.ReportScore(100, "CgkInY7b68gcEAIQAA", (bool success) =>
+            {
+                if(success)
+                {
+                    Debug.Log("Update Score Success");
+                }
+                else
+                {
+                    Debug.Log("Update Score Fail");
+                }
+            });
+        //}
+    }
+
+    void Update () {
 		
 		if (isHeard) {
 			heard.SetActive (true);

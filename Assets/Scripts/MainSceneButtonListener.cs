@@ -27,11 +27,15 @@ public class MainSceneButtonListener : MonoBehaviour
         WelcomeDialog.isDialog = false;
         Time.timeScale = 1;
         recordText.text = PlayerPrefs.GetInt("Record").ToString();
+        // Рекомендовано для откладки:
+        PlayGamesPlatform.DebugLogEnabled = true;
+        // Активировать Google Play Games Platform
+        PlayGamesPlatform.Activate();
     }
 
     void Awake()
     {
-        initializeGPS();
+        
     }
 
 
@@ -72,10 +76,19 @@ public class MainSceneButtonListener : MonoBehaviour
                 WelcomeDialog.isActive = true;
                 break;
 			case "ShowLeaderboard" :
-				Debug.Log("Inside ShowLeaderboard");
-                gameObject.transform.localScale = new Vector3(0.21f, 0.21f, 1f);
-                StartCoroutine("leaderboardButtonCourite");
-                PlayGamesPlatform.Instance.ShowLeaderboardUI();
+                Debug.Log("Inside ShowLeaderboard");
+                Social.localUser.Authenticate((bool isAuthenticated) =>
+                {
+                    if (isAuthenticated)
+                    {
+                        //gameObject.transform.localScale = new Vector3(0.21f, 0.21f, 1f);
+                        //StartCoroutine("leaderboardButtonCourite");
+                        Social.ShowLeaderboardUI();
+                       
+                    }
+                });
+                
+                //PlayGamesPlatform.Instance.ShowLeaderboardUI();
                 /*
                 if (Social.localUser.authenticated)
                     Social.ShowLeaderboardUI();
