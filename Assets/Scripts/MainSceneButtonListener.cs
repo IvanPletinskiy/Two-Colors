@@ -73,7 +73,7 @@ public class MainSceneButtonListener : MonoBehaviour
 				print ("Yesa");
 				if(Preferences.isMusic())
 					GetComponent<AudioSource> ().Play();
-                gameObject.transform.localScale = new Vector3(0.34f, 0.34f, 1f);
+				gameObject.transform.localScale = new Vector3(0.22f, 1, 0.22f);
                 StartCoroutine("wait");
                 WelcomeDialog.isDialog = true;
                 WelcomeDialog.isActive = true;
@@ -84,8 +84,8 @@ public class MainSceneButtonListener : MonoBehaviour
                 {
                     if (isAuthenticated)
                     {
-                        //gameObject.transform.localScale = new Vector3(0.21f, 0.21f, 1f);
-                        //StartCoroutine("leaderboardButtonCourite");
+						gameObject.transform.localScale = new Vector3(0.14f, 1f, 0.14f);
+                        StartCoroutine("leaderboardButtonCourite");
                         Social.ShowLeaderboardUI();
                        
                     }
@@ -149,11 +149,11 @@ public class MainSceneButtonListener : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene("Play");
-        gameObject.transform.localScale = new Vector3(0.3f, 0.3f, 1f);
+		gameObject.transform.localScale = new Vector3(0.2f, 1, 0.2f);
     }
     IEnumerator leaderboardButtonCourite()
     {
         yield return new WaitForSeconds(0.1f);
-        gameObject.transform.localScale = new Vector3(0.174f, 0.174f, 1f);
+		gameObject.transform.localScale = new Vector3(0.12f, 1f, 0.12f);
     }
 }
