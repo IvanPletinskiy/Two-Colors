@@ -166,6 +166,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
         if (adCallbackTAG.Equals("HEART"))
         {
             isHeard = false;
+            heard.SetActive(false);
             TilesScript.randomColorDouble = randomColorDouble;
             TilesScript.randomColorSecond = randomColorSecond;
             TilesScript.randomColorLast = randomColorLast;
