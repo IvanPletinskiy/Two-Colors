@@ -116,7 +116,7 @@ public class MainSceneButtonListener : MonoBehaviour
 
     public void initializeAd()
     {
-        if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
+        if (!Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
         {
             //if(Appodeal.isLoaded())
             Appodeal.disableNetwork("inmobi");

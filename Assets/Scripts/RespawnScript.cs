@@ -25,26 +25,27 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 	public static bool isHeard=true;
 
 	float spreadPlay = TilesScript.spread;
-	int levelPlay= TilesScript.level;
-	int scorePlay= TilesScript.score;
+	int levelPlay = TilesScript.level;
+	int scorePlay = TilesScript.score;
 
-	float randomColorDouble= TilesScript.randomColorDouble;
-	float randomColorSecond= TilesScript.randomColorSecond;
-	float randomColorLast= TilesScript.randomColorLast;
+	float randomColorDouble = TilesScript.randomColorDouble;
+	float randomColorSecond = TilesScript.randomColorSecond;
+	float randomColorLast = TilesScript.randomColorLast;
 
 	int firstTile = TilesScript.firstTile;
 	int firstDoubleTile = TilesScript.firstDoubleTile;
 	int secondTile = TilesScript.secondTile;
-	int lastTile = TilesScript.lastTile;
+    int lastTile = TilesScript.lastTile;
 
+    private string adCallbackTAG;
 
 	void Start () {
 		Time.timeScale = 1;
 
-
         scoreText.text = TilesScript.score.ToString();
 
 		text = "";
+
 		if (TilesScript.score > PlayerPrefs.GetInt ("Record") && !isHeard) {
             postRecord();
 			PlayerPrefs.SetInt ("Record", TilesScript.score);
@@ -70,23 +71,13 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
         recordText.gameObject.SetActive(!isRecord);
 		if(!isHeard && !isRecord && Preferences.isMusic())
 			GetComponent<AudioSource>().PlayOneShot(gameOverClip);
-	}
-
-    private void postRecord()
-    {
-        //if (Social.localUser.authenticated)
+        if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
         {
-            Social.ReportScore(TilesScript.score, "CgkInY7b68gcEAIQAA", (bool success) =>
-            {
-                if(success)
-                {
-                    Debug.Log("Update Score Success");
-                }
-                else
-                {
-                    Debug.Log("Update Score Fail");
-                }
-            });
+            adButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            adButton.gameObject.SetActive(false);
         }
     }
 
@@ -98,12 +89,6 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 		}
 		else
 			heard.SetActive (false);
-        /*if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO)) {
-            adButton.gameObject.SetActive(true);
-        }
-        else {
-            adButton.gameObject.SetActive(false);
-        }*/
 
 		if (Input.GetKeyDown(KeyCode.Escape)) {
 			TilesScript.score = 0;
@@ -111,7 +96,6 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 
 			SceneManager.LoadScene ("Main Menu");
 		}
-
 		
 		if (Input.GetKeyUp (KeyCode.Mouse0)) {
 			RaycastHit hit;
@@ -119,23 +103,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 			print (Physics.Raycast (ray, out hit));
 			if (Physics.Raycast (ray, out hit)) {
 				if (hit.collider.tag == "Resp") {
-					/*isHeard = false;
-
-					TilesScript.randomColorDouble = randomColorDouble;
-					TilesScript.randomColorSecond = randomColorSecond;
-					TilesScript.randomColorLast = randomColorLast;
-
-					TilesScript.firstTile = firstTile;
-					TilesScript.firstDoubleTile = firstDoubleTile;
-					TilesScript.secondTile = secondTile;
-					TilesScript.lastTile = lastTile;
-
-					TilesScript.isGenerating = false;
-					TilesScript.spread = spreadPlay;
-					TilesScript.level = levelPlay;
-					TilesScript.score = scorePlay;
-					SceneManager.LoadScene ("Play");*/
-					showAd ();
+					showAd();
 				}
 				if (hit.collider.name == "pass") {
 					isHeard = false;
@@ -160,7 +128,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 				}
                 if(hit.collider.name == "AdButton")
                 {
-                    showAdXScore();
+                    showAd();
                 }
 			}
 		}
@@ -171,7 +139,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
     private void showAd()
     {
        Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
-
+/*
 		print ("Ad");
 		isHeard = false;
 
@@ -189,26 +157,34 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 		TilesScript.level = levelPlay;
 		TilesScript.score = scorePlay;
 		SceneManager.LoadScene ("Play");
+        */
     }
 
     #region Rewarded Video callback handlers
     public void onNonSkippableVideoClosed()
     {
+        if (adCallbackTAG.Equals("HEART"))
+        {
+            isHeard = false;
+            TilesScript.randomColorDouble = randomColorDouble;
+            TilesScript.randomColorSecond = randomColorSecond;
+            TilesScript.randomColorLast = randomColorLast;
 
-        TilesScript.randomColorDouble = randomColorDouble;
-        TilesScript.randomColorSecond = randomColorSecond;
-        TilesScript.randomColorLast = randomColorLast;
+            TilesScript.firstTile = firstTile;
+            TilesScript.firstDoubleTile = firstDoubleTile;
+            TilesScript.secondTile = secondTile;
+            TilesScript.lastTile = lastTile;
 
-        TilesScript.firstTile = firstTile;
-        TilesScript.firstDoubleTile = firstDoubleTile;
-        TilesScript.secondTile = secondTile;
-        TilesScript.lastTile = lastTile;
+            TilesScript.isGenerating = false;
+            TilesScript.spread = spreadPlay;
+            TilesScript.level = levelPlay;
+            TilesScript.score = scorePlay;
+            SceneManager.LoadScene("Play");
+        }
+        if(adCallbackTAG.Equals("ADBUTTON"))
+        {
 
-        TilesScript.isGenerating = false;
-        TilesScript.spread = spreadPlay;
-        TilesScript.level = levelPlay;
-        TilesScript.score = scorePlay;
-        SceneManager.LoadScene("Play");
+        }
 
 /*
         TilesScript.score = (int)(TilesScript.score * 1.5);
@@ -241,7 +217,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 
     public void onNonSkippableVideoFailedToLoad()
     {
-
+       
     }
 
     public void onNonSkippableVideoFinished()
@@ -259,4 +235,22 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 
     }
     #endregion
+
+    private void postRecord()
+    {
+        //if (Social.localUser.authenticated)
+        {
+            Social.ReportScore(TilesScript.score, "CgkInY7b68gcEAIQAA", (bool success) =>
+            {
+                if (success)
+                {
+                    Debug.Log("Update Score Success");
+                }
+                else
+                {
+                    Debug.Log("Update Score Fail");
+                }
+            });
+        }
+    }
 }
