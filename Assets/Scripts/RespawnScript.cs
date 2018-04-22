@@ -76,7 +76,7 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
     {
         //if (Social.localUser.authenticated)
         {
-            Social.ReportScore(100, "CgkInY7b68gcEAIQAA", (bool success) =>
+            Social.ReportScore(TilesScript.score, "CgkInY7b68gcEAIQAA", (bool success) =>
             {
                 if(success)
                 {
