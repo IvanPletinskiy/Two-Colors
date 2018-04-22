@@ -62,6 +62,9 @@ public class MainSceneButtonListener : MonoBehaviour
     {
 		switch (gameObject.name)
         {
+			case "OpenMarket":
+				Application.OpenURL("https://play.google.com/store/apps/details?id=com.handen.twocolors");
+				break;
 			case "Music":
 				Preferences.setMusic (Preferences.isMusic ());
 				print (Preferences.isMusic ());
