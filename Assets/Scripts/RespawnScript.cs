@@ -67,6 +67,7 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
 			isRecord = false;
 		}
 		newRecord.gameObject.SetActive (isRecord);
+        recordText.gameObject.SetActive(!isRecord);
 		if(!isHeard && !isRecord && Preferences.isMusic())
 			GetComponent<AudioSource>().PlayOneShot(gameOverClip);
 	}
@@ -74,7 +75,7 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
     private void postRecord()
     {
         //if (Social.localUser.authenticated)
-        //{
+        {
             Social.ReportScore(100, "CgkInY7b68gcEAIQAA", (bool success) =>
             {
                 if(success)
@@ -86,7 +87,7 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
                     Debug.Log("Update Score Fail");
                 }
             });
-        //}
+        }
     }
 
     void Update () {
