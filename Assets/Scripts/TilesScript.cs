@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-//using AppodealAds.Unity.Common;
+using AppodealAds.Unity.Common;
 using UnityEngine.SceneManagement;
-//using AppodealAds.Unity.Api;
+using AppodealAds.Unity.Api;
 
 public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 
@@ -234,14 +234,14 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
     private void endGame()
     {
 //        if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
-//            showHeart();
+ //           showHeart();
 //        else
 		    SceneManager.LoadScene ("Game end");
     }
 
     private void showAd()
     {
-        //Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
+        Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
     }
 
     IEnumerator wait (){

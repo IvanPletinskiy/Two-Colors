@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
-//using AppodealAds.Unity.Common;
-//using AppodealAds.Unity.Api;
+using AppodealAds.Unity.Common;
+using AppodealAds.Unity.Api;
 
-public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
+public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener { 
 	public Text scoreText, recordText;
 
     public AudioClip gameOverClip;
@@ -170,7 +170,7 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
 	}
     private void showAd()
     {
-        //Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
+       Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
 
 		print ("Ad");
 		isHeard = false;
@@ -194,6 +194,23 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
     #region Rewarded Video callback handlers
     public void onNonSkippableVideoClosed()
     {
+
+        TilesScript.randomColorDouble = randomColorDouble;
+        TilesScript.randomColorSecond = randomColorSecond;
+        TilesScript.randomColorLast = randomColorLast;
+
+        TilesScript.firstTile = firstTile;
+        TilesScript.firstDoubleTile = firstDoubleTile;
+        TilesScript.secondTile = secondTile;
+        TilesScript.lastTile = lastTile;
+
+        TilesScript.isGenerating = false;
+        TilesScript.spread = spreadPlay;
+        TilesScript.level = levelPlay;
+        TilesScript.score = scorePlay;
+        SceneManager.LoadScene("Play");
+
+/*
         TilesScript.score = (int)(TilesScript.score * 1.5);
 
         scoreText.text = TilesScript.score.ToString();
@@ -218,6 +235,7 @@ public class RespawnScript : MonoBehaviour {//, INonSkippableVideoAdListener
             recordText.text = text;
             isRecord = false;
         }
+        */
 
     }
 
