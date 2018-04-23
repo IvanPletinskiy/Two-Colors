@@ -7,86 +7,63 @@ using System;
 using AppodealAds.Unity.Common;
 using AppodealAds.Unity.Api;
 
-public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener { 
-	public Text scoreText, recordText;
+public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
+{
+    public Text scoreText, recordText;
 
     public AudioClip gameOverClip;
-	public AudioClip gameRecordClip;
+    public AudioClip gameRecordClip;
 
     public Text newRecord;
-	bool isRecord = false;
+    //bool isRecord = false;
 
-	string text;
+    public GameObject adButton;
 
-	public GameObject adButton;
+    public Camera mainCam;
+    public GameObject heart;
+    //	public static bool isHeard = Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO);
 
-	public Camera mainCam;
-<<<<<<< HEAD
-	public GameObject heart;
-//	public static bool isHeard = Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO);
-	public GameObject heard;
-	public static bool isHeard=true;
-=======
-	public GameObject heard;
-	public static bool isHeard = Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO);
->>>>>>> parent of a42b6d5... Внимание! Этот коммит не работает
+    float spreadPlay = TilesScript.spread;
+    int levelPlay = TilesScript.level;
+    int scorePlay = TilesScript.score;
 
-	float spreadPlay = TilesScript.spread;
-	int levelPlay = TilesScript.level;
-	int scorePlay = TilesScript.score;
+    float randomColorDouble = TilesScript.randomColorDouble;
+    float randomColorSecond = TilesScript.randomColorSecond;
+    float randomColorLast = TilesScript.randomColorLast;
 
-	float randomColorDouble = TilesScript.randomColorDouble;
-	float randomColorSecond = TilesScript.randomColorSecond;
-	float randomColorLast = TilesScript.randomColorLast;
-
-	int firstTile = TilesScript.firstTile;
-	int firstDoubleTile = TilesScript.firstDoubleTile;
-	int secondTile = TilesScript.secondTile;
+    int firstTile = TilesScript.firstTile;
+    int firstDoubleTile = TilesScript.firstDoubleTile;
+    int secondTile = TilesScript.secondTile;
     int lastTile = TilesScript.lastTile;
 
-    private string adCallbackTAG;
+    private string adCallbackTAG; // Используется в коллбеке рекламы для определения был просмотрен ролик по нажатию на сердечко или на кнопку
 
-	void Start () {
-		Time.timeScale = 1;
-
+    void Start()
+    {
+        Time.timeScale = 1;
         scoreText.text = TilesScript.score.ToString();
 
-<<<<<<< HEAD
-        if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO)) {
+        if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
+        {
             heart.SetActive(true);
             adButton.gameObject.SetActive(true);
         }
-        else {
+        else
+        {
             adButton.gameObject.SetActive(false);
         }
-		text = "";
 
-		if (TilesScript.score > PlayerPrefs.GetInt ("Record") && !isHeard) {
-            postRecord();
-=======
-		text = "";
-
-		if (TilesScript.score > PlayerPrefs.GetInt ("Record") && !isHeard) {
-      //      postRecord();
->>>>>>> parent of a42b6d5... Внимание! Этот коммит не работает
-			PlayerPrefs.SetInt ("Record", TilesScript.score);
-			text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation ("yourRecord",
-				nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
-			text += PlayerPrefs.GetInt ("Record").ToString ();
-			recordText.text = text;
-			print ("NEW RECORD");
-			isRecord = true;
-			DialogRate.isDialogRate = true;
-			if(Preferences.isMusic())
-				GetComponent<AudioSource>().PlayOneShot(gameRecordClip);
-
-		}
-        else {
-			text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation ("yourRecord",
-				nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
-			text += PlayerPrefs.GetInt ("Record").ToString ();
-			recordText.text = text;
-<<<<<<< HEAD
+        if (TilesScript.score > PlayerPrefs.GetInt("Record"))
+        {
+            handleRecord();
+        }
+        else
+        {
+            string text = "";
+            text = nl.DTT.LanguageManager.Managers.AbstractLanguageManager.GetTranslation("yourRecord",
+                nl.DTT.LanguageManager.Managers.AbstractLanguageManager.CurrentLanguage);
+            text += PlayerPrefs.GetInt("Record").ToString();
+            recordText.text = text;
             newRecord.gameObject.SetActive(false);
             recordText.gameObject.SetActive(true);
             if (Preferences.isMusic())
@@ -96,94 +73,70 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
             {
                 DialogRate.DialogRateShow();
             }
-=======
->>>>>>> parent of a42b6d5... Внимание! Этот коммит не работает
-			isRecord = false;
-		}
-		newRecord.gameObject.SetActive (isRecord);
-        recordText.gameObject.SetActive(!isRecord);
-		if(!isHeard && !isRecord && Preferences.isMusic())
-			GetComponent<AudioSource>().PlayOneShot(gameOverClip);
-<<<<<<< HEAD
-        if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
-        {
-=======
-
-        if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
-        {
-  //          isHeard = true;
->>>>>>> parent of a42b6d5... Внимание! Этот коммит не работает
-            adButton.gameObject.SetActive(true);
         }
-        else
+
+    }
+
+    void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-<<<<<<< HEAD
-=======
-    //        isHeard = false;
->>>>>>> parent of a42b6d5... Внимание! Этот коммит не работает
-            adButton.gameObject.SetActive(false);
+            TilesScript.score = 0;
+            TilesScript.level = 1;
+            SceneManager.LoadScene("Main Menu");
+        }
+
+        if (Input.GetKeyUp(KeyCode.Mouse0))
+        {
+            RaycastHit hit;
+            Ray ray = mainCam.ScreenPointToRay(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+            print(Physics.Raycast(ray, out hit));
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.tag == "Resp")
+                {
+                    adCallbackTAG = "HEART";
+                    showAd();
+                }
+                if (hit.collider.name == "pass")
+                {
+                    heart.SetActive(false);
+                    //					Start ();
+                }
+
+                if (hit.collider.name == "RestartButton")
+                {
+                    SceneManager.LoadScene("Play");
+                    //isHeard = true;
+                    TilesScript.isGenerating = true;
+                    TilesScript.spread = 0.09f;
+                    TilesScript.level = 1;
+                    TilesScript.score = 0;
+                }
+                if (hit.collider.name == "HomeButton")
+                {
+                    SceneManager.LoadScene("Main menu");
+                    //isHeard = true;
+                    TilesScript.isGenerating = true;
+                    TilesScript.spread = 0.09f;
+                    TilesScript.level = 1;
+                    TilesScript.score = 0;
+                }
+                if (hit.collider.name == "AdButton")
+                {
+                    adCallbackTAG = "ADBUTTON";
+                    showAd();
+                }
+            }
         }
     }
 
-    void Update () {
-		
-		if (isHeard) {
-			heard.SetActive (true);
-			newRecord.gameObject.SetActive (false);
-		}
-		else
-			heard.SetActive (false);
-
-		if (Input.GetKeyDown(KeyCode.Escape)) {
-			TilesScript.score = 0;
-			TilesScript.level = 1;
-
-			SceneManager.LoadScene ("Main Menu");
-		}
-		
-		if (Input.GetKeyUp (KeyCode.Mouse0)) {
-			RaycastHit hit;
-			Ray ray = mainCam.ScreenPointToRay (new Vector2 (Input.mousePosition.x,Input.mousePosition.y));
-			print (Physics.Raycast (ray, out hit));
-			if (Physics.Raycast (ray, out hit)) {
-				if (hit.collider.tag == "Resp") {
-					showAd();
-				}
-				if (hit.collider.name == "pass") {
-					isHeard = false;
-					Start ();
-				}
-
-				if (hit.collider.name == "RestartButton") {
-					SceneManager.LoadScene ("Play");
-					isHeard = true;
-					TilesScript.isGenerating = true;
-					TilesScript.spread = 0.09f;
-					TilesScript.level = 1;
-					TilesScript.score = 0;
-				}
-				if (hit.collider.name == "HomeButton") {
-					SceneManager.LoadScene ("Main menu");
-					isHeard = true;
-					TilesScript.isGenerating = true;
-					TilesScript.spread = 0.09f;
-					TilesScript.level = 1;
-					TilesScript.score = 0;
-				}
-                if(hit.collider.name == "AdButton")
-                {
-                    showAd();
-                }
-			}
-		}
-	}
-<<<<<<< HEAD
-
     private void handleRecord()
     {
-        PlayerPrefs.SetInt("Record", TilesScript.score); 
-   //     isRecord = true;
- //       DialogRate.isDialogRate = true;
+        PlayerPrefs.SetInt("Record", TilesScript.score);
+        //     isRecord = true;
+        //       DialogRate.isDialogRate = true;
         if (Preferences.isMusic())
             GetComponent<AudioSource>().PlayOneShot(gameRecordClip);
         newRecord.gameObject.SetActive(true);
@@ -210,34 +163,9 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
         }
     }
 
-	private void showAdXScore(){
-		
-	}
-=======
-	
->>>>>>> parent of a42b6d5... Внимание! Этот коммит не работает
     private void showAd()
     {
-       Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
-/*
-		print ("Ad");
-		isHeard = false;
-
-		TilesScript.randomColorDouble = randomColorDouble;
-		TilesScript.randomColorSecond = randomColorSecond;
-		TilesScript.randomColorLast = randomColorLast;
-
-		TilesScript.firstTile = firstTile;
-		TilesScript.firstDoubleTile = firstDoubleTile;
-		TilesScript.secondTile = secondTile;
-		TilesScript.lastTile = lastTile;
-
-		TilesScript.isGenerating = false;
-		TilesScript.spread = spreadPlay;
-		TilesScript.level = levelPlay;
-		TilesScript.score = scorePlay;
-		SceneManager.LoadScene ("Play");
-        */
+        Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
     }
 
     #region Rewarded Video callback handlers
@@ -245,8 +173,9 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
     {
         if (adCallbackTAG.Equals("HEART"))
         {
-            isHeard = false;
-            heard.SetActive(false);
+            //           isHeard = false;
+            heart.SetActive(false);
+
             TilesScript.randomColorDouble = randomColorDouble;
             TilesScript.randomColorSecond = randomColorSecond;
             TilesScript.randomColorLast = randomColorLast;
@@ -261,45 +190,47 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
             TilesScript.level = levelPlay;
             TilesScript.score = scorePlay;
             SceneManager.LoadScene("Play");
-
         }
-        if(adCallbackTAG.Equals("ADBUTTON"))
+
+        if (adCallbackTAG.Equals("ADBUTTON"))
         {
-
+            TilesScript.score = (int)(TilesScript.score * 1.5);
+            adButton.SetActive(false);
+            scoreText.text = TilesScript.score.ToString();
+            string text = "";
+            if (TilesScript.score > PlayerPrefs.GetInt("record"))
+            {
+                handleRecord();
+            }
         }
+        /*
 
-/*
-        TilesScript.score = (int)(TilesScript.score * 1.5);
-
-        scoreText.text = TilesScript.score.ToString();
-        string text = "";
-
-        if (TilesScript.score > PlayerPrefs.GetInt("record"))
-        {
-            PlayerPrefs.SetInt("record", TilesScript.score);
-            text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("yourRecord",
-                nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
-            text += PlayerPrefs.GetInt("record").ToString();
-            recordText.text = text;
-            print("NEW RECORD");
-            isRecord = true;
-            DialogManager.showRateDialog();
-        }
-        else
-        {
-            text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("yourRecord",
-                nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
-            text += PlayerPrefs.GetInt("Record").ToString();
-            recordText.text = text;
-            isRecord = false;
-        }
-        */
+                if (TilesScript.score > PlayerPrefs.GetInt("record"))
+                {
+                    PlayerPrefs.SetInt("record", TilesScript.score);
+                    text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("yourRecord",
+                        nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
+                    text += PlayerPrefs.GetInt("record").ToString();
+                    recordText.text = text;
+                    print("NEW RECORD");
+                    isRecord = true;
+                    DialogManager.showRateDialog();
+                }
+                else
+                {
+                    text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("yourRecord",
+                        nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
+                    text += PlayerPrefs.GetInt("Record").ToString();
+                    recordText.text = text;
+                    isRecord = false;
+                }
+                */
 
     }
 
     public void onNonSkippableVideoFailedToLoad()
     {
-       
+
     }
 
     public void onNonSkippableVideoFinished()
@@ -317,22 +248,4 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 
     }
     #endregion
-
-    private void postRecord()
-    {
-        //if (Social.localUser.authenticated)
-        {
-            Social.ReportScore(TilesScript.score, "CgkInY7b68gcEAIQAA", (bool success) =>
-            {
-                if (success)
-                {
-                    Debug.Log("Update Score Success");
-                }
-                else
-                {
-                    Debug.Log("Update Score Fail");
-                }
-            });
-        }
-    }
 }
