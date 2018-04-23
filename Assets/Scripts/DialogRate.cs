@@ -24,7 +24,7 @@ public class DialogRate : MonoBehaviour {
 					Time.timeScale = 1;
 				}
 				if (hit.collider.name == "Yes") {
-					Application.OpenURL ("https://play.google.com/store/apps/details?id=com.appsforluck.richandsuccessful");
+					Application.OpenURL ("https://play.google.com/store/apps/details?id=com.handen.twocolors");
 				}
 				if (hit.collider.name == "No, thanks"){
 					PlayerPrefs.SetInt ("IsRate", 1);
