@@ -1,8 +1,15 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 7ca547aa34f78db428777eb959e241e1
 labels:
 - gpsr
 timeCreated: 1524488243
+=======
+guid: 62f7050f59bfde04499368a9d888f3ad
+labels:
+- gpsr
+timeCreated: 1524427371
+>>>>>>> parent of 549a239... Merge branch 'Ad' of https://github.com/Ivanhanden/Two-Colors into Ad
 licenseType: Free
 PluginImporter:
   externalObjects: {}
