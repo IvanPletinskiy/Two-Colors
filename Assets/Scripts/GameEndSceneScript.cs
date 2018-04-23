@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-//using AppodealAds.Unity.Common;
-//using AppodealAds.Unity.Api;
+using AppodealAds.Unity.Common;
+using AppodealAds.Unity.Api;
 
-public class GameEndSceneScript : MonoBehaviour {//, INonSkippableVideoAdListener
+public class GameEndSceneScript : MonoBehaviour { //INonSkippableVideoAdListener { 
     public Text scoreText, recordText;
     public Button adButton;
     public AudioClip gameOverClip;
@@ -51,7 +51,7 @@ public class GameEndSceneScript : MonoBehaviour {//, INonSkippableVideoAdListene
 		switch (gameObject.name) {
 		    case "RestartButton":
 			    SceneManager.LoadScene ("Play");
-			    RespawnScript.isHeard = true;
+		//	    RespawnScript.isHeard = true;
 			    TilesScript.isGenerating = true;
 			    TilesScript.spread = 0.09f;
 			    TilesScript.level = 1;
@@ -59,7 +59,7 @@ public class GameEndSceneScript : MonoBehaviour {//, INonSkippableVideoAdListene
                 break;
 		    case "HomeButton":
     			SceneManager.LoadScene ("Main menu");
-			    RespawnScript.isHeard = true;
+	//		    RespawnScript.isHeard = true;
 			    TilesScript.isGenerating = true;
 			    TilesScript.spread = 0.09f;
 			    TilesScript.level = 2;
