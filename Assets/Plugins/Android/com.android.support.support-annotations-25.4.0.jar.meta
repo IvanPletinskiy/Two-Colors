@@ -1,8 +1,15 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Plugins/Android/com.android.support.support-annotations-25.4.0.jar.meta
 guid: 11ee10e76453df7419e9e4c2819c0578
 labels:
 - gpsr
 timeCreated: 1524427922
+=======
+guid: 251079631bfe10c4f9e317f4b1a0948f
+labels:
+- gpsr
+timeCreated: 1524427341
+>>>>>>> cfb5b4c982b2a3100cd1f73473a1e1d10e29459e:Assets/Plugins/Android/com.android.support.support-annotations-25.4.0.jar.meta
 licenseType: Free
 PluginImporter:
   externalObjects: {}

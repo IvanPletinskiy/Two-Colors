@@ -1,8 +1,15 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Plugins/Android/com.android.support.support-core-ui-25.4.0.aar.meta
 guid: c8f2e15e390164a4bb05421b3accbec6
 labels:
 - gpsr
 timeCreated: 1524427922
+=======
+guid: 2b58708f96dfd5c4a8dd72bffb194220
+labels:
+- gpsr
+timeCreated: 1524427342
+>>>>>>> cfb5b4c982b2a3100cd1f73473a1e1d10e29459e:Assets/Plugins/Android/com.android.support.support-core-ui-25.4.0.aar.meta
 licenseType: Free
 PluginImporter:
   externalObjects: {}
