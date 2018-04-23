@@ -1,14 +1,20 @@
 fileFormatVersion: 2
 <<<<<<< HEAD
+<<<<<<< HEAD
 guid: 6e778cfe38df6954a81af21107c50c43
 labels:
 - gpsr
 timeCreated: 1524488243
 =======
+=======
+>>>>>>> parent of 549a239... Merge branch 'Ad' of https://github.com/Ivanhanden/Two-Colors into Ad
 guid: 7c0c117c938eb2c4abbcb25b811099b9
 labels:
 - gpsr
 timeCreated: 1524427371
+<<<<<<< HEAD
+>>>>>>> parent of 549a239... Merge branch 'Ad' of https://github.com/Ivanhanden/Two-Colors into Ad
+=======
 >>>>>>> parent of 549a239... Merge branch 'Ad' of https://github.com/Ivanhanden/Two-Colors into Ad
 licenseType: Free
 PluginImporter:

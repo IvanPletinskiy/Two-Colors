@@ -21,6 +21,8 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 	public Camera mainCam;
 	public GameObject heart;
 //	public static bool isHeard = Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO);
+	public GameObject heard;
+	public static bool isHeard=true;
 
 	float spreadPlay = TilesScript.spread;
 	int levelPlay = TilesScript.level;
@@ -48,6 +50,20 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
         else {
             adButton.gameObject.SetActive(false);
         }
+		text = "";
+
+		if (TilesScript.score > PlayerPrefs.GetInt ("Record") && !isHeard) {
+            postRecord();
+			PlayerPrefs.SetInt ("Record", TilesScript.score);
+			text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation ("yourRecord",
+				nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
+			text += PlayerPrefs.GetInt ("Record").ToString ();
+			recordText.text = text;
+			print ("NEW RECORD");
+			isRecord = true;
+			DialogRate.isDialogRate = true;
+			if(Preferences.isMusic())
+				GetComponent<AudioSource>().PlayOneShot(gameRecordClip);
 
 		if (TilesScript.score > PlayerPrefs.GetInt ("Record")) {
             handleRecord();
@@ -67,6 +83,19 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
             {
                 DialogRate.DialogRateShow();
             }
+			isRecord = false;
+		}
+		newRecord.gameObject.SetActive (isRecord);
+        recordText.gameObject.SetActive(!isRecord);
+		if(!isHeard && !isRecord && Preferences.isMusic())
+			GetComponent<AudioSource>().PlayOneShot(gameOverClip);
+        if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
+        {
+            adButton.gameObject.SetActive(true);
+        }
+        else
+        {
+            adButton.gameObject.SetActive(false);
         }
         
     }
@@ -85,7 +114,6 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
 			print (Physics.Raycast (ray, out hit));
 			if (Physics.Raycast (ray, out hit)) {
 				if (hit.collider.tag == "Resp") {
-                    adCallbackTAG = "HEART";
 					showAd();
 				}
 				if (hit.collider.name == "pass") {
@@ -149,6 +177,9 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
         }
     }
 
+	private void showAdXScore(){
+		
+	}
     private void showAd()
     {
        Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
@@ -177,7 +208,6 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener {
             TilesScript.score = scorePlay;
             SceneManager.LoadScene("Play");
         }
-
         if(adCallbackTAG.Equals("ADBUTTON"))
         {
             TilesScript.score = (int)(TilesScript.score * 1.5);
