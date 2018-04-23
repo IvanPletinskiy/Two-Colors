@@ -1,16 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/Plugins/Android/com.android.support.support-compat-25.4.0.aar.meta
 guid: 3b0b95bfd95995744aa9214e884e82dd
-labels:
-- gpsr
-timeCreated: 1524427922
-=======
-guid: 0257d085dfd2abe46b5717c7f7940b98
-labels:
-- gpsr
-timeCreated: 1524427341
->>>>>>> cfb5b4c982b2a3100cd1f73473a1e1d10e29459e:Assets/Plugins/Android/com.android.support.support-compat-25.4.0.aar.meta
-licenseType: Free
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
