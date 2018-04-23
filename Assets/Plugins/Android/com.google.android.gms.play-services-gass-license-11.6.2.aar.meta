@@ -1,5 +1,9 @@
 fileFormatVersion: 2
 guid: 42f4ae9ca1f89c745ade7ea0a1998cf0
+labels:
+- gpsr
+timeCreated: 1524498467
+licenseType: Free
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2

@@ -36,16 +36,20 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
     int secondTile = TilesScript.secondTile;
     int lastTile = TilesScript.lastTile;
 
+    private static bool isHeartShown = false;
+
     private string adCallbackTAG; // Используется в коллбеке рекламы для определения был просмотрен ролик по нажатию на сердечко или на кнопку
 
     void Start()
     {
+        Appodeal.setNonSkippableVideoCallbacks(this);
         Time.timeScale = 1;
         scoreText.text = TilesScript.score.ToString();
 
         if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
         {
-            heart.SetActive(true);
+            if(!isHeartShown)
+                heart.SetActive(true);
             adButton.gameObject.SetActive(true);
         }
         else
@@ -64,7 +68,8 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                 nl.DTT.LanguageManager.Managers.AbstractLanguageManager.CurrentLanguage);
             text += PlayerPrefs.GetInt("Record").ToString();
             recordText.text = text;
-            newRecord.gameObject.SetActive(false);
+            if(!heart.activeInHierarchy)
+                newRecord.gameObject.SetActive(false);
             recordText.gameObject.SetActive(true);
             if (Preferences.isMusic())
                 GetComponent<AudioSource>().PlayOneShot(gameOverClip);
@@ -96,8 +101,9 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
             {
                 if (hit.collider.tag == "Resp")
                 {
-                    adCallbackTAG = "HEART";
+                    isHeartShown = true;
                     showAd();
+                    StartCoroutine("heartCoroutine");
                 }
                 if (hit.collider.name == "pass")
                 {
@@ -124,9 +130,9 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                     TilesScript.score = 0;
                 }
                 if (hit.collider.name == "AdButton")
-                {
-                    adCallbackTAG = "ADBUTTON";
+                { 
                     showAd();
+                    StartCoroutine("adButtonCoroutine");
                 }
             }
         }
@@ -168,9 +174,49 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
         Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
     }
 
+    IEnumerator heartCoroutine()
+    {
+        yield return new WaitForSeconds(0.3f);
+        
+
+        TilesScript.randomColorDouble = randomColorDouble;
+        TilesScript.randomColorSecond = randomColorSecond;
+        TilesScript.randomColorLast = randomColorLast;
+
+        TilesScript.firstTile = firstTile;
+        TilesScript.firstDoubleTile = firstDoubleTile;
+        TilesScript.secondTile = secondTile;
+        TilesScript.lastTile = lastTile;
+
+        TilesScript.isGenerating = false;
+        TilesScript.spread = spreadPlay;
+        TilesScript.level = levelPlay;
+        TilesScript.score = scorePlay;
+        SceneManager.LoadScene("Play");
+        adCallbackTAG = "HEART";
+
+        heart.SetActive(false);
+
+    }
+    IEnumerator adButtonCoroutine()
+    {
+        yield return new WaitForSeconds(0.3f);
+        adCallbackTAG = "ADBUTTON";
+        TilesScript.score = (int)(TilesScript.score * 1.5);
+        adButton.SetActive(false);
+        scoreText.text = TilesScript.score.ToString();
+
+        if (TilesScript.score > PlayerPrefs.GetInt("Record"))
+        {
+            handleRecord();
+        }
+    }  
+
     #region Rewarded Video callback handlers
     public void onNonSkippableVideoClosed()
     {
+  //      SceneManager.LoadScene("Main Menu");
+        /*
         if (adCallbackTAG.Equals("HEART"))
         {
             //           isHeard = false;
@@ -197,7 +243,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
             TilesScript.score = (int)(TilesScript.score * 1.5);
             adButton.SetActive(false);
             scoreText.text = TilesScript.score.ToString();
-            string text = "";
+     
             if (TilesScript.score > PlayerPrefs.GetInt("record"))
             {
                 handleRecord();
@@ -225,6 +271,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                     isRecord = false;
                 }
                 */
+                
 
     }
 

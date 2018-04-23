@@ -51,7 +51,7 @@ public class GameEndSceneScript : MonoBehaviour {//, INonSkippableVideoAdListene
 		switch (gameObject.name) {
 		    case "RestartButton":
 			    SceneManager.LoadScene ("Play");
-			    RespawnScript.isHeard = true;
+	//		    RespawnScript.isHeard = true;
 			    TilesScript.isGenerating = true;
 			    TilesScript.spread = 0.09f;
 			    TilesScript.level = 1;
@@ -59,7 +59,7 @@ public class GameEndSceneScript : MonoBehaviour {//, INonSkippableVideoAdListene
                 break;
 		    case "HomeButton":
     			SceneManager.LoadScene ("Main menu");
-			    RespawnScript.isHeard = true;
+		//	    RespawnScript.isHeard = true;
 			    TilesScript.isGenerating = true;
 			    TilesScript.spread = 0.09f;
 			    TilesScript.level = 2;
