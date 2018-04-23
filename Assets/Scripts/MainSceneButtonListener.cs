@@ -84,7 +84,18 @@ public class MainSceneButtonListener : MonoBehaviour
                 {
                     if (isAuthenticated)
                     {
-						gameObject.transform.localScale = new Vector3(0.14f, 1f, 0.14f);
+                        Social.ReportScore(TilesScript.score, "CgkInY7b68gcEAIQAA", (bool success) =>
+                        {
+                            if (success)
+                            {
+                                Debug.Log("Update Score Success");
+                            }
+                            else
+                            {
+                                Debug.Log("Update Score Fail");
+                            }
+                        });
+                        gameObject.transform.localScale = new Vector3(0.14f, 1f, 0.14f);
                         StartCoroutine("leaderboardButtonCourite");
                         Social.ShowLeaderboardUI();
                        
