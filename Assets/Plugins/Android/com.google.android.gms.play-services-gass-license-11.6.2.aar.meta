@@ -1,25 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
-<<<<<<< HEAD
 guid: 42f4ae9ca1f89c745ade7ea0a1998cf0
-<<<<<<< HEAD
-labels:
-- gpsr
-timeCreated: 1524488243
-=======
-=======
->>>>>>> parent of 549a239... Merge branch 'Ad' of https://github.com/Ivanhanden/Two-Colors into Ad
-guid: 0633c0b83415ce54eb8fa1ddb13c5a72
-labels:
-- gpsr
-timeCreated: 1524427371
-<<<<<<< HEAD
->>>>>>> parent of 549a239... Merge branch 'Ad' of https://github.com/Ivanhanden/Two-Colors into Ad
-=======
->>>>>>> parent of 549a239... Merge branch 'Ad' of https://github.com/Ivanhanden/Two-Colors into Ad
-licenseType: Free
-=======
->>>>>>> parent of a42b6d5... Внимание! Этот коммит не работает
 PluginImporter:
   externalObjects: {}
   serializedVersion: 2
