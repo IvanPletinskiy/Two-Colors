@@ -1674,18 +1674,19 @@ MonoBehaviour:
   newRecord: {fileID: 1169706659}
   adButton: {fileID: 691566404}
   mainCam: {fileID: 1533721281}
-  heart: {fileID: 2047759358}
+  heard: {fileID: 2047759358}
 --- !u!114 &1533721284
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1533721278}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b2b8e66450125ef4b815cc5d242580ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogRate: {fileID: 1181036053}
   mainCamera: {fileID: 1533721281}
 --- !u!82 &1533721285
 AudioSource:

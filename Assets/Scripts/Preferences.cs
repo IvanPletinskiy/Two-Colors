@@ -16,12 +16,12 @@ public class Preferences {
         PlayerPrefs.SetInt(TOTAL_ATTEMPTS, playerAttempts);
     }
 
+
     public static int getAttempts()
     {
         return PlayerPrefs.GetInt(TOTAL_ATTEMPTS, 0);
     }
 
-    //Используется по нажатию на кнопку Later в диалоге Rate
     public static void resetAttempts()
     {
         PlayerPrefs.SetInt(TOTAL_ATTEMPTS, 0);
@@ -44,19 +44,13 @@ public class Preferences {
     public static bool isRateShown()
     {
         int value = PlayerPrefs.GetInt(DIALOG_RATE, 0);
-        if (value == 1)
-            return true;
-        else
-            return false;
+        return value == 1;
     }
 
     public static void setRateShown(bool isShown)
     {
-        if (isShown)
-            PlayerPrefs.SetInt(DIALOG_RATE, 1);
-        else
-            PlayerPrefs.SetInt(DIALOG_RATE, 0);
-        
+        int value = isShown ? 1 : 0;
+        PlayerPrefs.SetInt(DIALOG_RATE, value);
     }
 
     public static bool isAuthenticated()
@@ -81,8 +75,7 @@ public class Preferences {
 	public static void setMusic(bool isMus){
 		if (isMus)
 			PlayerPrefs.SetInt (MUSIC, 1);
-		else
-            PlayerPrefs.SetInt (MUSIC, 0);
+		else PlayerPrefs.SetInt (MUSIC, 0);
 	}
 		
 }
