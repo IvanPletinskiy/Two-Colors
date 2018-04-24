@@ -48,8 +48,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
 
         if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
         {
-            if(!isHeartShown)
-                heart.SetActive(true);
+			heart.SetActive(!isHeartShown);
             adButton.gameObject.SetActive(true);
         }
         else
@@ -57,7 +56,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
             adButton.gameObject.SetActive(false);
         }
 
-        if (TilesScript.score > PlayerPrefs.GetInt("Record"))
+		if (TilesScript.score > PlayerPrefs.GetInt("Record"))
         {
             handleRecord();
         }
