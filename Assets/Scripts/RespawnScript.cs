@@ -68,10 +68,10 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                 nl.DTT.LanguageManager.Managers.AbstractLanguageManager.CurrentLanguage);
             text += PlayerPrefs.GetInt("Record").ToString();
             recordText.text = text;
-            if(!heart.activeInHierarchy)
-                newRecord.gameObject.SetActive(false);
+  //          if(heart.activeInHierarchy)
+            newRecord.gameObject.SetActive(false);
             recordText.gameObject.SetActive(true);
-            if (Preferences.isMusic())
+            if (Preferences.isMusic() && !heart.activeInHierarchy)
                 GetComponent<AudioSource>().PlayOneShot(gameOverClip);
             Preferences.increaseAndSaveAttempts();
             if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG)
@@ -79,7 +79,6 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                 DialogRate.DialogRateShow();
             }
         }
-
     }
 
     void Update()
@@ -149,9 +148,12 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
         PlayerPrefs.SetInt("Record", TilesScript.score);
         //     isRecord = true;
         //       DialogRate.isDialogRate = true;
-        if (Preferences.isMusic())
-            GetComponent<AudioSource>().PlayOneShot(gameRecordClip);
-        newRecord.gameObject.SetActive(true);
+        if (!heart.activeInHierarchy)
+        {
+            newRecord.gameObject.SetActive(true);
+            if (Preferences.isMusic())
+                GetComponent<AudioSource>().PlayOneShot(gameRecordClip);
+        }
         recordText.gameObject.SetActive(false);
         postRecordInLeaderboard();
     }
