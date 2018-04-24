@@ -81,7 +81,7 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
         updateLevel();
 
 		for (int i = 0; i < 4; i++) {
-			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -3.14f);
+			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -0.89f);
 		}
 	}
 
@@ -136,31 +136,63 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
             endGame();
         if (next && !lose)
             updateLevel();
-
-		if (Input.GetKeyDown (KeyCode.Mouse0)&& isDeadFreeze ) {
-			RaycastHit hit;
-			Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
-			if (Physics.Raycast (ray, out hit)) {
-				playSound(clickSound);
-				if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z ==-3.14f ) {
-					hit.collider.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,-3.44f);
-					numberOfActiveTiles++;
-					checkNumber ();
+		if (Input.touchCount > 1) {
+			if (Input.GetKeyDown (KeyCode.Mouse0) && isDeadFreeze) {
+				RaycastHit hit;
+				Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+				if (Physics.Raycast (ray, out hit)) {
+					playSound (clickSound);
+					if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f) {
+						hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
+						numberOfActiveTiles++;
+						checkNumber ();
+					} else if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f) {
+						hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
+						numberOfActiveTiles--;
+					}
 				}
-				else 
-                    if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z ==-3.44f) {
-					    hit.collider.transform.position = new Vector3(hit.collider.transform.position.x,hit.collider.transform.position.y,-3.14f);
-					    numberOfActiveTiles--;
-				    }
+			}
+			if (Input.GetKeyDown (KeyCode.Mouse0) && isDeadFreeze) {
+				RaycastHit hit;
+				Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+				if (Physics.Raycast (ray, out hit)) {
+					playSound (clickSound);
+					if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f) {
+						hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
+						numberOfActiveTiles++;
+						checkNumber ();
+					} else if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f) {
+						hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
+						numberOfActiveTiles--;
+					}
+				}
+			}
+		} else {
+			if (Input.GetKeyDown (KeyCode.Mouse0) && isDeadFreeze) {
+				RaycastHit hit;
+				Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+				if (Physics.Raycast (ray, out hit)) {
+					playSound (clickSound);
+					if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f) {
+						hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
+						numberOfActiveTiles++;
+						checkNumber ();
+					} else if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f) {
+						hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
+						numberOfActiveTiles--;
+					}
+				}
 			}
 		}
+
+
     }
 
 	private void checkNumber() {
 		if (numberOfActiveTiles == 2) {
 			int number = 0;
 			for (int i = 0; i < 4; i++) {
-				if (tiles [i].transform.position.z == -3.44f && tiles[i].GetComponent<Renderer>().material.color == Color.HSVToRGB (randomColorDouble, 0.8f, 1f)) {
+				if (tiles [i].transform.position.z == -1.36f && tiles[i].GetComponent<Renderer>().material.color == Color.HSVToRGB (randomColorDouble, 0.8f, 1f)) {
 					number++;
 				}
 			}
@@ -220,7 +252,7 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 			spread -= 0.003f;
 		isTimer = true;
 		for (int i = 0; i < 4; i++) {
-			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -3.14f);
+			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -0.89f);
 		}
     }
 
