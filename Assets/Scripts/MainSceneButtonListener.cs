@@ -130,6 +130,8 @@ public class MainSceneButtonListener : MonoBehaviour
 
     public void initializeAd()
     {
+        Appodeal.disableLocationPermissionCheck();
+        Appodeal.disableWriteExternalStoragePermissionCheck();
         if (!Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
         {
             //if(Appodeal.isLoaded())
