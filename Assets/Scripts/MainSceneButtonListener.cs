@@ -69,11 +69,12 @@ public class MainSceneButtonListener : MonoBehaviour
 				Preferences.setMusic (Preferences.isMusic ());
 				print (Preferences.isMusic ());
 				break;
-		    case "Play":
-				print ("Yesa");
-				if(Preferences.isMusic())
-					GetComponent<AudioSource> ().Play();
-				gameObject.transform.localScale = new Vector3(0.22f, 1, 0.22f);
+		case "Play":
+			print ("Yesa");
+			if (Preferences.isMusic ())
+				GetComponent<AudioSource> ().Play ();
+				gameObject.GetComponent<Animator> ().enabled = false;
+				gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x+0.1f, gameObject.transform.localScale.y+0.1f, 1f);
                 StartCoroutine("wait");
                 WelcomeDialog.isDialog = true;
                 WelcomeDialog.isActive = true;
@@ -95,7 +96,7 @@ public class MainSceneButtonListener : MonoBehaviour
                                 Debug.Log("Update Score Fail");
                             }
                         });
-                        gameObject.transform.localScale = new Vector3(0.14f, 1f, 0.14f);
+						gameObject.transform.localScale = new Vector3(1.3f, 1.3f, 1f);
                         StartCoroutine("leaderboardButtonCourite");
                         Social.ShowLeaderboardUI();
                        
@@ -162,11 +163,11 @@ public class MainSceneButtonListener : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         SceneManager.LoadScene("Play");
-		gameObject.transform.localScale = new Vector3(0.2f, 1, 0.2f);
+		gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
     }
     IEnumerator leaderboardButtonCourite()
     {
         yield return new WaitForSeconds(0.1f);
-		gameObject.transform.localScale = new Vector3(0.12f, 1f, 0.12f);
+		gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
     }
 }

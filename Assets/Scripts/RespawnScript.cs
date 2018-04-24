@@ -115,6 +115,8 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                 {
                     SceneManager.LoadScene("Play");
                     //isHeard = true;
+					hit.collider.transform.localScale = new Vector3(hit.collider.transform.localScale.x+0.1f, hit.collider.transform.localScale.y+0.1f, 1f);
+					StartCoroutine (waitForScale (hit.collider.gameObject));
                     TilesScript.isGenerating = true;
                     TilesScript.spread = 0.09f;
                     TilesScript.level = 1;
@@ -124,7 +126,9 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                 {
                     SceneManager.LoadScene("Main menu");
                     //isHeard = true;
+					hit.collider.transform.localScale = new Vector3(hit.collider.transform.localScale.x+0.1f, hit.collider.transform.localScale.y+0.1f, 1f);
                     TilesScript.isGenerating = true;
+					StartCoroutine (waitForScale (hit.collider.gameObject));
                     TilesScript.spread = 0.09f;
                     TilesScript.level = 1;
                     TilesScript.score = 0;
@@ -132,7 +136,9 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                 if (hit.collider.name == "AdButton")
                 { 
                     showAd();
+					hit.collider.transform.localScale = new Vector3(hit.collider.transform.localScale.x+0.1f, hit.collider.transform.localScale.y+0.1f, 1f);
                     StartCoroutine("adButtonCoroutine");
+					StartCoroutine (waitForScale (hit.collider.gameObject));
                 }
             }
         }
@@ -173,6 +179,11 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
     {
         Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
     }
+
+	IEnumerator waitForScale(GameObject button){
+		yield return new WaitForSeconds (0.1f);
+		button.transform.localScale = new Vector3 (1f, 1f, 1f);
+	}
 
     IEnumerator heartCoroutine()
     {

@@ -217,7 +217,7 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 		tiles [secondTile].GetComponent<Renderer>().material.color =Color.HSVToRGB (randomColorSecond, Random.Range(0.7f,0.8f), 1f);
 		tiles [lastTile].GetComponent<Renderer>().material.color=Color.HSVToRGB (randomColorLast, Random.Range(0.7f,0.8f), 1f);
 		if (spread > 0.014f)
-			spread -= 0.001f;
+			spread -= 0.003f;
 		isTimer = true;
 		for (int i = 0; i < 4; i++) {
 			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -3.14f);
