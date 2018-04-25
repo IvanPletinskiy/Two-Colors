@@ -76,8 +76,6 @@ public class MainSceneButtonListener : MonoBehaviour
 				gameObject.GetComponent<Animator> ().enabled = false;
 				gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x+0.1f, gameObject.transform.localScale.y+0.1f, 1f);
                 StartCoroutine("wait");
-                WelcomeDialog.isDialog = true;
-                WelcomeDialog.isActive = true;
                 break;
 			case "ShowLeaderboard" :
                 Debug.Log("Inside ShowLeaderboard");

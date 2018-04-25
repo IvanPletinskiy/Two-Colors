@@ -14,6 +14,7 @@ public class WelcomeDialog : MonoBehaviour {
 	public static bool isActive = true;
 
 	void Update(){
+		print (Preferences.isWelcomeShown ());
         if (isDialog && Preferences.isWelcomeShown())
         {
 			print ("aa");
@@ -36,6 +37,7 @@ public class WelcomeDialog : MonoBehaviour {
 	}
 
 	void DialogWelcomeShow(){
+		print ("aaaa");
 		dialogPlay.SetActive (isActive);
 		TilesScript.isDeadFreeze = false;
 		Time.timeScale = 0;
