@@ -76,16 +76,17 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                 GetComponent<AudioSource>().PlayOneShot(gameOverClip);
             Preferences.increaseAndSaveAttempts();
 
-            if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && Preferences.isRateShown() &&
-                !heart.activeInHierarchy)
-            {
-                //      DialogRate.DialogRateShow();
-                dialogRate.SetActive(true);
-               // Preferences.setRateShown(true);
-				print("aaaa");
-				print(Preferences.isRateShown());
-            }
+            
         }
+		if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && Preferences.isRateShown() &&
+			!heart.activeInHierarchy)
+		{
+			//      DialogRate.DialogRateShow();
+			dialogRate.SetActive(true);
+			// Preferences.setRateShown(true);
+			print("aaaa");
+			print(Preferences.isRateShown());
+		}
     }
 
     private void handleRecord()
@@ -145,14 +146,15 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                         if (Preferences.isMusic())
                             GetComponent<AudioSource>().PlayOneShot(gameOverClip);
                         Preferences.increaseAndSaveAttempts();
-                        if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && Preferences.isRateShown() &&
-                            !heart.activeInHierarchy)
-                        {
-                            DialogRate.DialogRateShow();
-                            Preferences.setRateShown(true);
-							print("aa");
-                        }
+                       
                     }
+					if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && Preferences.isRateShown() &&
+						!heart.activeInHierarchy)
+					{
+						DialogRate.DialogRateShow();
+						Preferences.setRateShown(true);
+						print("aa");
+					}
                    
                 }
                 if (hit.collider.name == "RestartButton")
