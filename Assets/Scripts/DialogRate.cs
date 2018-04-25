@@ -10,12 +10,11 @@ public class DialogRate : MonoBehaviour
     public Camera mainCamera;
 
     //	public static bool isDialogRate=false;
-    public static int ATTEMPTSFORDIALOG = 10;
+    public static int ATTEMPTSFORDIALOG = 3;
 
     void Update()
     {
-        //		if (isDialogRate && PlayerPrefs.GetInt("IsRate") != 1 && RespawnScript.isHeard == false)
-        //			DialogRateShow ();
+     	DialogRateShow ();
 
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {

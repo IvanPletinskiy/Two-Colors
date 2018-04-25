@@ -21,6 +21,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
 
     public Camera mainCam;
     public GameObject heart;
+    public GameObject dialogRate;
     //	public static bool isHeard = Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO);
 
     float spreadPlay = TilesScript.spread;
@@ -38,7 +39,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
 
     private static bool isHeartShown = false;
 
-    private string adCallbackTAG; // Используется в коллбеке рекламы для определения был просмотрен ролик по нажатию на сердечко или на кнопку
+    private static string adCallbackTAG; // Используется в коллбеке рекламы для определения был просмотрен ролик по нажатию на сердечко или на кнопку
 
     void Start()
     {
@@ -48,7 +49,8 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
 
         if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
         {
-			heart.SetActive(!isHeartShown);
+            if (!isHeartShown)
+                heart.SetActive(true);
             adButton.gameObject.SetActive(true);
         }
         else
@@ -73,11 +75,28 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
             if (Preferences.isMusic() && !heart.activeInHierarchy)
                 GetComponent<AudioSource>().PlayOneShot(gameOverClip);
             Preferences.increaseAndSaveAttempts();
-            if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG)
+
+            if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && !Preferences.isRateShown())
             {
-                DialogRate.DialogRateShow();
+                //      DialogRate.DialogRateShow();
+                dialogRate.SetActive(true);
+     //           Preferences.setRateShown(true);
+                
             }
         }
+    }
+
+    private void handleRecord()
+    {
+        PlayerPrefs.SetInt("Record", TilesScript.score);
+        if (!heart.activeInHierarchy)
+        {
+            newRecord.gameObject.SetActive(true);
+            if (Preferences.isMusic())
+                GetComponent<AudioSource>().PlayOneShot(gameRecordClip);
+        }
+        recordText.gameObject.SetActive(false);
+        postRecordInLeaderboard();
     }
 
     void Update()
@@ -105,13 +124,40 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                 }
                 if (hit.collider.name == "pass")
                 {
+                    isHeartShown = true;
                     heart.SetActive(false);
-                    //					Start ();
+                    //                   TilesScript.score = scorePlay;
+                    if (scorePlay >= PlayerPrefs.GetInt("Record"))
+                    {
+                        handleRecord();
+                    }
+                    else
+                    {
+                        string text = "";
+                        text = nl.DTT.LanguageManager.Managers.AbstractLanguageManager.GetTranslation("yourRecord",
+                            nl.DTT.LanguageManager.Managers.AbstractLanguageManager.CurrentLanguage);
+                        text += PlayerPrefs.GetInt("Record").ToString();
+                        recordText.text = text;
+                        //          if(heart.activeInHierarchy)
+                        newRecord.gameObject.SetActive(false);
+                        recordText.gameObject.SetActive(true);
+                        if (Preferences.isMusic())
+                            GetComponent<AudioSource>().PlayOneShot(gameOverClip);
+                        Preferences.increaseAndSaveAttempts();
+                        if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && !Preferences.isRateShown())
+                        {
+                            DialogRate.DialogRateShow();
+                            Preferences.setRateShown(true);
+
+                        }
+                    }
+                   
                 }
 
                 if (hit.collider.name == "RestartButton")
                 {
                     SceneManager.LoadScene("Play");
+                    isHeartShown = false;
                     //isHeard = true;
 					hit.collider.transform.localScale = new Vector3(hit.collider.transform.localScale.x+0.1f, hit.collider.transform.localScale.y+0.1f, 1f);
 					StartCoroutine (waitForScale (hit.collider.gameObject));
@@ -138,25 +184,28 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                     StartCoroutine("adButtonCoroutine");
 					StartCoroutine (waitForScale (hit.collider.gameObject));
                 }
+                if (hit.collider.tag == "Button")
+                {
+                    dialogRate.SetActive(false);
+                    Preferences.resetAttempts();
+                    Time.timeScale = 1;
+                }
+                if (hit.collider.name == "Yes")
+                {
+                    Application.OpenURL("https://play.google.com/store/apps/details?id=com.handen.twocolors");
+                    dialogRate.SetActive(false);
+                    Preferences.setRateShown(true);
+                }
+                if (hit.collider.name == "No, thanks")
+                {
+                    Preferences.setRateShown(true);
+                    dialogRate.SetActive(false);
+                    //					isDialogRate = false;
+                    Time.timeScale = 1;
+                }
             }
         }
     }
-
-    private void handleRecord()
-    {
-        PlayerPrefs.SetInt("Record", TilesScript.score);
-        //     isRecord = true;
-        //       DialogRate.isDialogRate = true;
-        if (!heart.activeInHierarchy)
-        {
-            newRecord.gameObject.SetActive(true);
-            if (Preferences.isMusic())
-                GetComponent<AudioSource>().PlayOneShot(gameRecordClip);
-        }
-        recordText.gameObject.SetActive(false);
-        postRecordInLeaderboard();
-    }
-
 
     private void postRecordInLeaderboard()
     {
@@ -189,7 +238,6 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
     IEnumerator heartCoroutine()
     {
         yield return new WaitForSeconds(0.3f);
-        
 
         TilesScript.randomColorDouble = randomColorDouble;
         TilesScript.randomColorSecond = randomColorSecond;
