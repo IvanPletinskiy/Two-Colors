@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WelcomeDialog : MonoBehaviour {
 
-	public GameObject dialogPlay;
+	public static GameObject dialogPlay;
 
 	public GameObject TEST;
 

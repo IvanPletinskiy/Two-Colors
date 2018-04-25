@@ -102,16 +102,12 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
                 SceneManager.LoadScene("Main Menu");
             }
         }
+        
 
-		scoreText.text = score.ToString();
-		string text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("level",nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
-		levelText.text = text + " " + level.ToString();
 		if (isTimer == true && timer > 0f) {
 			timer -= Time.deltaTime * 10f;
-			
 		}
 
-	
 		//fadeDead += Time.deltaTime;
 	//	if (fadeDead >= 0.2f) {
 	//		referWrongTiles.SetActive (!referWrongTiles.activeSelf);
@@ -137,7 +133,36 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
             endGame();
         if (next && !lose)
             updateLevel();
-		if (Input.GetKeyDown (KeyCode.Mouse0) && isDeadFreeze) {
+        /*
+        Touch[] touches = Input.touches;
+        if (Input.touchCount != 0)
+            SceneManager.LoadScene("Main menu");
+        if (touches.Length == 0 || isDeadFreeze)
+            return;
+        for(int i = 0; i < 2; i++)
+        {
+            Vector3 clickPosition = touches[i].position;
+            Ray ray = mainCamera.ScreenPointToRay(clickPosition);
+            RaycastHit hit;
+            if(Physics.Raycast(ray, out hit))
+            {
+                playSound(clickSound);
+                if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f)
+                {
+                    hit.collider.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
+                    numberOfActiveTiles++;
+                    checkNumber();
+                }
+                else if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f)
+                {
+                    hit.collider.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
+                    numberOfActiveTiles--;
+                }
+            }
+        }
+        */
+        
+        if (Input.GetKeyDown (KeyCode.Mouse0) && isDeadFreeze) {
 			RaycastHit hit;
 			Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
 			if (Physics.Raycast (ray, out hit)) {
@@ -152,8 +177,7 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 				}
 			}
 		}
-
-
+        
     }
 
 	private void checkNumber() {
@@ -183,9 +207,11 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 		fillArea.GetComponent<Image> ().color = new Vector4(startColors[0],startColors[1],startColors[2],1f);
         level++;
 		score += (int)timer;
-		timer = 100f;
+        scoreText.text = score.ToString();
+        string text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("level", nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
+        levelText.text = text + " " + level.ToString();
+        timer = 100f;
 		isTimer = false;
-        
         updateTiles();
     }
 
@@ -226,10 +252,9 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 
     private void playSound(AudioClip clip)
     {
-		if(Preferences.isMusic())
-        	GetComponent<AudioSource>().PlayOneShot(clip);
+        if (Preferences.isMusic())
+            GetComponent<AudioSource>().PlayOneShot(clip);
     }
-		
 
     private void endGame()
     {
