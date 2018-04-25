@@ -143,7 +143,8 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                         if (Preferences.isMusic())
                             GetComponent<AudioSource>().PlayOneShot(gameOverClip);
                         Preferences.increaseAndSaveAttempts();
-                        if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && !Preferences.isRateShown())
+                        if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && !Preferences.isRateShown() &&
+                            !heart.activeInHierarchy)
                         {
                             DialogRate.DialogRateShow();
                             Preferences.setRateShown(true);
@@ -199,7 +200,6 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                 {
                     Preferences.setRateShown(true);
                     dialogRate.SetActive(false);
-                    //					isDialogRate = false;
                     Time.timeScale = 1;
                 }
             }
