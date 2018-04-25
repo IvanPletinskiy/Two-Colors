@@ -109,7 +109,6 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 			timer -= Time.deltaTime * 10f;
 			
 		}
-
 	
 		//fadeDead += Time.deltaTime;
 	//	if (fadeDead >= 0.2f) {

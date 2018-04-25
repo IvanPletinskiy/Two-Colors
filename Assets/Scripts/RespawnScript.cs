@@ -49,8 +49,11 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
 
         if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
         {
-            if (!isHeartShown)
-                heart.SetActive(true);
+            if (!isHeartShown) {
+                System.Random random = new System.Random();
+                double myDouble = random.NextDouble();
+                heart.SetActive(myDouble > 0.5);
+            }
             adButton.gameObject.SetActive(true);
         }
         else
@@ -76,12 +79,13 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                 GetComponent<AudioSource>().PlayOneShot(gameOverClip);
             Preferences.increaseAndSaveAttempts();
 
-            if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && !Preferences.isRateShown())
+            if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && !Preferences.isRateShown() &&
+                !heart.activeInHierarchy)
             {
                 //      DialogRate.DialogRateShow();
                 dialogRate.SetActive(true);
+                Preferences.setRateShown(true);
      //           Preferences.setRateShown(true);
-                
             }
         }
     }

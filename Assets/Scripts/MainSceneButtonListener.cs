@@ -71,18 +71,20 @@ public class MainSceneButtonListener : MonoBehaviour
 				break;
 		case "Play":
 			print ("Yesa");
-			if (Preferences.isMusic ())
-				GetComponent<AudioSource> ().Play ();
-				gameObject.GetComponent<Animator> ().enabled = false;
-				gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x+0.1f, gameObject.transform.localScale.y+0.1f, 1f);
-                StartCoroutine("wait");
-                WelcomeDialog.isDialog = true;
-                WelcomeDialog.isActive = true;
+			if (Preferences.isMusic())
+				GetComponent<AudioSource>().Play();
+			gameObject.GetComponent<Animator> ().enabled = false;
+			gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x+0.1f, gameObject.transform.localScale.y+0.1f, 1f);
+            StartCoroutine("wait");
+            WelcomeDialog.isDialog = true;
+            WelcomeDialog.isActive = true;
                 break;
 			case "ShowLeaderboard" :
                 Debug.Log("Inside ShowLeaderboard");
- //               gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
- //               StartCoroutine("leaderboardButtonCourite");
+                if (Preferences.isMusic())
+                    GetComponent<AudioSource>().Play();
+                //               gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
+                //               StartCoroutine("leaderboardButtonCourite");
                 Social.localUser.Authenticate((bool isAuthenticated) =>
                 {
                     if (isAuthenticated)
@@ -132,7 +134,6 @@ public class MainSceneButtonListener : MonoBehaviour
                 Preferences.setAuthenticated(isAuthenticated);
             });
         }
-
     }
 
     IEnumerator wait()

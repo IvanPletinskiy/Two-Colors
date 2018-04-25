@@ -10,7 +10,7 @@ public class DialogRate : MonoBehaviour
     public Camera mainCamera;
 
     //	public static bool isDialogRate=false;
-    public static int ATTEMPTSFORDIALOG = 3;
+    public static int ATTEMPTSFORDIALOG = 10;
 
     void Update()
     {
