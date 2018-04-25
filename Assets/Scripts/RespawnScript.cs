@@ -76,13 +76,14 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                 GetComponent<AudioSource>().PlayOneShot(gameOverClip);
             Preferences.increaseAndSaveAttempts();
 
-            if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && !Preferences.isRateShown() &&
+            if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && Preferences.isRateShown() &&
                 !heart.activeInHierarchy)
             {
                 //      DialogRate.DialogRateShow();
                 dialogRate.SetActive(true);
-                Preferences.setRateShown(true);
-                
+               // Preferences.setRateShown(true);
+				print("aaaa");
+				print(Preferences.isRateShown());
             }
         }
     }
@@ -144,12 +145,12 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                         if (Preferences.isMusic())
                             GetComponent<AudioSource>().PlayOneShot(gameOverClip);
                         Preferences.increaseAndSaveAttempts();
-                        if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && !Preferences.isRateShown() &&
+                        if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && Preferences.isRateShown() &&
                             !heart.activeInHierarchy)
                         {
                             DialogRate.DialogRateShow();
                             Preferences.setRateShown(true);
-
+							print("aa");
                         }
                     }
                    
@@ -184,25 +185,28 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                     StartCoroutine("adButtonCoroutine");
 					StartCoroutine (waitForScale (hit.collider.gameObject));
                 }
-                if (hit.collider.tag == "Button")
-                {
-                    dialogRate.SetActive(false);
-     //               Preferences.setRateShown(false);
-                    Preferences.resetAttempts();
-                    Time.timeScale = 1;
-                }
+               
                 if (hit.collider.name == "Yes")
                 {
                     Application.OpenURL("https://play.google.com/store/apps/details?id=com.handen.twocolors");
                     dialogRate.SetActive(false);
-                    Preferences.setRateShown(true);
+                    Preferences.setRateShown(false);
                 }
-                if (hit.collider.name == "No, thanks")
+				else if (hit.collider.name == "No, thanks")
                 {
-                    Preferences.setRateShown(true);
+					print (Preferences.isRateShown ());
+					Preferences.setRateShown(false);
+					print (Preferences.isRateShown ());
                     dialogRate.SetActive(false);
                     Time.timeScale = 1;
                 }
+					else  if (hit.collider.tag == "Button")
+					{
+						print ("DA");
+						dialogRate.SetActive(false);
+						Preferences.resetAttempts();
+						Time.timeScale = 1;
+					}
             }
         }
     }
