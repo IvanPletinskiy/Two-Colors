@@ -76,11 +76,12 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                 GetComponent<AudioSource>().PlayOneShot(gameOverClip);
             Preferences.increaseAndSaveAttempts();
 
-            if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && !Preferences.isRateShown())
+            if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && !Preferences.isRateShown() &&
+                !heart.activeInHierarchy)
             {
                 //      DialogRate.DialogRateShow();
                 dialogRate.SetActive(true);
-     //           Preferences.setRateShown(true);
+                Preferences.setRateShown(true);
                 
             }
         }
@@ -153,7 +154,6 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                     }
                    
                 }
-
                 if (hit.collider.name == "RestartButton")
                 {
                     SceneManager.LoadScene("Play");
@@ -187,6 +187,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                 if (hit.collider.tag == "Button")
                 {
                     dialogRate.SetActive(false);
+     //               Preferences.setRateShown(false);
                     Preferences.resetAttempts();
                     Time.timeScale = 1;
                 }
@@ -204,7 +205,6 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                 }
             }
         }
-        
     }
 
     private void postRecordInLeaderboard()

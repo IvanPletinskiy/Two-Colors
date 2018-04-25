@@ -8,7 +8,7 @@ public class DialogRate : MonoBehaviour
     public static GameObject dialogRate;
 
     //	public static bool isDialogRate=false;
-    public static int ATTEMPTSFORDIALOG = 3;
+    public static int ATTEMPTSFORDIALOG = 1;
 
     void Update()
     {
