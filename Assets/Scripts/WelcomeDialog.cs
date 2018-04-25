@@ -14,7 +14,6 @@ public class WelcomeDialog : MonoBehaviour {
 	public static bool isActive = true;
 
 	void Update(){
-		print (Preferences.isWelcomeShown ());
         if (isDialog && Preferences.isWelcomeShown())
         {
 			print ("aa");

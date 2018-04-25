@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System;
 using AppodealAds.Unity.Common;
 using AppodealAds.Unity.Api;
 
@@ -49,8 +48,9 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
 
         if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
         {
-            if (!isHeartShown)
-                heart.SetActive(true);
+			if (!isHeartShown && Random.Range (0, 2) == 0)
+				heart.SetActive(true);
+               
             adButton.gameObject.SetActive(true);
         }
         else
@@ -113,7 +113,6 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
         {
             RaycastHit hit;
             Ray ray = mainCam.ScreenPointToRay(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
-            print(Physics.Raycast(ray, out hit));
             if (Physics.Raycast(ray, out hit))
             {
                 if (hit.collider.tag == "Resp")
