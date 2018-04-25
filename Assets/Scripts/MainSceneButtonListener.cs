@@ -81,10 +81,13 @@ public class MainSceneButtonListener : MonoBehaviour
                 break;
 			case "ShowLeaderboard" :
                 Debug.Log("Inside ShowLeaderboard");
+ //               gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
+ //               StartCoroutine("leaderboardButtonCourite");
                 Social.localUser.Authenticate((bool isAuthenticated) =>
                 {
                     if (isAuthenticated)
                     {
+                        Social.ShowLeaderboardUI();
                         Social.ReportScore(TilesScript.score, "CgkInY7b68gcEAIQAA", (bool success) =>
                         {
                             if (success)
@@ -96,35 +99,8 @@ public class MainSceneButtonListener : MonoBehaviour
                                 Debug.Log("Update Score Fail");
                             }
                         });
-						gameObject.transform.localScale = new Vector3(1.3f, 1.3f, 1f);
-                        StartCoroutine("leaderboardButtonCourite");
-                        Social.ShowLeaderboardUI();
-                       
                     }
                 });
-                
-                //PlayGamesPlatform.Instance.ShowLeaderboardUI();
-                /*
-                if (Social.localUser.authenticated)
-                    Social.ShowLeaderboardUI();
-                else
-                {
-                    // authenticate user:
-                    Social.localUser.Authenticate((bool success) => {
-                        // handle success or failure
-                        if (success)
-                        {
-                            Debug.Log("Login Success....");
-                     //       PostHighScoreOnLeaderBoard();
-                            Social.ShowLeaderboardUI();
-                        }
-                        else
-                        {
-                            Debug.Log("Login Failed....");
-                        }
-                    });
-                }
-                */
                 break;	
         }
     }
@@ -168,6 +144,6 @@ public class MainSceneButtonListener : MonoBehaviour
     IEnumerator leaderboardButtonCourite()
     {
         yield return new WaitForSeconds(0.1f);
-		gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
+		gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 }
