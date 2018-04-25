@@ -205,6 +205,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
                 }
             }
         }
+        
     }
 
     private void postRecordInLeaderboard()
