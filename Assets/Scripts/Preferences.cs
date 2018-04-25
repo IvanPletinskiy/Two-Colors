@@ -13,8 +13,7 @@ public class Preferences
 
     public static void increaseAndSaveAttempts()
     {
-        int playerAttempts = getAttempts() + 1;
-        PlayerPrefs.SetInt(TOTAL_ATTEMPTS, playerAttempts);
+		PlayerPrefs.SetInt(TOTAL_ATTEMPTS, getAttempts() + 1);
     }
 
     public static int getAttempts()
@@ -44,8 +43,8 @@ public class Preferences
 
     public static bool isRateShown()
     {
-        int value = PlayerPrefs.GetInt(DIALOG_RATE, 0);
-        if (value == 1)
+
+		if (PlayerPrefs.GetInt(DIALOG_RATE, 0) == 1)
             return true;
         else
             return false;
@@ -62,14 +61,12 @@ public class Preferences
 
     public static bool isAuthenticated()
     {
-        int value = PlayerPrefs.GetInt(AUTHENTICATED, 0);
-        return value == 1;
+		return PlayerPrefs.GetInt(AUTHENTICATED, 0) == 1;
     }
 
     public static void setAuthenticated(bool isAuthenticated)
     {
-        int value = isAuthenticated ? 1 : 0;
-        PlayerPrefs.SetInt(AUTHENTICATED, value);
+		PlayerPrefs.SetInt(AUTHENTICATED, isAuthenticated ? 1 : 0);
     }
 
     public static bool isMusic()
