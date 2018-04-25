@@ -65,7 +65,8 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
     public bool next, lose;
 
     void Start () {
-
+		WelcomeDialog.isActive = true;
+		WelcomeDialog.isDialog = true;
         Time.timeScale = 1;
 		level--;
 //		if (!Preferences.isWelcomeShown()) {
