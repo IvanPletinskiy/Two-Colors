@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
+﻿using AppodealAds.Unity.Api;
 using AppodealAds.Unity.Common;
-using AppodealAds.Unity.Api;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
 {
@@ -48,8 +47,11 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
 
         if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
         {
-			if (!isHeartShown && Random.Range (0, 2) == 0)
-				heart.SetActive(true);
+            if (!isHeartShown && Random.Range(0, 2) == 0)
+            {
+                heart.SetActive(true);
+                isHeartShown = true;
+            }
                
             adButton.gameObject.SetActive(true);
         }
@@ -75,8 +77,6 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
             if (Preferences.isMusic() && !heart.activeInHierarchy)
                 GetComponent<AudioSource>().PlayOneShot(gameOverClip);
             Preferences.increaseAndSaveAttempts();
-
-            
         }
 		if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && Preferences.isRateShown() &&
 			!heart.activeInHierarchy)

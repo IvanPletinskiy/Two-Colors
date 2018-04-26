@@ -1,10 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using AppodealAds.Unity.Api;
+using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
-using AppodealAds.Unity.Common;
 using UnityEngine.SceneManagement;
-using AppodealAds.Unity.Api;
+using UnityEngine.UI;
 
 public class TilesScript : MonoBehaviour{ //, INonSkippableVideoAdListener
 
@@ -334,30 +332,5 @@ public class TilesScript : MonoBehaviour{ //, INonSkippableVideoAdListener
 		endGame ();
 
 	}
-	#region Rewarded Video callback handlers
-	public void onNonSkippableVideoClosed()
-	{
-
-	}
-
-	public void onNonSkippableVideoFailedToLoad()
-	{
-
-	}
-
-	public void onNonSkippableVideoFinished()
-	{
-
-	}
-
-	public void onNonSkippableVideoLoaded()
-	{
-
-	}
-
-	public void onNonSkippableVideoShown()
-	{ 
-
-	}
-	#endregion
+	
 }
