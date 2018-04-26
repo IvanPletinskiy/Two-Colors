@@ -6,14 +6,14 @@ using AppodealAds.Unity.Common;
 using UnityEngine.SceneManagement;
 using AppodealAds.Unity.Api;
 
-public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
+public class TilesScript : MonoBehaviour{ //, INonSkippableVideoAdListener
 
 	public Slider slider;
 	public RectTransform sliderRect;
 
-    public AudioClip clickSound;
-    public AudioClip moneySound;
-    public AudioClip gameOverSound;
+	public AudioClip clickSound;
+	public AudioClip moneySound;
+	public AudioClip gameOverSound;
 
 	float timer = 0f;
 
@@ -23,7 +23,7 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 
 	float[] startColors = new float[3];
 
-    public Text scoreText, levelText;
+	public Text scoreText, levelText;
 
 	public Camera mainCamera;
 
@@ -47,39 +47,41 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 
 	bool isFillColor;
 	int numberOfActiveTiles = 0;
-   
+
 	public static int score = 0;
 
 	public GameObject[] tiles = new GameObject[4];
 
 	public static int level = 0;
-//    int score = 0;
+	//    int score = 0;
 
-//	float fadeDead=0f;
-	
+	//	float fadeDead=0f;
+
+	bool isMultitouch;
+	bool isOnetouch;
 
 	bool isTimer = false;
 
 	public static bool isGenerating=true;
 
-    public bool next, lose;
+	public bool next, lose;
 
-    void Start () {
+	void Start () {
 		WelcomeDialog.isActive = true;
 		WelcomeDialog.isDialog = true;
-        Time.timeScale = 1;
+		Time.timeScale = 1;
 		level--;
-//		if (!Preferences.isWelcomeShown()) {
-//			Preferences.setWelcomeShown (true);
-//			DialogManager.showWelcomeDialog ();
-//		}
+		//		if (!Preferences.isWelcomeShown()) {
+		//			Preferences.setWelcomeShown (true);
+		//			DialogManager.showWelcomeDialog ();
+		//		}
 		fillAreaColor = fillArea.GetComponent<Image> ().color.r;
 		startColors [0] = fillArea.GetComponent<Image> ().color.r;
 		startColors [1] = fillArea.GetComponent<Image> ().color.g;
 		startColors [2] = fillArea.GetComponent<Image> ().color.b;
-        next = false;
-        lose = false;
-        updateLevel();
+		next = false;
+		lose = false;
+		updateLevel();
 
 		for (int i = 0; i < 4; i++) {
 			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -0.89f);
@@ -87,32 +89,32 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 	}
 
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Escape) && WelcomeDialog.isActive == true)
-        {
-            WelcomeDialog.isActive = false;
-            TilesScript.isDeadFreeze = true;
-            Time.timeScale = 1;
-        }
-        else
-        {
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                score = 0;
-                level = 1;
-                SceneManager.LoadScene("Main Menu");
-            }
-        }
-        
+		if (Input.GetKeyDown(KeyCode.Escape) && WelcomeDialog.isActive == true)
+		{
+			WelcomeDialog.isActive = false;
+			TilesScript.isDeadFreeze = true;
+			Time.timeScale = 1;
+		}
+		else
+		{
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				score = 0;
+				level = 1;
+				SceneManager.LoadScene("Main Menu");
+			}
+		}
+
 
 		if (isTimer == true && timer > 0f) {
 			timer -= Time.deltaTime * 10f;
 		}
 
 		//fadeDead += Time.deltaTime;
-	//	if (fadeDead >= 0.2f) {
-	//		referWrongTiles.SetActive (!referWrongTiles.activeSelf);
-	//		fadeDead = 0f;
-	//	}
+		//	if (fadeDead >= 0.2f) {
+		//		referWrongTiles.SetActive (!referWrongTiles.activeSelf);
+		//		fadeDead = 0f;
+		//	}
 
 		if (timer <= 40f) {
 			if (isFillColor == true) {
@@ -129,71 +131,87 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 		if (timer <= 0f)
 			endGame ();
 		slider.value = timer; 
-        if (lose)
-            endGame();
-        if (next && !lose)
-            updateLevel();
+		if (lose)
+			endGame();
+		if (next && !lose)
+			updateLevel();
 
-        if (Input.GetKeyDown(KeyCode.Mouse0) && isDeadFreeze)
-        {
-            RaycastHit hit;
-            Ray ray = mainCamera.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
-            if (Physics.Raycast(ray, out hit))
-            {
-                playSound(clickSound);
-                if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f)
-                {
-                    hit.collider.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
-                    numberOfActiveTiles++;
-                    checkNumber();
-                }
-                else
-                    if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f)
-                {
-                    hit.collider.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
-                    numberOfActiveTiles--;
-                }
-            }
-        }
-
-        /*
+		/*
         Touch[] touches = Input.touches;
         if (Input.touchCount > 0)
             SceneManager.LoadScene("Main menu");
         if (touches.Length == 0 || isDeadFreeze)
             return;*/
-
 		if (Input.touchCount == 1 && isDeadFreeze) {
 			if (isOnetouch) {
-
-		if (Input.touchCount > 0 && isDeadFreeze) {
-			Touch[] touches = Input.touches;
-			for(int i = 0; i < Input.touchCount - 1; i++)
-			{
-				Vector3 clickPosition = touches[i].position;
-				Ray ray = mainCamera.ScreenPointToRay(touches[i].position);
-
 				RaycastHit hit;
-				if(Physics.Raycast(ray, out hit))
-				{
-					playSound(clickSound);
-					if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f)
-					{
-						hit.collider.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
+				Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+				if (Physics.Raycast (ray, out hit)) {
+					playSound (clickSound);
+					if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f) {
+						hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
 						numberOfActiveTiles++;
-						checkNumber();
+						checkNumber ();
 					}
 					else 
-                        if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f)
-					    {   
-    						hit.collider.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
-						    numberOfActiveTiles--;
-					    }
+						if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f) {
+							hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
+							numberOfActiveTiles--;  
+						}   
 				}
+				isOnetouch = false;
 			}
-        }
-        else 
-            if (Input.GetKeyDown (KeyCode.Mouse0) && isDeadFreeze) {
+
+		}
+		else if (Input.touchCount > 1 && isDeadFreeze) {
+			Touch[] touches = Input.touches;
+			if (isMultitouch) {
+				if (!isOnetouch) {
+					for (int i = 1; i < Input.touchCount; i++) {
+						Ray ray = mainCamera.ScreenPointToRay (touches [i].position);
+						RaycastHit hit;
+						if (Physics.Raycast (ray, out hit)) {
+							playSound (clickSound);
+							if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f) {
+								hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
+								numberOfActiveTiles++;
+								checkNumber ();
+							} else if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f) {   
+								hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
+								numberOfActiveTiles--;
+							}
+						}
+					}
+				} else {
+					for (int i = 0; i < Input.touchCount; i++) {
+						Ray ray = mainCamera.ScreenPointToRay (touches [i].position);
+						RaycastHit hit;
+						if (Physics.Raycast (ray, out hit)) {
+							playSound (clickSound);
+							if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f) {
+								hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
+								numberOfActiveTiles++;
+								checkNumber ();
+							} else if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f) {   
+								hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
+								numberOfActiveTiles--;
+							}
+						}
+					}
+				}
+
+
+				isMultitouch = false;
+			} 
+
+		}
+		else if (isDeadFreeze) {
+			isMultitouch = true;
+			isOnetouch = true;
+			print ("MulriRestore");
+		}
+		//  else 
+		/*if (Input.GetKeyDown (KeyCode.Mouse0) && isDeadFreeze) {
 			    RaycastHit hit;
 			    Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
 			    if (Physics.Raycast (ray, out hit)) {
@@ -209,6 +227,9 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 					        numberOfActiveTiles--;  
 				        }   
 			}
+		}*/
+
+	}
 
 
 	private void checkNumber() {
@@ -219,34 +240,34 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 					number++;
 				}
 			}
-            if (number == 2) {
-                updateLevel();
+			if (number == 2) {
+				updateLevel();
 				playSound(moneySound);
-            }
-            else
-            {
-                wrongTiles.SetActive(true);
-                isDeadFreeze = false;
-                isTimer = false;
-                StartCoroutine("wait");
-            }
+			}
+			else
+			{
+				wrongTiles.SetActive(true);
+				isDeadFreeze = false;
+				isTimer = false;
+				StartCoroutine("wait");
+			}
 		}
 	}
 
-    private void updateLevel() {
+	private void updateLevel() {
 		wrongTiles.SetActive (false);
 		fillArea.GetComponent<Image> ().color = new Vector4(startColors[0],startColors[1],startColors[2],1f);
-        level++;
+		level++;
 		score += (int)timer;
-        scoreText.text = score.ToString();
-        string text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("level", nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
-        levelText.text = text + " " + level.ToString();
-        timer = 100f;
+		scoreText.text = score.ToString();
+		string text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("level", nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
+		levelText.text = text + " " + level.ToString();
+		timer = 100f;
 		isTimer = false;
-        updateTiles();
-    }
+		updateTiles();
+	}
 
-    private void updateTiles() {
+	private void updateTiles() {
 		TEST.gameObject.SetActive (false); // DON'T DELETE
 
 		numberOfActiveTiles = 0;
@@ -279,57 +300,57 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 		for (int i = 0; i < 4; i++) {
 			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -0.89f);
 		}
-    }
+	}
 
-    private void playSound(AudioClip clip)
-    {
-        if (Preferences.isMusic())
-            GetComponent<AudioSource>().PlayOneShot(clip);
-    }
+	private void playSound(AudioClip clip)
+	{
+		if (Preferences.isMusic())
+			GetComponent<AudioSource>().PlayOneShot(clip);
+	}
 
-    private void endGame()
-    {
-//        if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
- //           showHeart();
-//        else
-		    SceneManager.LoadScene ("Game end");
-    }
+	private void endGame()
+	{
+		//        if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
+		//           showHeart();
+		//        else
+		SceneManager.LoadScene ("Game end");
+	}
 
-    private void showAd()
-    {
-        Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
-    }
+	private void showAd()
+	{
+		Appodeal.show(Appodeal.NON_SKIPPABLE_VIDEO);
+	}
 
-    IEnumerator wait (){
+	IEnumerator wait (){
 		yield return new WaitForSeconds (0.5f);
 		isDeadFreeze = true;
 		endGame ();
 
 	}
-#region Rewarded Video callback handlers
-    public void onNonSkippableVideoClosed()
-    {
-        
-    }
+	#region Rewarded Video callback handlers
+	public void onNonSkippableVideoClosed()
+	{
 
-    public void onNonSkippableVideoFailedToLoad()
-    {
-    
-    }
+	}
 
-    public void onNonSkippableVideoFinished()
-    {
-      
-    }
+	public void onNonSkippableVideoFailedToLoad()
+	{
 
-    public void onNonSkippableVideoLoaded()
-    {
-       
-    }
+	}
 
-    public void onNonSkippableVideoShown()
-    { 
+	public void onNonSkippableVideoFinished()
+	{
 
-    }
-#endregion
+	}
+
+	public void onNonSkippableVideoLoaded()
+	{
+
+	}
+
+	public void onNonSkippableVideoShown()
+	{ 
+
+	}
+	#endregion
 }
