@@ -136,14 +136,46 @@ public class TilesScript : MonoBehaviour{ //, INonSkippableVideoAdListener
         if (next && !lose)
             updateLevel();
 
+        if (Input.GetKeyDown(KeyCode.Mouse0) && isDeadFreeze)
+        {
+            RaycastHit hit;
+            Ray ray = mainCamera.ScreenPointToRay(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+            if (Physics.Raycast(ray, out hit))
+            {
+                playSound(clickSound);
+                if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f)
+                {
+                    hit.collider.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
+                    numberOfActiveTiles++;
+                    checkNumber();
+                }
+                else
+                    if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f)
+                {
+                    hit.collider.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
+                    numberOfActiveTiles--;
+                }
+            }
+        }
+
         /*
         Touch[] touches = Input.touches;
         if (Input.touchCount > 0)
             SceneManager.LoadScene("Main menu");
         if (touches.Length == 0 || isDeadFreeze)
             return;*/
+<<<<<<< HEAD
 		if (Input.touchCount == 1 && isDeadFreeze) {
 			if (isOnetouch) {
+=======
+        /*
+		if (Input.touchCount > 0 && isDeadFreeze) {
+			Touch[] touches = Input.touches;
+			for(int i = 0; i < Input.touchCount - 1; i++)
+			{
+				Vector3 clickPosition = touches[i].position;
+				Ray ray = mainCamera.ScreenPointToRay(touches[i].position);
+>>>>>>> 5562831f959d130ed6cad5d5bcb1599001f89aeb
 				RaycastHit hit;
 				Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
 				if (Physics.Raycast (ray, out hit)) {
@@ -227,8 +259,14 @@ public class TilesScript : MonoBehaviour{ //, INonSkippableVideoAdListener
 					        numberOfActiveTiles--;  
 				        }   
 			}
+<<<<<<< HEAD
 		}*/
         
+=======
+		}
+        */
+
+>>>>>>> 5562831f959d130ed6cad5d5bcb1599001f89aeb
     }
 	
 	
