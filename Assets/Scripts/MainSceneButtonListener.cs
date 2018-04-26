@@ -20,31 +20,21 @@ public class MainSceneButtonListener : MonoBehaviour
 
     void Start()
     {
-		
-      //  PlayerPrefs.SetInt(Preferences.DIALOG_WELCOME, 0);//ВАНЯ, ЭТО ДЛЯ ТОГО ЧТО БЫ ПРОВЕРЯТЬ ДИАЛОГ НА РАБОТОСПОСОБНОСТЬ
-	//	PlayerPrefs.SetInt (Preferences.DIALOG_RATE, 1);//ТОЛЬКО ДЛЯ ТЕСТА
+        //  PlayerPrefs.SetInt(Preferences.DIALOG_WELCOME, 0);//ВАНЯ, ЭТО ДЛЯ ТОГО ЧТО БЫ ПРОВЕРЯТЬ ДИАЛОГ НА РАБОТОСПОСОБНОСТЬ
+        //	PlayerPrefs.SetInt (Preferences.DIALOG_RATE, 1);//ТОЛЬКО ДЛЯ ТЕСТА
         //		PlayerPrefs.SetInt ("onlyOneDialog", 0);//ТОЛЬКО ДЛЯ ТЕСТА
-    //    Preferences.resetAttempts();
-    //    Preferences.setRateShown(false);
-        initializeAd();
-        WelcomeDialog.isDialog = false;
-        Time.timeScale = 1;
-        recordText.text = PlayerPrefs.GetInt("Record").ToString();
+        //    Preferences.resetAttempts();
+        //    Preferences.setRateShown(false);
+        //   AndroidDialogAndToastBinding.instance.toastShort("TOAST");
         // Рекомендовано для откладки:
         PlayGamesPlatform.DebugLogEnabled = true;
         // Активировать Google Play Games Platform
         PlayGamesPlatform.Activate();
-    }
-
-    void Awake()
-    {
-        
-    }
-
-
-    void OnMouseDown()
-    {
-
+        initializeAd();
+        initializeGPS();
+        WelcomeDialog.isDialog = false;
+        Time.timeScale = 1;
+        recordText.text = PlayerPrefs.GetInt("Record").ToString();
     }
 
     void Update()
@@ -56,54 +46,65 @@ public class MainSceneButtonListener : MonoBehaviour
         }
     }
 
-    void OnMouseUp()
-    {
-
-    }
-
     void OnMouseUpAsButton()
     {
-		switch (gameObject.name)
+        switch (gameObject.name)
         {
-			case "OpenMarket":
-				Application.OpenURL("https://play.google.com/store/apps/details?id=com.handen.twocolors");
-				break;
-			case "Music":
-				Preferences.setMusic (Preferences.isMusic ());
-				print (Preferences.isMusic ());
-				break;
-		case "Play":
-			print ("Yesa");
-			if (Preferences.isMusic ())
-				GetComponent<AudioSource> ().Play ();
-				gameObject.GetComponent<Animator> ().enabled = false;
-				gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x+0.1f, gameObject.transform.localScale.y+0.1f, 1f);
+            case "OpenMarket":
+                Application.OpenURL("https://play.google.com/store/apps/details?id=com.handen.twocolors");
+                break;
+            case "Music":
+                Preferences.setMusic(Preferences.isMusic());
+                print(Preferences.isMusic());
+                break;
+            case "Play":
+                print("Yesa");
+                if (Preferences.isMusic())
+                    GetComponent<AudioSource>().Play();
+                gameObject.GetComponent<Animator>().enabled = false;
+                gameObject.transform.localScale = new Vector3(gameObject.transform.localScale.x + 0.1f, gameObject.transform.localScale.y + 0.1f, 1f);
                 StartCoroutine("wait");
                 break;
-			case "ShowLeaderboard" :
-                Debug.Log("Inside ShowLeaderboard");
- //               gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
- //               StartCoroutine("leaderboardButtonCourite");
-                Social.localUser.Authenticate((bool isAuthenticated) =>
+            case "ShowLeaderboard":
+                //               gameObject.transform.localScale = new Vector3(1.2f, 1.2f, 1f);
+                //               StartCoroutine("leaderboardButtonCourite");
+                if (Application.internetReachability == NetworkReachability.NotReachable)
                 {
-                    if (isAuthenticated)
+                    showToast("checkConnection");
+                }
+                else
+                {
+                    if (Social.localUser.authenticated)
                     {
                         Social.ShowLeaderboardUI();
-                        Social.ReportScore(TilesScript.score, "CgkInY7b68gcEAIQAA", (bool success) =>
+                        Social.ReportScore(TilesScript.score, "CgkInY7b68gcEAIQAA", (bool success) => {});
+                    }
+                    else
+                    {
+                        showToast("authorizing");
+                        Social.localUser.Authenticate((bool isAuthenticated) =>
                         {
-                            if (success)
-                            {
-                                Debug.Log("Update Score Success");
+                            if (isAuthenticated)
+                            { 
+                                Social.ShowLeaderboardUI();
+                                Social.ReportScore(TilesScript.score, "CgkInY7b68gcEAIQAA", (bool success) => {});
                             }
                             else
-                            {
-                                Debug.Log("Update Score Fail");
-                            }
+                                showToast("leaderboardError");
                         });
                     }
-                });
-                break;	
+
+                }
+                break;
         }
+    }
+
+    public void showToast(string tag)
+    {
+        string toastText = nl.DTT.LanguageManager.Managers.AbstractLanguageManager.GetTranslation(tag,
+                           nl.DTT.LanguageManager.Managers.AbstractLanguageManager.CurrentLanguage);
+
+        AndroidDialogAndToastBinding.instance.toastShort(toastText);
     }
 
     public void initializeAd()
@@ -124,16 +125,15 @@ public class MainSceneButtonListener : MonoBehaviour
         if (!Preferences.isAuthenticated())
         {
             // Рекомендовано для откладки:
-            PlayGamesPlatform.DebugLogEnabled = true;
+    //        PlayGamesPlatform.DebugLogEnabled = true;
             // Активировать Google Play Games Platform
-            PlayGamesPlatform.Activate();
+      //      PlayGamesPlatform.Activate();
             // Аутентификация игрока:
             Social.localUser.Authenticate((bool isAuthenticated) =>
             {            
                 Preferences.setAuthenticated(isAuthenticated);
             });
         }
-
     }
 
     IEnumerator wait()

@@ -133,50 +133,54 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
             endGame();
         if (next && !lose)
             updateLevel();
-        
-/*        Touch[] touches = Input.touches;
-     //   if (Input.touchCount != 0)
-     //       SceneManager.LoadScene("Main menu");
-        if (touches.Length == 0 || isDeadFreeze)
-            return;
-        for(int i = 0; i < 2; i++)
-        {
-   //         tiles[0].transform.
-            Vector3 clickPosition = touches[i].position;
-            Ray ray = mainCamera.ScreenPointToRay(clickPosition);
-            RaycastHit hit;
-            if(Physics.Raycast(ray, out hit))
-            {
-                playSound(clickSound);
-                if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f)
-                {
-                    hit.collider.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
-                    numberOfActiveTiles++;
-                    checkNumber();
-                }
-                else if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f)
-                {
-                    hit.collider.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
-                    numberOfActiveTiles--;
-                }
-            }
 
-        }
-*/      
-        
-        if (Input.GetKeyDown (KeyCode.Mouse0) && isDeadFreeze) {
-			RaycastHit hit;
-			Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
-			if (Physics.Raycast (ray, out hit)) {
-				playSound (clickSound);
-				if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f) {
-					hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
-					numberOfActiveTiles++;
-					checkNumber ();
-				} else if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f) {
-					hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
-					numberOfActiveTiles--;
+        /*
+        Touch[] touches = Input.touches;
+        if (Input.touchCount > 0)
+            SceneManager.LoadScene("Main menu");
+        if (touches.Length == 0 || isDeadFreeze)
+            return;*/
+		if (Input.touchCount > 0 && isDeadFreeze) {
+			Touch[] touches = Input.touches;
+			for(int i = 0; i < Input.touchCount - 1; i++)
+			{
+				Vector3 clickPosition = touches[i].position;
+				Ray ray = mainCamera.ScreenPointToRay(touches[i].position);
+				RaycastHit hit;
+				if(Physics.Raycast(ray, out hit))
+				{
+					playSound(clickSound);
+					if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f)
+					{
+						hit.collider.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
+						numberOfActiveTiles++;
+						checkNumber();
+					}
+					else 
+                        if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f)
+					    {   
+    						hit.collider.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
+						    numberOfActiveTiles--;
+					    }
 				}
+			}
+        }
+        else 
+            if (Input.GetKeyDown (KeyCode.Mouse0) && isDeadFreeze) {
+			    RaycastHit hit;
+			    Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+			    if (Physics.Raycast (ray, out hit)) {
+    				playSound (clickSound);
+				    if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f) {
+    					hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
+					    numberOfActiveTiles++;
+					    checkNumber ();
+				    }
+                    else 
+                        if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f) {
+    					    hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
+					        numberOfActiveTiles--;  
+				        }   
 			}
 		}
         
