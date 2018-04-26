@@ -262,7 +262,7 @@ public class TilesScript : MonoBehaviour{ //, INonSkippableVideoAdListener
 		scoreText.text = score.ToString();
 		string text = nl.DTT.LanguageManager.SceneObjects.LanguageManager.GetTranslation("level", nl.DTT.LanguageManager.SceneObjects.LanguageManager.CurrentLanguage);
 		levelText.text = text + " " + level.ToString();
-		timer = 100f;
+		timer = 100.3f;
 		isTimer = false;
 		updateTiles();
 	}
@@ -300,6 +300,13 @@ public class TilesScript : MonoBehaviour{ //, INonSkippableVideoAdListener
 		for (int i = 0; i < 4; i++) {
 			tiles [i].transform.position = new Vector3 (tiles [i].transform.position.x, tiles [i].transform.position.y, -0.89f);
 		}
+		isDeadFreeze = false;
+		StartCoroutine (waitForTouch ());
+	}
+
+	IEnumerator waitForTouch(){
+		yield return new WaitForSeconds (0.3f);
+		isDeadFreeze = true;
 	}
 
 	private void playSound(AudioClip clip)
