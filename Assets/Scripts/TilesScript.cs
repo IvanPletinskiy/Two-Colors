@@ -133,14 +133,15 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
             endGame();
         if (next && !lose)
             updateLevel();
-        /*
-        Touch[] touches = Input.touches;
-        if (Input.touchCount != 0)
-            SceneManager.LoadScene("Main menu");
+        
+/*        Touch[] touches = Input.touches;
+     //   if (Input.touchCount != 0)
+     //       SceneManager.LoadScene("Main menu");
         if (touches.Length == 0 || isDeadFreeze)
             return;
         for(int i = 0; i < 2; i++)
         {
+   //         tiles[0].transform.
             Vector3 clickPosition = touches[i].position;
             Ray ray = mainCamera.ScreenPointToRay(clickPosition);
             RaycastHit hit;
@@ -159,8 +160,9 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
                     numberOfActiveTiles--;
                 }
             }
+
         }
-        */
+*/      
         
         if (Input.GetKeyDown (KeyCode.Mouse0) && isDeadFreeze) {
 			RaycastHit hit;
