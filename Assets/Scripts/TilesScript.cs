@@ -162,24 +162,17 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
             SceneManager.LoadScene("Main menu");
         if (touches.Length == 0 || isDeadFreeze)
             return;*/
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 		if (Input.touchCount == 1 && isDeadFreeze) {
 			if (isOnetouch) {
-=======
-        /*
-=======
->>>>>>> parent of d01f844... МУЛЬТИТАЧ РАБОТАЕТ
+
 		if (Input.touchCount > 0 && isDeadFreeze) {
 			Touch[] touches = Input.touches;
 			for(int i = 0; i < Input.touchCount - 1; i++)
 			{
 				Vector3 clickPosition = touches[i].position;
 				Ray ray = mainCamera.ScreenPointToRay(touches[i].position);
-<<<<<<< HEAD
->>>>>>> 5562831f959d130ed6cad5d5bcb1599001f89aeb
-=======
->>>>>>> parent of d01f844... МУЛЬТИТАЧ РАБОТАЕТ
+
 				RaycastHit hit;
 				if(Physics.Raycast(ray, out hit))
 				{
@@ -216,19 +209,7 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 					        numberOfActiveTiles--;  
 				        }   
 			}
-<<<<<<< HEAD
-<<<<<<< HEAD
-		}*/
-=======
-		}
->>>>>>> parent of d01f844... МУЛЬТИТАЧ РАБОТАЕТ
-        
-=======
-		}
-        */
 
->>>>>>> 5562831f959d130ed6cad5d5bcb1599001f89aeb
-    }
 
 	private void checkNumber() {
 		if (numberOfActiveTiles == 2) {
