@@ -6,7 +6,7 @@ using AppodealAds.Unity.Common;
 using UnityEngine.SceneManagement;
 using AppodealAds.Unity.Api;
 
-public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
+public class TilesScript : MonoBehaviour{ //, INonSkippableVideoAdListener
 
 	public Slider slider;
 	public RectTransform sliderRect;
@@ -57,6 +57,8 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 
 //	float fadeDead=0f;
 	
+	bool isMultitouch;
+	bool isOnetouch;
 
 	bool isTimer = false;
 
@@ -140,33 +142,76 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
             SceneManager.LoadScene("Main menu");
         if (touches.Length == 0 || isDeadFreeze)
             return;*/
-		if (Input.touchCount > 0 && isDeadFreeze) {
-			Touch[] touches = Input.touches;
-			for(int i = 0; i < Input.touchCount - 1; i++)
-			{
-				Vector3 clickPosition = touches[i].position;
-				Ray ray = mainCamera.ScreenPointToRay(touches[i].position);
+		if (Input.touchCount == 1 && isDeadFreeze) {
+			if (isOnetouch) {
 				RaycastHit hit;
-				if(Physics.Raycast(ray, out hit))
-				{
-					playSound(clickSound);
-					if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f)
-					{
-						hit.collider.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
+				Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+				if (Physics.Raycast (ray, out hit)) {
+					playSound (clickSound);
+					if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f) {
+						hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
 						numberOfActiveTiles++;
-						checkNumber();
+						checkNumber ();
 					}
 					else 
-                        if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f)
-					    {   
-    						hit.collider.transform.position = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
-						    numberOfActiveTiles--;
-					    }
+						if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f) {
+							hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
+							numberOfActiveTiles--;  
+						}   
 				}
+				isOnetouch = false;
 			}
+
+		}
+		else if (Input.touchCount > 1 && isDeadFreeze) {
+			Touch[] touches = Input.touches;
+			if (isMultitouch) {
+				if (!isOnetouch) {
+					for (int i = 1; i < Input.touchCount; i++) {
+						Ray ray = mainCamera.ScreenPointToRay (touches [i].position);
+						RaycastHit hit;
+						if (Physics.Raycast (ray, out hit)) {
+							playSound (clickSound);
+							if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f) {
+								hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
+								numberOfActiveTiles++;
+								checkNumber ();
+							} else if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f) {   
+								hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
+								numberOfActiveTiles--;
+							}
+						}
+					}
+				} else {
+					for (int i = 0; i < Input.touchCount; i++) {
+						Ray ray = mainCamera.ScreenPointToRay (touches [i].position);
+						RaycastHit hit;
+						if (Physics.Raycast (ray, out hit)) {
+							playSound (clickSound);
+							if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -0.89f) {
+								hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -1.36f);
+								numberOfActiveTiles++;
+								checkNumber ();
+							} else if (hit.collider.tag == "Tiles" && hit.collider.transform.position.z == -1.36f) {   
+								hit.collider.transform.position = new Vector3 (hit.collider.transform.position.x, hit.collider.transform.position.y, -0.89f);
+								numberOfActiveTiles--;
+							}
+						}
+					}
+				}
+					
+
+				isMultitouch = false;
+			} 
+
         }
-        else 
-            if (Input.GetKeyDown (KeyCode.Mouse0) && isDeadFreeze) {
+		else if (isDeadFreeze) {
+			isMultitouch = true;
+			isOnetouch = true;
+			print ("MulriRestore");
+		}
+      //  else 
+            /*if (Input.GetKeyDown (KeyCode.Mouse0) && isDeadFreeze) {
 			    RaycastHit hit;
 			    Ray ray = mainCamera.ScreenPointToRay (new Vector3 (Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
 			    if (Physics.Raycast (ray, out hit)) {
@@ -182,10 +227,11 @@ public class TilesScript : MonoBehaviour { //, INonSkippableVideoAdListener
 					        numberOfActiveTiles--;  
 				        }   
 			}
-		}
+		}*/
         
     }
-
+	
+	
 	private void checkNumber() {
 		if (numberOfActiveTiles == 2) {
 			int number = 0;
