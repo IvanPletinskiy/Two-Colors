@@ -47,7 +47,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
 
         if (Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO))
         {
-            if (!isHeartShown && Random.Range(0, 2) == 0)
+            if (!isHeartShown && Random.Range(0, 3) == 0)
             {
                 heart.SetActive(true);
                 isHeartShown = true;
