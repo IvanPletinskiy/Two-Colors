@@ -50,7 +50,7 @@ public class TilesScript : MonoBehaviour{ //, INonSkippableVideoAdListener
 
 	public GameObject[] tiles = new GameObject[4];
 
-	public static int level = 0;
+	public static int level = 1;
 	//    int score = 0;
 
 	//	float fadeDead=0f;
@@ -98,7 +98,7 @@ public class TilesScript : MonoBehaviour{ //, INonSkippableVideoAdListener
 			if (Input.GetKeyDown(KeyCode.Escape))
 			{
 				score = 0;
-				level = 1;
+				level = 2;
 				SceneManager.LoadScene("Main Menu");
 			}
 		}
