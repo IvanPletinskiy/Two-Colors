@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
 {
+
+	public GameObject dialogRate;
     public Text scoreText, recordText;
 
     public AudioClip gameOverClip;
@@ -19,7 +21,6 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
 
     public Camera mainCam;
     public GameObject heart;
-    public GameObject dialogRate;
     //	public static bool isHeard = Appodeal.isLoaded(Appodeal.NON_SKIPPABLE_VIDEO);
 
     float spreadPlay = TilesScript.spread;
@@ -81,11 +82,9 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
 		if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && Preferences.isRateShown() &&
 			!heart.activeInHierarchy)
 		{
-			//      DialogRate.DialogRateShow();
-			dialogRate.SetActive(true);
-			// Preferences.setRateShown(true);
-			print("aaaa");
 			print(Preferences.isRateShown());
+			DialogRate.DialogRateShow(dialogRate.gameObject);
+			print("aa");
 		}
     }
 
@@ -151,8 +150,7 @@ public class RespawnScript : MonoBehaviour, INonSkippableVideoAdListener
 					if (Preferences.getAttempts() >= DialogRate.ATTEMPTSFORDIALOG && Preferences.isRateShown() &&
 						!heart.activeInHierarchy)
 					{
-						DialogRate.DialogRateShow();
-						Preferences.setRateShown(true);
+						DialogRate.DialogRateShow(dialogRate.gameObject);
 						print("aa");
 					}
                    

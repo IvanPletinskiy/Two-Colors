@@ -2,7 +2,7 @@
 
 public class WelcomeDialog : MonoBehaviour {
 
-	public static GameObject dialogPlay;
+	public GameObject dialogPlay;
 
 	public GameObject TEST;
 

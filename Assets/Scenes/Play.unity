@@ -1173,6 +1173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6087a8bb997d7349a39d38fa0ed3b32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogPlay: {fileID: 984344678}
   TEST: {fileID: 1542629988}
   mainCamera: {fileID: 779704498}
 --- !u!1 &789008521
